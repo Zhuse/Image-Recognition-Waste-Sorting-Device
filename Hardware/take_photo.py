@@ -1,9 +1,9 @@
 from time import sleep
 from picamera import PiCamera
-import socket
-from threading import *
-
+import http.client
+import json
 import base64
+
 
 def capturePic():
     camera = PiCamera()
@@ -18,28 +18,14 @@ def convertToBase64(fileName):
         encoded_string = base64.b64encode(image_file.read())
         print (encoded_string)
 
-def uploadServer():
-    serversocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    host = "192.168.1.3"
-    port = 8000
-    print (host)
-    print (port)
-    serversocket.bind((host, port))
+def postServer(base64Image):
+    connection = http.client.HTTPSConnection('api.github.com')
+    headers = {'Content-type' : 'application/json'}
 
-class client(Thread):
-    def __init__(self, socket, address):
-        Thread.__init__(self)
-        self.sock = socket
-        self.addr = address
-        self.start()
+    jsonImage = {'base64Image': base64Image}
+    json_foo = json.dumps(jsonImage)
 
-        def run(self):
-            while 1: 
-                print ('Client sent:', self.sock.recv(1024).decoded())
-                self.sock.send(b'Send')
+    connection.request('POST', '/markdown', json_foo, headers)
 
-serversocket.listen(5)
-print ('Server started and listening')
-while 1:
-    clientsocket, address = serversocket.accept()
-    client(cliensocket, address)
+    response = connection.getresponse()
+    print(response.read().decode())
