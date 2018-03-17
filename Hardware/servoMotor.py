@@ -1,11 +1,12 @@
 import RPi.GPIO as GPIO
 import time
 
-garbagePin = 12
-recyclingPin = 13
-compostPin = 14
 
 class binOpen:
+    garbagePin = 12
+    recyclingPin = 13
+    compostPin = 14
+
     def __init__(self):
         GPIO.setmode(GPIO.BOARD)
 
