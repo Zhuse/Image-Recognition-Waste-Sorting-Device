@@ -41,18 +41,9 @@ const AppTabNavigator = TabNavigator(
     }
 );
 
-const AppNavigator = StackNavigator({
+/*const AppNavigator = StackNavigator({
     HomeScreen: {screen: HomeScreen},
     GarbageScreen: {screen: GarbageScreen},
     CompostScreen: {screen: CompostScreen},
     RecyclingScreen: {screen: RecyclingScreen},
-});
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
-});
+});*/
