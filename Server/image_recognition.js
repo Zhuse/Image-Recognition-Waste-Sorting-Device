@@ -1,10 +1,7 @@
 var AWS = require('aws-sdk');
-var fs = require('fs'); //file processing
-var path = require('path'); //path detection
-
 AWS.config.loadFromPath('config.json');
+var fs = require('fs'); //file processing
 var recog = new AWS.Rekognition();
-var s3 = new AWS.S3(); //amazon cloud storage service
 
 //Enums for garbage types
 const GARBAGE_TYPE = Object.freeze({
@@ -19,7 +16,9 @@ const GARBAGE_TAGS = {
     "Food": GARBAGE_TYPE.COMPOST,
     "Plant": GARBAGE_TYPE.COMPOST,
 	"Bottle": GARBAGE_TYPE.RECYCLING,
-	"Beverage": GARBAGE_TYPE.RECYCLING
+	"Beverage": GARBAGE_TYPE.RECYCLING,
+	"Aluminium": GARBAGE_TYPE.RECYCLING,
+	"Tin": GARBAGE_TYPE.RECYCLING
 };
 
 /**
@@ -65,11 +64,15 @@ function detectGarbage(imageData) {
 /* TESTING */
 const water_bottle = 'test_pictures/plastic_bottle.jpg';
 const banana_peel = 'test_pictures/banana_peel.jpg';
+const cans = 'test_pictures/cans.jpg';
 
 /******EXAMPLE USAGE OF PROMISE******/
 detectLabels(water_bottle).then(function(res) {
     console.log(res) //res holds garbage_type info
 });
 detectLabels(banana_peel).then(function(res) {
+    console.log(res)
+});
+detectLabels(cans).then(function(res) {
     console.log(res)
 });
