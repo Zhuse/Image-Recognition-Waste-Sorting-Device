@@ -2,9 +2,9 @@ import RPi.GPIO as GPIO
 import time
 
 
-
 def getSonarDistance():
     GPIO.setmode(GPIO.BCM) #BOARD??
+    GPIO.setwarnings(False)
 
     #Specify Pins, changle later
     TRIG = 18
