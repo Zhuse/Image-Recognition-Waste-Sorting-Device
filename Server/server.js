@@ -9,7 +9,9 @@ app.use(bodyParser.json());
 
 app.use(express.static('./public'));  // this sends clientside files
 
+AWS.config.loadFromPath('config.json');
 var rekognition = new AWS.Rekognition();
+var s3 = new AWS.S3(); //amazon cloud storage service
 
 // starting server
 app.listen(port, function(){
@@ -17,4 +19,13 @@ app.listen(port, function(){
 });
 
 app.post('/recogniton', function(request, response){
+});
+
+// Call S3 to list current buckets
+s3.listBuckets(function(err, data) {
+   if (err) {
+      console.log("Error", err);
+   } else {
+      console.log("Bucket List", data.Buckets);
+   }
 });
