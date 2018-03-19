@@ -22,36 +22,35 @@ const port = 3000;
 
 app.use(bodyParser.json());
 
-app.use(express.static('./public'));  // this sends clientside files
+app.use(express.static('./public')); // this sends clientside files
 
 
 // starting server
-app.listen(port, function(){
+app.listen(port, function() {
     console.log("Server listening on port " + port);
 });
 
 
 
-app.get('/test', function(request, response){
-  console.log("test executing");
-  //recognitionController.test;
-  recognitionController.test();
-  response.end();
+app.get('/test', function(request, response) {
+    console.log("test executing");
+    //recognitionController.test;
+    recognitionController.test().then((category) => {
+        response.send(category); //res holds garbage_type info
+    })
+    //response.end();
 });
 
 
 
-
-
 // TODO what format will json be
-// TODO error handling 
-app.post('/recognition', function(request, response){
-
-  var category = recognitionController.recognition(request.image);
-  response.json({
-    "category": category
-  })
-
+// TODO error handling
+app.post('/recognition', function(request, response) {
+    recognitionController.recognition(request.image).then((category) => {
+        response.json({
+            "category": category
+        })
+    })
 });
 
 
