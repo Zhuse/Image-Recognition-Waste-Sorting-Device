@@ -26,7 +26,7 @@ const GARBAGE_TAGS = {
   "Tin": GARBAGE_TYPE.RECYCLING
 };
 
-module.exports.test = function() {
+var test = function() {
   console.log("inside test");
   detectLabels(water_bottle);
   //detectLabels("./controllers/test_pictures/plastic_bottle.jpg");
@@ -40,7 +40,7 @@ module.exports.test = function() {
 * @param  {[String]} imagePath location of image to detect
 * @return {[Promise]} promise that will resolve to a GARBAGE_TYPE
 */
-module.exports.recognition = function (content) {
+var recognition = function (content) {
   var params = {};
   params.Image = {
     Bytes: content
@@ -73,6 +73,17 @@ function detectGarbage(imageData) {
     }
     return GARBAGE_TYPE.GARBAGE; //If we can't figure out what it is, classify it as garbage
 }
+
+
+module.exports = {
+  test:test,
+  recognition:recognition
+}
+
+
+
+
+
 
 /* TESTING */
 const water_bottle = './controllers/test_pictures/plastic_bottle.jpg';
