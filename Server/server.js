@@ -16,6 +16,7 @@ module.exports.AWS = AWS;
 module.exports.recog = recog;
 module.exports.fs = fs;
 
+const recognitionController = require('./controllers/image-recognition-controller.js');
 
 const port = 3000;
 
@@ -29,7 +30,11 @@ app.listen(port, function(){
     console.log("Server listening on port " + port);
 });
 
-app.post('/recogniton', function(request, response){
+app.get('/test', function(request, response){
+  console.log("test executing");
+  //recognitionController.test;
+  recognitionController.test();
+  response.end();
 });
 
 // Call S3 to list current buckets

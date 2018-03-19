@@ -5,7 +5,7 @@
 
 const server = require('../server.js');
 
-const fs = server.js;
+const fs = server.fs;
 const recog = server.recog;
 
 //Enums for garbage types
@@ -26,13 +26,19 @@ const GARBAGE_TAGS = {
 	"Tin": GARBAGE_TYPE.RECYCLING
 };
 
+module.exports.test = function() {
+  console.log("inside test");
+  detectLabels(water_bottle);
+  //detectLabels("./controllers/test_pictures/plastic_bottle.jpg");
+}
+
 /**
  * Given an image, detects the most likely type of garbage that it is
  * and returns that type as a string
  * @param  {[String]} imagePath location of image to detect
  * @return {[Promise]} promise that will resolve to a GARBAGE_TYPE
  */
-function detectLabels(imagePath) {
+ function detectLabels (imagePath) {
     var params = {};
     var content = fs.readFileSync(imagePath);
     params.Image = {
@@ -67,17 +73,17 @@ function detectGarbage(imageData) {
 }
 
 /* TESTING */
-const water_bottle = 'test_pictures/plastic_bottle.jpg';
-const banana_peel = 'test_pictures/banana_peel.jpg';
-const cans = 'test_pictures/cans.jpg';
+const water_bottle = './controllers/test_pictures/plastic_bottle.jpg';
+const banana_peel = './controllers/test_pictures/banana_peel.jpg';
+const cans = './controllers/test_pictures/cans.jpg';
 
 /******EXAMPLE USAGE OF PROMISE******/
-detectLabels(water_bottle).then(function(res) {
-    console.log(res) //res holds garbage_type info
-});
-detectLabels(banana_peel).then(function(res) {
-    console.log(res)
-});
-detectLabels(cans).then(function(res) {
-    console.log(res)
-});
+//detectLabels(water_bottle).then(function(res) {
+//    console.log(res) //res holds garbage_type info
+//});
+//detectLabels(banana_peel).then(function(res) {
+//    console.log(res)
+//});
+//detectLabels(cans).then(function(res) {
+//    console.log(res)
+//});
