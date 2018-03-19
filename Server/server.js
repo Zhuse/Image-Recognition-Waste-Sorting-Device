@@ -30,6 +30,8 @@ app.listen(port, function(){
     console.log("Server listening on port " + port);
 });
 
+
+
 app.get('/test', function(request, response){
   console.log("test executing");
   //recognitionController.test;
@@ -37,11 +39,27 @@ app.get('/test', function(request, response){
   response.end();
 });
 
-// Call S3 to list current buckets
-s3.listBuckets(function(err, data) {
-   if (err) {
-      console.log("Error", err);
-   } else {
-      console.log("Bucket List", data.Buckets);
-   }
+
+
+
+
+// TODO what format will json be
+// TODO error handling 
+app.post('/recognition', function(request, response){
+
+  var category = recognitionController.recognition(request.image);
+  response.json({
+    "category": category
+  })
+
 });
+
+
+//// Call S3 to list current buckets
+//s3.listBuckets(function(err, data) {
+//   if (err) {
+//      console.log("Error", err);
+//   } else {
+//      console.log("Bucket List", data.Buckets);
+//   }
+//});
