@@ -1,7 +1,12 @@
-var AWS = require('aws-sdk');
-AWS.config.loadFromPath('config.json');
-var fs = require('fs'); //file processing
-var recog = new AWS.Rekognition();
+//var AWS = require('aws-sdk');
+//AWS.config.loadFromPath('config.json');
+//var fs = require('fs'); //file processing
+//var recog = new AWS.Rekognition();
+
+const server = require('../server.js');
+
+const fs = server.js;
+const recog = server.recog;
 
 //Enums for garbage types
 const GARBAGE_TYPE = Object.freeze({

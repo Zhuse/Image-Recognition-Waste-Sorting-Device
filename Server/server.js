@@ -1,17 +1,28 @@
 const express = require('express');
 const app = express();
-var bodyParser = require('body-parser');
-var AWS = require('aws-sdk');
+const bodyParser = require('body-parser');
+const AWS = require('aws-sdk');
+const fs = require('fs'); //file processing
 
-var port = 3000;
+
+// load config before setting up AWS services
+AWS.config.loadFromPath('config.json');
+const recog = new AWS.Rekognition();
+const s3 = new AWS.S3(); //amazon cloud storage service
+
+
+// export modules we need
+module.exports.AWS = AWS;
+module.exports.recog = recog;
+module.exports.fs = fs;
+
+
+const port = 3000;
 
 app.use(bodyParser.json());
 
 app.use(express.static('./public'));  // this sends clientside files
 
-AWS.config.loadFromPath('config.json');
-var rekognition = new AWS.Rekognition();
-var s3 = new AWS.S3(); //amazon cloud storage service
 
 // starting server
 app.listen(port, function(){
