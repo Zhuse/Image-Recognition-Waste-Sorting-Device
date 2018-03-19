@@ -36,7 +36,6 @@ app.get('/test', function(request, response){
   console.log("test executing");
   //recognitionController.test;
   recognitionController.test();
-  response.end();
 });
 
 
@@ -46,12 +45,13 @@ app.get('/test', function(request, response){
 // TODO what format will json be
 // TODO error handling 
 app.post('/recognition', function(request, response){
-
-  var category = recognitionController.recognition(request.image);
+ 
+  var enc = new Buffer(request, 'base_64');
+  var category = recognitionController.recognition(enc);
   response.json({
     "category": category
   })
-
+  
 });
 
 
@@ -60,6 +60,7 @@ app.post('/recognition', function(request, response){
 //   if (err) {
 //      console.log("Error", err);
 //   } else {
+	
 //      console.log("Bucket List", data.Buckets);
 //   }
 //});

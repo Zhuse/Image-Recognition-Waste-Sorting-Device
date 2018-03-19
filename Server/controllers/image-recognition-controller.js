@@ -28,7 +28,10 @@ const GARBAGE_TAGS = {
 
 var test = function() {
   console.log("inside test");
-  detectLabels(water_bottle);
+  
+  var string = "insert test image";
+  var buf = new Buffer(string,'base64');
+  recognition(buf);
   //detectLabels("./controllers/test_pictures/plastic_bottle.jpg");
 }
 
