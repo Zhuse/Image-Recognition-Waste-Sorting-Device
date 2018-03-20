@@ -71,7 +71,6 @@ function recognition(content) {
  * @return {[GARBAGE_TYPE]} type of garbage detected from image labels (string object)
  */
 function detectGarbage(imageData) {
-    console.log(imageData.Labels);
     for (var i = 0; i < imageData.Labels.length; i++) {
         for (tag in GARBAGE_TAGS) {
             if (imageData.Labels[i].Name == tag) { //If we find a major identifying garbage type tag, immediately return the prediction
