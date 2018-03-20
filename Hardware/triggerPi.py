@@ -14,7 +14,10 @@ while objectDistance > 50:
 
 if (objectDistance < 50):
     capturePic()
-    convertToBase64("test_photo.jpg")
+    base64String = convertToBase64("test_photo.jpg")
+    requestRet = altPostServer(base64String)
+    binNumber = requestRet[open_bin]
+    openBin(binNumber)
 
 openBin(1)
 openBin(3)

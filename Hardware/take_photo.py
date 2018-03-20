@@ -18,6 +18,7 @@ def convertToBase64(fileName):
     with open(fileName, "rb") as image_file:
         encoded_string = base64.b64encode(image_file.read())
         print (encoded_string)
+        return encoded_string
 
 def postServer(base64Image):
     connection = http.client.HTTPSConnection('api.github.com')
@@ -33,6 +34,6 @@ def postServer(base64Image):
 
 def altPostServer(base64Image):
     API_ENDPOINT = "34.218.219.101:3000"
-    r = requests.get(API_ENDPOINT, data = {'base64': base64Image})
+    r = requests.get(API_ENDPOINT, data = {'base_64': base64Image})
     return r
 
