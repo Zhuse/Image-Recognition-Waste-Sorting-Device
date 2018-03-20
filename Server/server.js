@@ -20,8 +20,7 @@ const recognitionController = require('./controllers/image-recognition-controlle
 
 const port = 3000;
 
-app.use(bodyParser.json());
-
+app.use(express.json()); //to support JSON-encoded bodies
 app.use(express.static('./public')); // this sends clientside files
 
 
@@ -44,20 +43,15 @@ app.get('/test', function(request, response) {
 
 // TODO what format will json be
 // TODO error handling
-app.post('/recognition', function(request, response){
-      
-var enc = new Buffer(request, 'base_64');
-recognitionController.recognition(enc).then((category) => {
+app.post('/recognition', function(request, response) {
+
+    var enc = new Buffer(request.body.base64, 'base_64');
+    recognitionController.recognition(enc).then((category) => {
         response.json({
             "category": category
         })
     })
- 
-  var category = recognitionController.recognition(enc);
-  response.json({
-    "category": category
-  })
-  });
+});
 
 
 //// Call S3 to list current buckets
@@ -65,7 +59,7 @@ recognitionController.recognition(enc).then((category) => {
 //   if (err) {
 //      console.log("Error", err);
 //   } else {
-	
+
 //      console.log("Bucket List", data.Buckets);
 //   }
 //});
