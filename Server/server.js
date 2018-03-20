@@ -46,11 +46,12 @@ app.get('/test', function(request, response){
 // TODO error handling 
 app.post('/recognition', function(request, response){
  
-  var enc = new Buffer(request, 'base_64');
+  /*var enc = new Buffer(request.query.base_64, 'base_64');
   var category = recognitionController.recognition(enc);
   response.json({
     "category": category
-  })
+  });*/
+  console.log(request.query.base_64);
   
 });
 
