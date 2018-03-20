@@ -22,37 +22,42 @@ const port = 3000;
 
 app.use(bodyParser.json());
 
-app.use(express.static('./public'));  // this sends clientside files
+app.use(express.static('./public')); // this sends clientside files
 
 
 // starting server
-app.listen(port, function(){
+app.listen(port, function() {
     console.log("Server listening on port " + port);
 });
 
 
-
-app.get('/test', function(request, response){
-  console.log("test executing");
-  //recognitionController.test;
-  recognitionController.test();
+app.get('/test', function(request, response) {
+    console.log("test executing");
+    //recognitionController.test;
+    recognitionController.test().then((category) => {
+        response.send(category); //res holds garbage_type info
+    })
+    //response.end();
 });
-
-
 
 
 
 // TODO what format will json be
-// TODO error handling 
+// TODO error handling
 app.post('/recognition', function(request, response){
+      
+var enc = new Buffer(request, 'base_64');
+recognitionController.recognition(enc).then((category) => {
+        response.json({
+            "category": category
+        })
+    })
  
-  var enc = new Buffer(request, 'base_64');
   var category = recognitionController.recognition(enc);
   response.json({
     "category": category
   })
-  
-});
+  });
 
 
 //// Call S3 to list current buckets
