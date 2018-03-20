@@ -31,7 +31,6 @@ app.listen(port, function() {
 });
 
 
-
 app.get('/test', function(request, response) {
     console.log("test executing");
     //recognitionController.test;
@@ -45,13 +44,20 @@ app.get('/test', function(request, response) {
 
 // TODO what format will json be
 // TODO error handling
-app.post('/recognition', function(request, response) {
-    recognitionController.recognition(request.image).then((category) => {
+app.post('/recognition', function(request, response){
+      
+var enc = new Buffer(request, 'base_64');
+recognitionController.recognition(enc).then((category) => {
         response.json({
             "category": category
         })
     })
-});
+ 
+  var category = recognitionController.recognition(enc);
+  response.json({
+    "category": category
+  })
+  });
 
 
 //// Call S3 to list current buckets
@@ -59,6 +65,7 @@ app.post('/recognition', function(request, response) {
 //   if (err) {
 //      console.log("Error", err);
 //   } else {
+	
 //      console.log("Bucket List", data.Buckets);
 //   }
 //});

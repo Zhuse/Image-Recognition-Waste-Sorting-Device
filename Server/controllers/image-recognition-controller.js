@@ -27,9 +27,17 @@ const GARBAGE_TAGS = {
 };
 
 var test = function() {
+/*
     console.log("inside test");
     return detectLabels(water_bottle);
-    //detectLabels("./controllers/test_pictures/plastic_bottle.jpg");
+    detectLabels("./controllers/test_pictures/plastic_bottle.jpg");
+*/
+  console.log("inside test");
+  
+  var string = "insert test image";
+  var buf = new Buffer(string,'base64');
+  recognition(buf);
+  //detectLabels("./controllers/test_pictures/plastic_bottle.jpg");
 }
 
 
