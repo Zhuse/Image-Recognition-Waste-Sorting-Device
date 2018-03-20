@@ -11,10 +11,16 @@ const recog = new AWS.Rekognition();
 const s3 = new AWS.S3(); //amazon cloud storage service
 
 
+const sqlite3 = require('sqlite3');
+const db = new sqlite3.Database('stats.db');
+
+
+
 // export modules we need
 module.exports.AWS = AWS;
 module.exports.recog = recog;
 module.exports.fs = fs;
+module.exports.db = db;
 
 const recognitionController = require('./controllers/image-recognition-controller.js');
 
@@ -39,6 +45,13 @@ app.get('/test', function(request, response) {
     //response.end();
 });
 
+
+app.get('/testdb', function(request, response){
+  console.log("database test executing");
+  //recognitionController.test;
+  var results = databaseController.updateDatabase(1, 20, 30, 40);
+  response.json({"results": results});
+});
 
 
 // TODO what format will json be
