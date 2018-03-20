@@ -45,7 +45,7 @@ app.get('/test', function(request, response) {
 // TODO error handling
 app.post('/recognition', function(request, response) {
 
-    var enc = new Buffer(request.body.base64, 'base_64');
+    var enc = new Buffer(request.query.base64, 'base_64');
     recognitionController.recognition(enc).then((category) => {
         response.json({
             "category": category
