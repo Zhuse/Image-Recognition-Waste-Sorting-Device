@@ -3,6 +3,7 @@ from picamera import PiCamera
 import http.client
 import json
 import base64
+import requests
 
 
 def capturePic():
@@ -29,3 +30,9 @@ def postServer(base64Image):
 
     response = connection.getresponse()
     print(response.read().decode())
+
+def altPostServer(base64Image):
+    API_ENDPOINT = "34.218.219.101:3000"
+    r = requests.get(API_ENDPOINT, data = {'base64': base64Image})
+    return r
+

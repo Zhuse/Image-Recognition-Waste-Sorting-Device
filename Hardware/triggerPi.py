@@ -14,7 +14,8 @@ while objectDistance > 50:
 
 if (objectDistance < 50):
     capturePic()
-    #convertToBase64("test_photo.jpg")
+    convertToBase64("test_photo.jpg")
+
 openBin(1)
 openBin(3)
 

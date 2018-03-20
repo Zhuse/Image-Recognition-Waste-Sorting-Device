@@ -24,7 +24,7 @@ def openBin(openBin):
     else: #Triggers garbage pin
         garbageServo.ChangeDutyCycle(7.5)
         time.sleep(1)
-        recyclingServo.ChangDutyCycle(2.5)
+        recyclingServo.ChangeDutyCycle(2.5)
     resetServo()
 
 def resetServo():
