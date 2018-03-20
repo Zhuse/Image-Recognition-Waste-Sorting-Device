@@ -1,20 +1,71 @@
 const express = require('express');
 const app = express();
-var bodyParser = require('body-parser');
-var AWS = require('aws-sdk');
+const bodyParser = require('body-parser');
+const AWS = require('aws-sdk');
+const fs = require('fs'); //file processing
 
-var port = 3000;
+
+// load config before setting up AWS services
+AWS.config.loadFromPath('config.json');
+const recog = new AWS.Rekognition();
+const s3 = new AWS.S3(); //amazon cloud storage service
+
+
+// export modules we need
+module.exports.AWS = AWS;
+module.exports.recog = recog;
+module.exports.fs = fs;
+
+const recognitionController = require('./controllers/image-recognition-controller.js');
+
+const port = 3000;
 
 app.use(bodyParser.json());
 
-app.use(express.static('./public'));  // this sends clientside files
+app.use(express.static('./public')); // this sends clientside files
 
-var rekognition = new AWS.Rekognition();
 
 // starting server
-app.listen(port, function(){
+app.listen(port, function() {
     console.log("Server listening on port " + port);
 });
 
-app.post('/recogniton', function(request, response){
+
+app.get('/test', function(request, response) {
+    console.log("test executing");
+    //recognitionController.test;
+    recognitionController.test().then((category) => {
+        response.send(category); //res holds garbage_type info
+    })
+    //response.end();
 });
+
+
+
+// TODO what format will json be
+// TODO error handling
+app.post('/recognition', function(request, response){
+      
+var enc = new Buffer(request, 'base_64');
+recognitionController.recognition(enc).then((category) => {
+        response.json({
+            "category": category
+        })
+    })
+ 
+  var category = recognitionController.recognition(enc);
+  response.json({
+    "category": category
+  })
+  });
+
+
+//// Call S3 to list current buckets
+//s3.listBuckets(function(err, data) {
+//   if (err) {
+//      console.log("Error", err);
+//   } else {
+	
+//      console.log("Bucket List", data.Buckets);
+//   }
+//});
