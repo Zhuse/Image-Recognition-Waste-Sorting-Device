@@ -15,7 +15,11 @@ router.get('/test', function(request, response) {
     console.log("test executing");
     recognitionController.test().then((category) => {
         response.send(category); //res holds garbage_type info
-    })
+    }).catch(() => {
+      response.json({
+        "test": "error works"
+      })
+    });
 });
 
 /**
@@ -42,7 +46,13 @@ router.post('/recognition', function(request, response) {
 	//var enc = request.query.base64;
     recognitionController.recognition(enc).then((category) => {
         response.json({
+            "success": true,
             "category": category
+        });
+    }).catch(() => {
+        response.json({
+            "success": false,
+            "category": null
         });
     });
 });

@@ -1,0 +1,40 @@
+Waste image recognition API call
+
+(to be used by RPi)
+
+endpoint: POST to /recognition
+
+Post body format: (data to be send in "<>")
+{
+  "id":<int representing unique id of this can>
+  "base64": <string representing base64 encoding of image>,
+}
+
+Post body format: (data to be send in "<>")
+{
+  "success": <boolean>,
+  "category": <string representing category, one of "garbage", "recycling", "compost">
+}
+
+
+==============================================================
+
+Get trashcan stats API call
+
+(to be used by website / apps)
+
+endpoint: GET to /stats
+
+Return body format: (data to be send in "<>")
+{
+  "stats" : [
+    {
+      "id": <id of can>
+      "garbage": <garbage stat>
+      "recycling": <recycling stat>
+      "compost": <compost stat>
+
+    },
+    ...
+  ]
+}

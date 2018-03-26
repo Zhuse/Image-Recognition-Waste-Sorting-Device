@@ -25,7 +25,7 @@ const GARBAGE_TAGS = {
 
 function test() {
     console.log("inside test");
-    return detectLabels(water_bottle);
+    //return detectLabels(water_bottle);
     //detectLabels("./controllers/test_pictures/plastic_bottle.jpg");
     /*
      console.log("inside test");
@@ -33,6 +33,15 @@ function test() {
      var buf = new Buffer(string,'base64');
      recognition(buf);*/
     //detectLabels("./controllers/test_pictures/plastic_bottle.jpg");
+    return new Promise((resolve, reject) => {
+        recog.detectLabels(params, function(err, data) {
+            if (true) reject(err);
+            resolve(detectGarbage(data));
+        })
+    });
+
+
+
 }
 
 
