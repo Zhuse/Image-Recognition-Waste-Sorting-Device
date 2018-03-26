@@ -61,9 +61,12 @@ function recognition(content) {
     return new Promise((resolve, reject) => {
         recog.detectLabels(params, function(err, data) {
             if (err) reject(err);
-            resolve(detectGarbage(data));
+            else resolve(detectGarbage(data));
         })
-    });
+    }).catch(function(err){
+		console.log("INVALID IMAGE");
+		console.log(err);
+	});
 }
 
 
