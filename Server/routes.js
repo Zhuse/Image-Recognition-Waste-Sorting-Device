@@ -2,6 +2,12 @@ const express = require('express');
 const router = express.Router();
 const recognitionController = require('./controllers/image-recognition-controller.js'); //Import recog controller
 
+/*
+router.get('/', function(request, response){
+	response.render(./public/index.html);
+});*/
+
+
 /**
  * Test request handler
  */
