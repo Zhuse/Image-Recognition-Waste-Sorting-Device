@@ -17,6 +17,8 @@ garbageServo.start(2.5)
 def openBin(openBin):
     if openBin == 0: #Triggers compost pin
         compostServo.ChangeDutyCycle(7.5) #Opens up 90 degrees
+        time.sleep(1)
+        compostServo.ChangeDutyCycle(2.5)
     elif openBin == 1: #Triggers recycling pin
         recyclingServo.ChangeDutyCycle(7.5)
         time.sleep(1)
