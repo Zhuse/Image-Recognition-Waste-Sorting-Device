@@ -1,36 +1,71 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, FlatList} from 'react-native'
+import {insertCommand} from '../Networking/server';
+import {Text, View, Image, TouchableHighlight, StyleSheet} from 'react-native'
+import recyclingIcon from '../images/recycling.png';
 
-export default class RecyclingScreen extends Component{
-    render(){
-        return(
-            <View style={styles.container}>
-                <FlatList
-                    data={[
-                        {key: 'A'},
-                        {key: 'B'},
-                        {key: 'C'},
-                        {key: 'D'},
-                        {key: 'E'},
-                        {key: 'F'},
-                        {key: 'G'},
-                        {key: 'H'},
-                    ]}
-                    renderItem={({item}) => <Text style={styles.item}>{item.key}</Text>}
-                />
+export default class GarbageScreen extends Component {
+    constructor() {
+        super();
+        this.state = {
+            timesOpened: 0
+        }
+    }
+
+    render() {
+        return (
+            <View
+                style={{
+                    flex: 1,
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    alignItems: 'center'
+                }}>
+
+                <TouchableHighlight
+                    style={styles.icon}
+
+                    onPress={() => {
+                        const newCommand = {
+                            openGarbage: true,
+                            openCompost: false,
+                            openRecycling: false
+                        };
+
+                        insertCommand(newCommand).then((result) => {
+                            if (result === 'ok') {
+                                this.state.timesOpened++;
+                            }
+                            else {
+                                alert("could not open bin");
+                            }
+                        });
+                    }}>
+
+                    <Image
+                        source={recyclingIcon}
+                        style={styles.icon}
+                    />
+
+                </TouchableHighlight>
+
+                <Text
+                    style={styles.font}>
+                    Times Opened: {this.state.timesOpened.toString()}
+                </Text>
+
             </View>
         );
     }
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        paddingTop: 22
+    icon: {
+        width: 100,
+        height: 100
     },
-    item: {
-        padding: 10,
-        fontSize: 18,
-        height: 44,
-    },
-})
+    font: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        marginTop: 30
+    }
+});
