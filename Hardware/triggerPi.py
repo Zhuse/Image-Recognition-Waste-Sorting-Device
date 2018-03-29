@@ -25,7 +25,7 @@ def main():
             capturePic()
             greenOff()
             base64String = convertToBase64("test_photo.jpg")
-            time.sleep(1)
+            time.sleep(0.5)
             returnResponse = altPostServer(base64String)  
             responseJson = returnResponse.json()
             binString = responseJson["category"]
@@ -33,7 +33,7 @@ def main():
             binNumber = mapCategory(binString)
             print ("Opening" + str(binNumber))
             openBin(binNumber)
-        time.sleep(1)
+        time.sleep(0.1)
 
 def mapCategory(category):
     if (category == 'recycling'): return 0
