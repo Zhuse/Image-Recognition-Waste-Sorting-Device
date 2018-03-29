@@ -10,15 +10,15 @@ import time
 lcd = CharLCD(cols = 16, rows = 2, pin_rs = 37, pin_e = 35, pinds_data = [33, 31, 29, 23])
 
 #update LCD message depending on which bin is open
-def updateLCD(char bin) {
-    if bin == 'c'
-        lcd.write_string("Place Waste Inside Compost")
-    elif bin == 'g'
-        lcd.write_string("Place Waste Inside Garbage")
-    elif bin == 'r'
-        lcd.write_string("Place Waste Inside Recycling")
+def updateLCD(bin) {
+    if bin == 'compost'
+        lcd.write_string('Place Waste Inside Compost')
+    elif bin == 'garbage'
+        lcd.write_string('Place Waste Inside Garbage')
+    elif bin == 'recycling'
+        lcd.write_string('Place Waste Inside Recycling')
     else
-        lcd.write_string("Place Waste Next to Webcam")
+        lcd.write_string('Place Waste Next to Webcam')
     
     time.sleep(5)
     lcd.clear()
@@ -26,7 +26,7 @@ def updateLCD(char bin) {
 
 #Default message on the LCD
 def standbyLCD()
-    lcd.write_string("Place Waste Next to Webcam")
+    lcd.write_string('Place Waste Next to Webcam')
 
 #Clear message on LCD
 def clearLCD()
