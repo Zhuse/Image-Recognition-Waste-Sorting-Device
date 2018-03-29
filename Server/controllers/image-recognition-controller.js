@@ -63,10 +63,7 @@ function recognition(content) {
             if (err) reject(err);
             else resolve(detectGarbage(data));
         })
-    }).catch(function(err){
-		console.log("INVALID IMAGE");
-		console.log(err);
-	});
+    });
 }
 
 
