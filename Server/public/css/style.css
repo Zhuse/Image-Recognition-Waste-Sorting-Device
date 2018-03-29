@@ -25,3 +25,59 @@ body {
   padding: 40px 15px;
   text-align: center;
 }
+
+.pricing-switcher {
+	text-align: center;
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+
+.pricing-switcher .fieldset {
+	display: inline-block;
+	position: relative;	
+	border-radius: 50em;
+	border: 2px solid #ffffff;
+}
+
+.pricing-switcher input[type="radio"] {
+	position: absolute;
+	opacity: 0;
+}
+
+.pricing-switcher label {
+	position: relative;
+	z-index: 1;
+	display: inline-block;
+	float: left;
+	width: 90px;
+	height: 40px;
+	line-height: 40px;
+	cursor: pointer;
+	font-size: 1.4rem;
+	color: #ffffff;
+}
+
+.pricing-switcher .switch {
+	position: absolute;
+	top: 2px;
+	left: 2px;
+	height: 40px;
+	width: 90px;
+	background-color: #777777;
+	border-radius: 50em;
+	-webkit-transition: -webkit-transform 0.5s;
+	-moz-transition: -moz-transform 0.5s;
+	transition: transform 0.5s;
+}
+
+.pricing-switcher input[type="radio"]:checked + label + .switch,
+.pricing-switcher input[type="radio"]:checked + label:nth-of-type(n) + .switch {
+	-webkit-transform: translateX(90px);
+	-moz-transform: translateX(90px);
+	-ms-transform: translateX(90px);
+	-o-transform: translateX(90px);
+	transform: translateX(90px);
+}
+
+.no-js .pricing-switcher {
+	display: none;
+}
