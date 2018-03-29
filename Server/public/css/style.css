@@ -21,8 +21,8 @@
 #stats {
 	display:block;
 	position:relative;
-	padding-left:300px;
-	height:60%;
+	margin-right: auto;
+	margin-left: 60px;
 }
 body {
   padding-top: 50px;
@@ -54,12 +54,12 @@ body {
     clear: both;
   }
   .pricing-list > li {
-    width: 25%;
-	height: 60%;
+    width: 29%;
+	height: 50%;
     float: left;
   }
   .has-margins .pricing-list > li {
-    width: 24%;
+    width: 28%;
     float: left;
   }
   .has-margins .pricing-list > li:last-of-type {
@@ -69,6 +69,7 @@ body {
 
 .pricing-wrapper {
 	position: relative;
+	height: 40%;
 }
 
 .touch .pricing-wrapper {
@@ -143,7 +144,7 @@ body {
 	position: absolute;
 	top: 0;
 	right: 0;
-	height: 60%;
+	height: 40%;
 	width: 50px;
 	pointer-events: none;
 	background: -webkit-linear-gradient( right , #ffffff, rgba(255, 255, 255, 0));
@@ -163,7 +164,7 @@ body {
 	position: absolute;
 	top: 0;
 	left: 0;
-	height: 100%;
+	height: 40%;
 	width: 100%;
 	z-index: 1;
 	-webkit-transform: rotateY(180deg);
@@ -190,7 +191,7 @@ body {
     -ms-transform: translateY(-50%);
     -o-transform: translateY(-50%);
     transform: translateY(-50%);
-    height: 60%;
+    height: 40%;
     width: 1px;
     background-color: #b1d6e8;
   }
