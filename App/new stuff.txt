@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {insertCommand} from '../Networking/server';
-import {Text, View, Image, TouchableHighlight, StyleSheet} from 'react-native'
-import garbageIcon from '../images/garbage.png';
+import {Text, View, Button, TouchableHighlight} from 'react-native'
 
 export default class GarbageScreen extends Component {
     constructor() {
@@ -13,17 +12,11 @@ export default class GarbageScreen extends Component {
 
     render() {
         return (
-            <View
-                style={{
-                    flex: 1,
-                    flexDirection: 'column',
-                    justifyContent: 'center',
-                    alignItems: 'center'
-                }}>
-
-                <TouchableHighlight
-                    style={styles.icon}
-
+            <View>
+                <TouchableHighlight>
+                    <Image>
+                        source={require('images/garbage.png')}
+                    </Image>
                     onPress={() => {
                         const newCommand = {
                             openGarbage: true,
@@ -40,16 +33,9 @@ export default class GarbageScreen extends Component {
                             }
                         });
                     }}>
-
-                    <Image
-                        source={garbageIcon}
-                        style={styles.icon}
-                    />
-
                 </TouchableHighlight>
 
-                <Text
-                    style={styles.font}>
+                <Text>
                     Times Opened: {this.state.timesOpened.toString()}
                 </Text>
 
@@ -57,18 +43,6 @@ export default class GarbageScreen extends Component {
         );
     }
 }
-
-const styles = StyleSheet.create({
-    icon: {
-        width: 100,
-        height: 100
-    },
-    font: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        marginTop: 30
-    }
-});
 
 //TODO code for GET requests below
 /*/!*TODO change item.fields below*!/
