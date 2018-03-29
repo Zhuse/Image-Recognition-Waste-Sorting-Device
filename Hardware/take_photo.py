@@ -6,9 +6,9 @@ import base64
 import requests
 import subprocess
 
+camera = PiCamera()
 
 def capturePic():
-    camera = PiCamera()
     camera.resolution = (1024, 768)
     camera.start_preview()
 #    i = 0
