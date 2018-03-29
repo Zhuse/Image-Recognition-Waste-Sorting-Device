@@ -11,29 +11,29 @@ import pigpio
 
 
 def main():
-    objectDistance = 9999999
+    while(True):
+        objectDistance = 9999999
 
-    #PIopenBin(1);
-    #PIopenBin(2);
+        #PIopenBin(1);
+        #PIopenBin(2);
 
-    #setupGPIO()
-    while objectDistance > 50:
-        objectDistance = getSonarDistance()
+        while objectDistance > 50:
+            objectDistance = getSonarDistance()
 
-    if (objectDistance < 50):
-        greenOn()
-        capturePic()
-        greenOff()
-        base64String = convertToBase64("test_photo.jpg")
+        if (objectDistance < 50):
+            greenOn()
+            capturePic()
+            greenOff()
+            base64String = convertToBase64("test_photo.jpg")
+            time.sleep(1)
+            returnResponse = altPostServer(base64String)  
+            responseJson = returnResponse.json()
+            binString = responseJson["category"]
+            print (binString)
+            binNumber = mapCategory(binString)
+            print ("Opening" + str(binNumber))
+            openBin(binNumber)
         time.sleep(1)
-        returnResponse = altPostServer(base64String)  
-
-        binString = returnResponse[category]
-        print (binString)
-        binNumber = mapCategory(binString)
-        openBin(binNumber)
-
-    GPIOCleanup()
 
 def mapCategory(category):
     if (category == 'recycling'): return 0
