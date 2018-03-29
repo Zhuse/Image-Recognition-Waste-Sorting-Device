@@ -1,6 +1,12 @@
-const express = require('express');
-const router = express.Router();
-const recognitionController = require('./controllers/image-recognition-controller.js'); //Import recog controller
+//const express = require('express');
+//const router = express.Router();
+//const recognitionController = require('./controllers/image-recognition-controller.js'); //Import recog controller
+
+const server = require('./server.js')
+
+const recognitionController = server.recognitionController;
+const router = server.express.Router();
+
 
 /*
 router.get('/', function(request, response){
@@ -32,9 +38,6 @@ router.get('/testdb', function(request, response){
   response.json({"results": results});
 });
 
-
-// TODO what format will json be
-// TODO error handling
 /**
  * Post request handler for recognition detection requests
  * @param  {[type]} request  [description]
@@ -45,6 +48,7 @@ router.post('/recognition', function(request, response) {
     var enc = new Buffer(request.body.base64, 'base64');
 	//var enc = request.query.base64;
     recognitionController.recognition(enc).then((category) => {
+
         response.json({
             "success": true,
             "category": category
