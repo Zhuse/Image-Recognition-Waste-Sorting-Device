@@ -22,12 +22,15 @@
       <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.min.js"></script>
       <script src="js/index.js"></script>
 
-<!--TODO -->
+<!--TODO 
+	- Add JavaScript such that the data in the columns change.
+	- Add Connections to the database to display the donut graph.
+-->
+	
 
-
-
+  
   </head>
-
+  
   <body onload="showStats();">
 
     <div class="container">
@@ -47,9 +50,9 @@
 	<div class="pricing-switcher">
 			<p class="fieldset">
 				<input type="radio" name="duration-1" value="monthly" id="monthly-1" onclick="showStats();">
-				<label for="monthly-1">ABSTRACT</label>
+				<label for="monthly-1">CONTROLLER</label>
 				<input type="radio" name="duration-1" value="yearly" id="yearly-1" onclick="showChart();">
-				<label for="yearly-1">DETAILS</label>
+				<label for="yearly-1">CHART</label>
 				<span class="switch"></span>
 			</p>
 	</div>
