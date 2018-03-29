@@ -87,7 +87,8 @@ function detectGarbage(imageData) {
 
 module.exports = {
     test,
-    recognition
+    recognition,
+    GARBAGE_TYPE
 }
 
 

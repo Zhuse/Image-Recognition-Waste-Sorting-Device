@@ -1,12 +1,12 @@
 //const express = require('express');
 //const router = express.Router();
-//const recognitionController = require('./controllers/image-recognition-controller.js'); //Import recog controller
 
 const server = require('./server.js')
-
-const recognitionController = server.recognitionController;
 const router = server.express.Router();
 
+const recognitionController = require('./controllers/image-recognition-controller.js'); //Import recog controller
+
+const databaseController = require('./controllers/database-controller.js');
 
 /*
 router.get('/', function(request, response){
@@ -48,6 +48,8 @@ router.post('/recognition', function(request, response) {
     var enc = new Buffer(request.body.base64, 'base64');
 	//var enc = request.query.base64;
     recognitionController.recognition(enc).then((category) => {
+
+        databaseController.updateDatabase(request.body.id, category);
 
         response.json({
             "success": true,

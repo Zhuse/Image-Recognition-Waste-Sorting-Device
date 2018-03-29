@@ -1,4 +1,6 @@
 const server = require('../server.js');
+const recognitionController = require('./image-recognition-controller.js');
+const GARBAGE_TYPE = recognitionController.GARBAGE_TYPE;
 
 const db = server.db;
 
@@ -9,9 +11,9 @@ var updateDatabase = function (id, waste) {
   var compostCount = 0;
 
   switch (waste) {
-    case 1: garbageCount++; break;
-    case 2: recyclingCount++; break;
-    case 3: compostCount++; break;
+    case GARBAGE_TYPE.GARBAGE: garbageCount++; break;
+    case GARBAGE_TYPE.RECYCLING: recyclingCount++; break;
+    case GARBAGE_TYPE.COMPOST: compostCount++; break;
   }
 
   if (testId(id)) {

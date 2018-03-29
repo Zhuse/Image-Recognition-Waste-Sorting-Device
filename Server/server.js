@@ -20,8 +20,7 @@ module.exports = {
 	AWS,
 	recog,
 	fs,
-	db,
-  recognitionController
+	db
 };
 
 
