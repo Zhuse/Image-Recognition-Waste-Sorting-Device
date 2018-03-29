@@ -1,6 +1,7 @@
 const apiInsertCommand = 'http://localhost:3001/insert_command';
+const apiFetchCommand = 'http://localhost:3001/fetch_command';
 
-//send post request to insert new data
+//send POST request to insert new data
 async function insertCommand(command) {
     try {
         let response = await fetch(apiInsertCommand, {
@@ -19,4 +20,16 @@ async function insertCommand(command) {
     }
 }
 
+//send GET request to fetch data
+async function fetchItemData() {
+    try {
+        let response = await fetch(apiFetchCommand);
+        let responseJson = await response.json();
+        return responseJson.data; //list of foods
+    } catch (error) {
+        console.error(`Error is : ${error}`);
+    }
+}
+
 export {insertCommand};
+export {fetchItemData};

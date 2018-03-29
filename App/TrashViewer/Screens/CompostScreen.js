@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {insertCommand} from '../Networking/server';
-import {Text, View, Image, TouchableHighlight, StyleSheet} from 'react-native'
+import {Text, View, Image, TouchableOpacity, StyleSheet} from 'react-native'
 import compostIcon from '../images/compost.png';
 
 export default class GarbageScreen extends Component {
@@ -21,7 +21,7 @@ export default class GarbageScreen extends Component {
                     alignItems: 'center'
                 }}>
 
-                <TouchableHighlight
+                <TouchableOpacity
                     style={styles.icon}
 
                     onPress={() => {
@@ -46,7 +46,7 @@ export default class GarbageScreen extends Component {
                         style={styles.icon}
                     />
 
-                </TouchableHighlight>
+                </TouchableOpacity>
 
                 <Text
                     style={styles.font}>
