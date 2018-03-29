@@ -14,8 +14,15 @@ function getData(callback) {
 }
 
 
+function showChart(){
+  document.getElementById('chart').style.display ='block';
+  document.getElementById('stats').style.display ='none';
+}
 
-
+function showStats(){
+  document.getElementById('stats').style.display ='block';
+  document.getElementById('chart').style.display ='none';
+}
 /*
 function getGarbage() {
   $.getJSON('./api/getGarbage',function(data){
