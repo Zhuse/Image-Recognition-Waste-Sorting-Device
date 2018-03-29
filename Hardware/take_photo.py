@@ -4,12 +4,16 @@ import http.client
 import json
 import base64
 import requests
+import subprocess
 
 
 def capturePic():
     camera = PiCamera()
     camera.resolution = (1024, 768)
     camera.start_preview()
+#    i = 0
+ #   subprocess.call("fswebcam -d /dev/video0 -r 1024x768 -S0 "+str(i)+"pic.jpg",shell=True)
+
 
     sleep(2)
     camera.capture('test_photo.jpg')
