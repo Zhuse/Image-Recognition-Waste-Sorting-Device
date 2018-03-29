@@ -1,23 +1,50 @@
-<!DOCTYPE html>
-<html lang="en" >
 
-<head>
-  <meta charset="UTF-8">
-  <title>Responsive Flip Pricing Table</title>
-  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
-<meta name="viewport" content="width=device-width">
-  
-  
-      <link rel="stylesheet" href="css/style.css">
+<!--
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+-->
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="icon" href="../../favicon.ico">
 
-  
-</head>
+  <title>TrashCam</title>
 
-<body>
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-  	<div class="pricing-container">
-		<div class="pricing-switcher">
+  <!-- Custom styles for this template -->
+  <link href="css/style.css" rel="stylesheet">
+
+
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.min.js"></script>
+      <script src="js/index.js"></script>
+
+<!--TODO -->
+
+
+
+  </head>
+
+  <body>
+
+    <div class="container">
+      <div id="header" class="col-md-12">
+          <span><h1>IMAGE RECOGNITION WASTE SORTING DEVICE</h1></span>
+      </div>
+
+    </div>
+
+<!--
+    <div class="container">
+      <div class="col-md-12">
+        <h1>Stats about your trash </h1>
+      </div>
+    </div>
+-->
+	<div class="pricing-switcher">
 			<p class="fieldset">
 				<input type="radio" name="duration-1" value="monthly" id="monthly-1" checked>
 				<label for="monthly-1">ABSTRACT</label>
@@ -25,106 +52,255 @@
 				<label for="yearly-1">DETAILS</label>
 				<span class="switch"></span>
 			</p>
-		</div>
-		<ul class="pricing-list bounce-invert">
-			<li>
-				<ul class="pricing-wrapper">
-					<li data-type="monthly" class="is-visible">
-						<header class="pricing-header">
-							<h2>Garbage</h2>
-							<div class="price">
-								<span class="value">0</span>
-								<span class="duration">items</span>
-							</div>
-						</header>
-						<div class="pricing-body">
-							<ul class="pricing-features">
-							</ul>
-						</div>
-						<footer class="pricing-footer">
-							<a class="select" id = "garbStatus" href="#">OPEN</a>
-						</footer>
-					</li>
-				</ul>
-			</li>
-			<li class="basic">
-				<ul class="pricing-wrapper">
-					<li data-type="monthly" class="is-visible">
-						<header class="pricing-header">
-							<h2>Compost</h2>
-							<div class="price">
-								<span class="value">0</span>
-								<span class="duration">items</span>
-							</div>
-						</header>
-						<footer class="pricing-footer">
-							<a class="select" href="#">OPEN</a>
-						</footer>
-					</li>
-				</ul>
-			</li>
-			<li>
-				<ul class="pricing-wrapper">
-					<li data-type="monthly" class="is-visible">
-						<header class="pricing-header">
-							<h2>Pro</h2>
-							<div class="price">
-								<span class="currency">$</span>
-								<span class="value">90</span>
-								<span class="duration">mo</span>
-							</div>
-						</header>
-						<div class="pricing-body">
-							<ul class="pricing-features">
-								<li><em>20</em> Email Accounts</li>
-								<li><em>5</em> Template Styles</li>
-								<li><em>50</em> Products Loaded</li>
-								<li><em>10</em> Images per Product</li>
-								<li><em>Unlimited</em> Bandwidth</li>
-								<li><em>24/7</em> Support</li>
-							</ul>
-						</div>
-						<footer class="pricing-footer">
-							<a class="select" href="#">Sign Up</a>
-						</footer>
-					</li>
-					<li data-type="yearly" class="is-hidden">
-						<header class="pricing-header">
-							<h2>Pro</h2>
-							<div class="price">
-								<span class="currency">$</span>
-								<span class="value">950</span>
-								<span class="duration">yr</span>
-							</div>
-						</header>
-						<div class="pricing-body">
-							<ul class="pricing-features">
-								<li><em>20</em> Email Accounts</li>
-								<li><em>5</em> Template Styles</li>
-								<li><em>50</em> Products Loaded</li>
-								<li><em>10</em> Images per Product</li>
-								<li><em>Unlimited</em> Bandwidth</li>
-								<li><em>24/7</em> Support</li>
-							</ul>
-						</div>
-						<footer class="pricing-footer">
-							<a class="select" href="#">Sign Up</a>
-						</footer>
-					</li>
-				</ul>
-			</li>
-		</ul>
 	</div>
-  <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js'></script>
+    <div class="container">
+      <div id="chart" class="col-md-6">
 
-  
+        <h3>Categories</h3>
 
-    <script  src="js/index.js"></script>
+        <h1></h1>
+
+        <canvas id="doughnut-chart" width="200" height="200"></canvas>
+        <script>
+          getData(createDoughnut);
+          function createDoughnut (garbageVal, recycleVal, compostVal) {
+            var myChart = new Chart(document.getElementById("doughnut-chart"), {
+              type: 'doughnut',
+              data: {
+                labels: ["Garbage", "Recycling", "Compost"],
+                datasets: [
+                  {
+                    backgroundColor: ["#61616199", "#42A5F599","#4CAF5099"],
+                    borderColor: ["#616161", "#42A5F5", "#4CAF50"],
+                    data: [garbageVal,recycleVal,compostVal]
+                  }
+                ]
+              },
+              options: {
+                hover: false,
+                animation: false
+              }
+            });
+            function addData(garbageVal, recycleVal, compostVal) {
+              myChart = new Chart(document.getElementById("doughnut-chart"), {
+                type: 'doughnut',
+                data: {
+                  labels: ["Garbage", "Recycling", "Compost"],
+                  datasets: [
+                    {
+                      backgroundColor: ["#61616199", "#42A5F599","#4CAF5099"],
+                      borderColor: ["#616161", "#42A5F5", "#4CAF50"],
+                      data: [garbageVal,recycleVal,compostVal]
+                    }
+                  ]
+                },
+                options: {
+                  hover: false,
+                  animation: false
+                }
+              });
+            }
+            setInterval(function(){getData(addData)}, 1000);
+          }
+        </script>
+
+      </div>
+
+      <div id="chart" class="col-md-6">
+
+
+        <h3>Percentage Full</h3>
+        <h1></h1>
+        <h1></h1>
 
 
 
 
-</body>
+        <canvas id="myChart" width="200" height="200"></canvas>
+        <script>
+/*
+          var garbageVal = getGarbage();
+          var recycleVal = getRecycle();
+          var compostVal = getCompost();
+*/
+          getData(createBar);
+          function createBar(garbageVal, recycleVal, compostVal) {
+            var total =20;
+            garbageVal = garbageVal / total * 100;
+            recycleVal = recycleVal / total * 100;
+            compostVal = compostVal / total * 100;
+            var ctx = document.getElementById("myChart").getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ["Garbage", "Recycling", "Compost"],
+                    datasets: [{
+                        data: [garbageVal, recycleVal, compostVal],
+                        backgroundColor: ["#61616199", "#42A5F599","#4CAF5099"],
+                        borderColor: ["#616161", "#42A5F5", "#4CAF50"],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                  animation: false,
+                  hover: false,
+                  legend: {
+                    display: false
+                  },
+                  scales: {
+                      yAxes: [{
+                          ticks: {
+                              beginAtZero:true,
+                              steps: 10,
+                              stepValue: 5,
+                              max: 100
+                          }
+                      }]
+                  }
+                }
+            });
+            function addData(garbageVal, recycleVal, compostVal) {
+                var total = 20;
+                garbageVal = garbageVal / total * 100;
+                recycleVal = recycleVal / total * 100;
+                compostVal = compostVal / total * 100;
+                myChart = new Chart(ctx, {
+                  type: 'bar',
+                  data: {
+                      labels: ["Garbage", "Recycling", "Compost"],
+                      datasets: [{
+                          data: [garbageVal, recycleVal, compostVal],
+                          backgroundColor: ["#61616199", "#42A5F599","#4CAF5099"],
+                          borderColor: ["#616161", "#42A5F5", "#4CAF50"],
+                          borderWidth: 1
+                      }]
+                  },
+                  options: {
+                    animation: false,
+                    hover: false,
+                    legend: {
+                      display: false
+                    },
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero:true,
+                                steps: 10,
+                                stepValue: 5,
+                                max: 100
+                            }
+                        }]
+                    }
+                  }
+              });
+            }
+            setInterval(function(){getData(addData)}, 1000);
+          }
+        </script>
 
+
+      </div>
+
+
+    </div><!-- /.container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <!-- Latest compiled and minified CSS -->
+
+
+
+
+  </body>
 </html>
+
+
+
+
+<!--
+            var pie = new d3pie("pieChart", {
+              "header": {
+                "title": {
+                /*	"text": "Where are people throwing their Garbage", */
+                  "fontSize": 24,
+                  "font": "open sans"
+                },
+                "subtitle": {
+                  "color": "#999999",
+                  "fontSize": 12,
+                  "font": "open sans"
+                },
+                "titleSubtitlePadding": 9
+              },
+              "footer": {
+                "color": "#999999",
+                "fontSize": 10,
+                "font": "open sans",
+                "location": "bottom-left"
+              },
+              "size": {
+                "canvasWidth": 590,
+                "pieOuterRadius": "90%"
+              },
+              "data": {
+                "sortOrder": "value-desc",
+                "content": [
+                  {
+                    "label": "Garbage",
+                    "value": garbageVal,
+                    "color": "#2484c1"
+                  },
+                  {
+                    "label": "Recycling",
+                    "value": recycleVal,
+                    "color": "#0c6197"
+                  },
+                  {
+                    "label": "Compost",
+                    "value": compostVal,
+                    "color": "#4daa4b"
+                  },
+                ]
+              },
+              "labels": {
+                "outer": {
+                  "pieDistance": 32
+                },
+                "inner": {
+                  "hideWhenLessThanPercentage": 3
+                },
+                "mainLabel": {
+                  "fontSize": 14
+                },
+                "percentage": {
+                  "color": "#ffffff",
+                  "decimalPlaces": 0
+                },
+                "value": {
+                  "color": "#adadad",
+                  "fontSize": 11
+                },
+                "lines": {
+                  "enabled": true
+                },
+                "truncation": {
+                  "enabled": true
+                }
+              },
+              "effects": {
+                "pullOutSegmentOnClick": {
+                  "effect": "linear",
+                  "speed": 400,
+                  "size": 8
+                }
+              },
+              "misc": {
+                "gradient": {
+                  "enabled": false,
+                  "percentage": 100
+                }
+              }
+            });
+-->
