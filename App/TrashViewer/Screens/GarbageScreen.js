@@ -28,14 +28,16 @@ export default class GarbageScreen extends Component {
                         style={styles.icon}
 
                         onPress={() => {
+                            /*TODO CHANGE THIS*/
                             const newCommand = {
                                 openGarbage: true,
                                 openCompost: false,
                                 openRecycling: false
                             };
 
-                            insertCommand(newCommand).then((result) => {
-                                if (result === 'ok') {
+                            //TODO change this
+                            insertCommand(newCommand).then((openGarbage) => {
+                                if (openGarbage === true) {
                                     this.state.timesOpened++;
                                 }
                                 else {

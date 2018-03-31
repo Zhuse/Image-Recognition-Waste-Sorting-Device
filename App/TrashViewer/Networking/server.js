@@ -1,4 +1,5 @@
-const apiInsertCommand = 'http://localhost:3001/insert_command';
+//TODO change this
+const apiInsertCommand = 'http://httpbin.org/post';
 const apiFetchCommand = 'http://localhost:3001/fetch_command';
 
 //send POST request to insert new data
@@ -14,7 +15,12 @@ async function insertCommand(command) {
         });
 
         let responseJson = await response.json();
-        return responseJson.result;
+
+        //TODO change this
+        console.log(`${JSON.stringify(responseJson)}`);
+        console.log(`Response is`);
+        console.log(`${JSON.stringify(responseJson.data.openGarbage)}`);
+        return responseJson.data;
     } catch (error) {
         console.error(`Error is : ${error}`);
     }
