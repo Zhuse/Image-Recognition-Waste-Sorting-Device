@@ -28,7 +28,8 @@ def imgPostReq(base64Image):
     print (r.text)
     return r
 
-def offCheckPostReq(binID):
+def modePostReq(binID):
     payload = {'ID': binID}
     r = requests.post('http://34.218.219.101:3000/recognition', json=payload)
     return r
+
