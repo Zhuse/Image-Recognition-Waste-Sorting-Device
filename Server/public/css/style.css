@@ -22,10 +22,10 @@
 	display:block;
 	position:relative;
 	margin-right: auto;
-	margin-left: 60px;
+	margin-left: 8%;
 }
 body {
-  padding-top: 50px;
+  padding-top: 20px;
   background-color: #494949	;
 }
 
@@ -35,50 +35,50 @@ body {
     margin-right: auto;
 	position:relative;
 }
-.pricing-list {
+.page-list {
 	margin: 2em 0 0;
 }
 
-.pricing-list > li {
+.page-list > li {
 	position: relative;
 	margin-bottom: 0.5em;
 }
 
 @media only screen and (min-width: 768px) {
-  .pricing-list {
+  .page-list {
     margin: 3em 0 0;
   }
-  .pricing-list:after {
+  .page-list:after {
     content: "";
     display: table;
     clear: both;
   }
-  .pricing-list > li {
+  .page-list > li {
     width: 29%;
 	height: 50%;
     float: left;
   }
-  .has-margins .pricing-list > li {
+  .has-margins .page-list > li {
     width: 28%;
     float: left;
   }
-  .has-margins .pricing-list > li:last-of-type {
+  .has-margins .page-list > li:last-of-type {
     margin-right: 0;
   }
 }
 
-.pricing-wrapper {
+.page-wrapper {
 	position: relative;
 	height: 40%;
 }
 
-.touch .pricing-wrapper {
+.touch .page-wrapper {
 	-webkit-perspective: 2000px;
 	-moz-perspective: 2000px;
 	perspective: 2000px;
 }
 
-.pricing-wrapper.is-switched .is-visible {
+.page-wrapper.is-switched .is-visible {
 	-webkit-transform: rotateY(180deg);
 	-moz-transform: rotateY(180deg);
 	-ms-transform: rotateY(180deg);
@@ -89,7 +89,7 @@ body {
 	animation: rotate 0.5s;
 }
 
-.pricing-wrapper.is-switched .is-hidden {
+.page-wrapper.is-switched .is-hidden {
 	-webkit-transform: rotateY(0);
 	-moz-transform: rotateY(0);
 	-ms-transform: rotateY(0);
@@ -101,11 +101,11 @@ body {
 	opacity: 0;
 }
 
-.pricing-wrapper.is-switched .is-selected {
+.page-wrapper.is-switched .is-selected {
 	opacity: 1;
 }
 
-.pricing-wrapper.is-switched.reverse-animation .is-visible {
+.page-wrapper.is-switched.reverse-animation .is-visible {
 	-webkit-transform: rotateY(-180deg);
 	-moz-transform: rotateY(-180deg);
 	-ms-transform: rotateY(-180deg);
@@ -116,7 +116,7 @@ body {
 	animation: rotate-back 0.5s;
 }
 
-.pricing-wrapper.is-switched.reverse-animation .is-hidden {
+.page-wrapper.is-switched.reverse-animation .is-hidden {
 	-webkit-transform: rotateY(0);
 	-moz-transform: rotateY(0);
 	-ms-transform: rotateY(0);
@@ -128,18 +128,18 @@ body {
 	opacity: 0;
 }
 
-.pricing-wrapper.is-switched.reverse-animation .is-selected {
+.page-wrapper.is-switched.reverse-animation .is-selected {
 	opacity: 1;
 }
 
-.pricing-wrapper > li {
+.page-wrapper > li {
 	background-color: #ffffff;
 	-webkit-backface-visibility: hidden;
 	backface-visibility: hidden;
 	outline: 1px solid transparent;
 }
 
-.pricing-wrapper > li::after {
+.page-wrapper > li::after {
 	content: '';
 	position: absolute;
 	top: 0;
@@ -151,16 +151,16 @@ body {
 	background: linear-gradient(to left, #ffffff, rgba(255, 255, 255, 0));
 }
 
-.pricing-wrapper > li.is-ended::after {
+.page-wrapper > li.is-ended::after {
 	display: none;
 }
 
-.pricing-wrapper .is-visible {
+.page-wrapper .is-visible {
 	position: relative;
 	z-index: 5;
 }
 
-.pricing-wrapper .is-hidden {
+.page-wrapper .is-hidden {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -174,12 +174,12 @@ body {
 	transform: rotateY(180deg);
 }
 
-.pricing-wrapper .is-selected {
+.page-wrapper .is-selected {
 	z-index: 3 !important;
 }
 
 @media only screen and (min-width: 768px) {
-  .pricing-wrapper > li::before {
+  .page-wrapper > li::before {
     content: '';
     position: absolute;
     z-index: 6;
@@ -195,34 +195,34 @@ body {
     width: 1px;
     background-color: #b1d6e8;
   }
-  .pricing-wrapper > li::after {
+  .page-wrapper > li::after {
     display: none;
   }
-  .exclusive .pricing-wrapper > li {
+  .exclusive .page-wrapper > li {
     box-shadow: inset 0 0 0 3px #2d3e50;
   }
-  .has-margins .pricing-wrapper > li,
-  .has-margins .exclusive .pricing-wrapper > li {
+  .has-margins .page-wrapper > li,
+  .has-margins .exclusive .page-wrapper > li {
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
   }
-  :nth-of-type(1) > .pricing-wrapper > li::before {
+  :nth-of-type(1) > .page-wrapper > li::before {
     display: none;
   }
-  .has-margins .pricing-wrapper > li {
+  .has-margins .page-wrapper > li {
     border-radius: 4px 4px 6px 6px;
   }
-  .has-margins .pricing-wrapper > li::before {
+  .has-margins .page-wrapper > li::before {
     display: none;
   }
 }
 
 @media only screen and (min-width: 1500px) {
-  .full-width .pricing-wrapper > li {
+  .full-width .page-wrapper > li {
     padding: 1em 0;
   }
 }
 
-.no-js .pricing-wrapper .is-hidden {
+.no-js .page-wrapper .is-hidden {
 	position: relative;
 	-webkit-transform: rotateY(0);
 	-moz-transform: rotateY(0);
@@ -233,15 +233,15 @@ body {
 }
 
 @media only screen and (min-width: 768px) {
-  .exclusive .pricing-wrapper > li::before {
+  .exclusive .page-wrapper > li::before {
     display: none;
   }
-  .exclusive + li .pricing-wrapper > li::before {
+  .exclusive + li .page-wrapper > li::before {
     display: none;
   }
 }
 
-.pricing-header h2 {
+.page-header h2 {
 	padding: 0.9em 0.9em 0.6em;
     font-weight: 400;
     margin-bottom: 30px;
@@ -250,7 +250,7 @@ body {
 	text-align: center;
 }
 
-.pricing-header {
+.page-header {
     height: auto;
     padding: 1.9em 0 1.6em;
     pointer-events: auto;
@@ -259,12 +259,12 @@ body {
     background-color: transparent;
 }
 
-.exclusive .pricing-header {
+.exclusive .page-header {
     color: #1bbc9d;
     background-color: transparent;
 }
 
-.pricing-header h2 {
+.page-header h2 {
     font-size: 2.8rem;
     letter-spacing: 2px;
 }
@@ -317,30 +317,30 @@ body {
     font-size: 1.4rem;
 }
 
-.pricing-body {
+.page-body {
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
 }
 
-.is-switched .pricing-body {
+.is-switched .page-body {
   overflow: hidden;
 }
 
-.pricing-body {
+.page-body {
     overflow-x: visible;
 }
 
-.pricing-features {
+.page-features {
 	width: 600px;
 }
 
-.pricing-features:after {
+.page-features:after {
 	content: "";
 	display: table;
 	clear: both;
 }
 
-.pricing-features li {
+.page-features li {
 	width: 100px;
 	float: left;
 	padding: 0em 0em;
@@ -351,36 +351,36 @@ body {
 	text-overflow: ellipsis;
 }
 
-.pricing-features em {
+.page-features em {
 	display: block;
 	margin-bottom: 5px;
 	font-weight: 600;
 }
 
-.pricing-features {
+.page-features {
     width: auto;
 }
 
-.pricing-features li {
+.page-features li {
     float: none;
     width: auto;
     padding: 0em;
 }
 
-.exclusive .pricing-features li {
+.exclusive .page-features li {
     margin: 0 3px;
 }
   
-.pricing-features em {
+.page-features em {
     display: inline-block;
     margin-bottom: 0;
 }
 
-.has-margins .exclusive .pricing-features li {
+.has-margins .exclusive .page-features li {
     margin: 0;
 }
 
-.pricing-footer {
+.page-footer {
 	position: absolute;
 	z-index: 1;
 	top: 0;
@@ -389,18 +389,18 @@ body {
 	width: 100%;
 }
 
-.pricing-footer {
+.page-footer {
     position: relative;
     height: auto;
     padding: 4em 0;
     text-align: center;
 }
 
-.pricing-footer::after {
+.page-footer::after {
     display: none;
 }
 
-.has-margins .pricing-footer {
+.has-margins .page-footer {
     padding-bottom: 0;
 }
 
@@ -464,24 +464,24 @@ body {
   text-align: center;
 }
 
-.pricing-switcher {
+.page-switcher {
 	text-align: center;
 	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
 
-.pricing-switcher .fieldset {
+.page-switcher .fieldset {
 	display: inline-block;
 	position: relative;	
 	border-radius: 50em;
 	border: 2px solid #ffffff;
 }
 
-.pricing-switcher input[type="radio"] {
+.page-switcher input[type="radio"] {
 	position: absolute;
 	opacity: 0;
 }
 
-.pricing-switcher label {
+.page-switcher label {
 	position: relative;
 	z-index: 1;
 	display: inline-block;
@@ -494,7 +494,7 @@ body {
 	color: #ffffff;
 }
 
-.pricing-switcher .switch {
+.page-switcher .switch {
 	position: absolute;
 	top: 2px;
 	left: 2px;
@@ -507,8 +507,8 @@ body {
 	transition: transform 0.5s;
 }
 
-.pricing-switcher input[type="radio"]:checked + label + .switch,
-.pricing-switcher input[type="radio"]:checked + label:nth-of-type(n) + .switch {
+.page-switcher input[type="radio"]:checked + label + .switch,
+.page-switcher input[type="radio"]:checked + label:nth-of-type(n) + .switch {
 	-webkit-transform: translateX(90px);
 	-moz-transform: translateX(90px);
 	-ms-transform: translateX(90px);
@@ -516,7 +516,7 @@ body {
 	transform: translateX(90px);
 }
 
-.no-js .pricing-switcher {
+.no-js .page-switcher {
 	display: none;
 }
 
