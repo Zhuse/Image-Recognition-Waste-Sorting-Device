@@ -15,65 +15,57 @@ export default class GarbageScreen extends Component {
 
     render() {
         return (
-            this.state.isLoading
-                ?
-                <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-                    <ActivityIndicator size="large" color="#330066" animating/>
-                </View>
-                :
-                <View>
-                    <View
-                        style={{
-                            flex: 1,
-                            flexDirection: 'column',
-                            justifyContent: 'center',
-                            alignItems: 'center'
+            <View>
+                <View
+                    style={{
+                        flex: 1,
+                        flexDirection: 'column',
+                        justifyContent: 'center',
+                        alignItems: 'center'
+                    }}>
+
+                    <TouchableOpacity
+                        style={styles.icon}
+
+                        onPress={() => {
+                            const newCommand = {
+                                openGarbage: true,
+                                openCompost: false,
+                                openRecycling: false
+                            };
+
+                            insertCommand(newCommand).then((result) => {
+                                if (result === 'ok') {
+                                    this.state.timesOpened++;
+                                }
+                                else {
+                                    alert("could not open bin");
+                                }
+                            });
                         }}>
 
-                        <TouchableOpacity
+                        <Image
+                            source={garbageIcon}
                             style={styles.icon}
-
-                            onPress={() => {
-                                const newCommand = {
-                                    openGarbage: true,
-                                    openCompost: false,
-                                    openRecycling: false
-                                };
-
-                                insertCommand(newCommand).then((result) => {
-                                    if (result === 'ok') {
-                                        this.state.timesOpened++;
-                                    }
-                                    else {
-                                        alert("could not open bin");
-                                    }
-                                });
-                            }}>
-
-                            <Image
-                                source={garbageIcon}
-                                style={styles.icon}
-                            />
-
-                        </TouchableOpacity>
-
-                        <Text
-                            style={styles.font}>
-                            Times Opened: {this.state.timesOpened.toString()}
-                        </Text>
-                    </View>
-
-                    <View style={styles.container}>
-                        <FlatList
-                            data={this.state.dataSource}
-                            renderItem={this.renderItem}
-                            keyExtractor={(item, index) => index}
-                            ItemSeparatorComponent={this.renderSeparator}
                         />
-                    </View>
+
+                    </TouchableOpacity>
+
+                    <Text
+                        style={styles.font}>
+                        Times Opened: {this.state.timesOpened.toString()}
+                    </Text>
 
                 </View>
 
+                <FlatList
+                    data={this.state.dataSource}
+                    renderItem={this.renderItem}
+                    keyExtractor={(item, index) => index}
+                    ItemSeparatorComponent={this.renderSeparator}
+                />
+
+            </View>
         );
     }
 
