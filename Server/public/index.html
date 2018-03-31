@@ -47,7 +47,8 @@
       </div>
     </div>
 --> 
-	<div class="pricing-switcher">
+
+	<div class="page-switcher">
 			<p class="fieldset">
 				<input type="radio" name="duration-1" value="monthly" id="monthly-1" onclick="showStats();">
 				<label for="monthly-1">CONTROLLER</label>
@@ -57,36 +58,36 @@
 			</p>
 	</div>
 	<div id="stats">
-	<ul class="pricing-list bounce-invert">
+	<ul class="page-list bounce-invert">
 			<li>
-				<ul class="pricing-wrapper">
+				<ul class="page-wrapper">
 					<li data-type="monthly" class="is-visible">
-						<header class="pricing-header">
+						<header class="page-header">
 							<h2>Garbage</h2>
-							<div class="price">
+							<div class="column">
 								<span class="value">0</span>
 								<span class="duration">items</span>
 							</div>
 						</header>
-						<div class="pricing-body">
-							<ul class="pricing-features">
+						<div class="page-body">
+							<ul class="page-features">
 							</ul>
 						</div>
 						<br />
 						<img src="images/garbage.png" alt="Garbage" height="150" width="150" class="image">
 						<br />
-						<footer class="pricing-footer">
+						<footer class="page-footer">
 							<a class="select" id = "garbStatus" href="#">OPEN</a>
 						</footer>
 					</li>
 				</ul>
 			</li>
 			<li class="basic">
-				<ul class="pricing-wrapper">
+				<ul class="page-wrapper">
 					<li data-type="monthly" class="is-visible">
-						<header class="pricing-header">
+						<header class="page-header">
 							<h2>Compost</h2>
-							<div class="price">
+							<div class="column">
 								<span class="value">0</span>
 								<span class="duration">items</span>
 							</div>
@@ -94,18 +95,18 @@
 						<br />
 						<img src="images/compost.png" alt="Compost" height="150" width="150" class="image">
 						<br />
-						<footer class="pricing-footer">
+						<footer class="page-footer">
 							<a class="select" href="#">OPEN</a>
 						</footer>
 					</li>
 				</ul>
 			</li>
 			<li>
-				<ul class="pricing-wrapper">
+				<ul class="page-wrapper">
 					<li data-type="monthly" class="is-visible">
-						<header class="pricing-header">
+						<header class="page-header">
 							<h2>Recycling</h2>
-							<div class="price">
+							<div class="column">
 								<span class="value">0</span>
 								<span class="duration">items</span>
 							</div>
@@ -113,7 +114,7 @@
 						<br />
 						<img src="images/recycling.png" alt="Recycling" height="150" width="150" class="image">
 						<br />
-						<footer class="pricing-footer">
+						<footer class="page-footer">
 							<a class="select" href="#">OPEN</a>
 						</footer>
 					</li>
@@ -177,20 +178,13 @@
       <!--<div id="chart" class="col-md-6">
 
 
-        <h3>Percentage Full</h3>
-        <h1></h1>
-        <h1></h1>
-
-
-
-
-        <canvas id="myChart" width="200" height="200"></canvas>
+        <canvas id="myChart" width="0" height="0"></canvas>
         <script>
-/*
+
           var garbageVal = getGarbage();
           var recycleVal = getRecycle();
           var compostVal = getCompost();
-*/
+
           getData(createBar);
           function createBar(garbageVal, recycleVal, compostVal) {
             var total =20;
