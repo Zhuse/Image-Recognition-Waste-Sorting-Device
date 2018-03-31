@@ -67,6 +67,25 @@ router.post('/recognition', function(request, response) {
 
 
 
+
+
+router.post('/setMode', function (request, response) {
+  if (request.body.auto) {
+    var success = databaseController.setMode(request.body.id, request.body.auto)
+    response.json({
+      "success": success,
+    });
+  } else {
+    var success = databaseController.setMode(request.body.id, request.body.auto, request.body.garbageStatus, request.body.recyclingStatus, request.body.compostStatus);
+    response.json({
+      "success": success,
+    });
+  }
+});
+
+
+
+
 /*
 json
 {
@@ -77,7 +96,7 @@ json
   "compostOpen": boolean
 }
 */
-router.post('/status', function(request, response) {
+router.post('/mode', function(request, response) {
   var mode = databaseController.getMode(request.body.id);
   if (!mode.success) {
     response.json({

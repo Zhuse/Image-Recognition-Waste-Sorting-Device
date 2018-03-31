@@ -5,11 +5,21 @@ const GARBAGE_TYPE = recognitionController.GARBAGE_TYPE;
 const db = server.db;
 
 
-var getStats = function (id) {
-
-
-
-
+// return true if success, false otherwise
+var setMode = function (id, auto, garbageOpen, recyclingOpen, compostOpen) {
+  if (auto) {
+    db.run("UPDATE mode SET (auto) = (?) WHERE id = (?)",
+        [auto, id],
+        function (err, rows) {
+          return !err && rows !== null;
+        });
+  } else {
+    db.run("UPDATE mode SET (auto, garbageOpen, recyclingOpen, compostOpen) = (?, ?, ?, ?) WHERE id = (?)",
+        [auto, garbageOpen, recyclingOpen, compostOpen, id],
+        function (err, rows) {
+          return !err && rows !== null;
+        });
+  }
 }
 
 
@@ -25,25 +35,19 @@ return format
 }
 */
 var getMode = function (id) {
-
   db.all("SELECT auto FROM mode WHERE id = (?)", [id],
       function (err, rows){
-
         if (err || rows.length != 1) {
-          // TODO return false;
           return {
             success: false
           }
         }
-
         if (rows[0] == 1) {
           return {
             success: true,
             auto: true,
           }
         }
-
-
         db.all("SELECT garbage_open, recycing_open, compost_open FROM mode WHERE id = (?)", [id],
           function (err, rows){
             if (err || rows.length != 3) {
@@ -54,12 +58,11 @@ var getMode = function (id) {
             return {
               success: true,
               auto: true,
-              garbageOpen: rows[0] == 1,
-              recycingOpen: rows[1] == 1,
-              compostOpen: rows[2] == 1
+              garbageOpen: rows[0],
+              recycingOpen: rows[1],
+              compostOpen: rows[2]
             }
           });
-
       });
 }
 
@@ -144,5 +147,6 @@ var testId = function (id) {
 
 module.exports = {
   updateDatabase:updateDatabase,
-  getMode: getMode
+  getMode: getMode,
+  setMode: setMode
 }
