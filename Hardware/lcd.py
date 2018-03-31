@@ -7,7 +7,7 @@
 #intialize lcd
 from RPLCD import CharLCD
 import time
-lcd = CharLCD(cols = 16, rows = 2, pin_rs = 37, pin_e = 35, pinds_data = [33, 31, 29, 23])
+lcd = CharLCD(cols = 16, rows = 2, pin_rs = 21, pin_e = 20, pins_data = [16, 12, 25, 24])
 
 #update LCD message depending on which bin is open
 def updateLCD(bin):
