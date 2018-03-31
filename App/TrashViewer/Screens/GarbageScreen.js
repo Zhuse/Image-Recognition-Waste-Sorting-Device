@@ -15,10 +15,15 @@ export default class GarbageScreen extends Component {
 
     render() {
         return (
-            <View>
+            <View style={{
+                flex: 1,
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center'
+            }}>
                 <View
                     style={{
-                        flex: 1,
+                        flex: 8,
                         flexDirection: 'column',
                         justifyContent: 'center',
                         alignItems: 'center'
@@ -35,10 +40,11 @@ export default class GarbageScreen extends Component {
                                 openRecycling: false
                             };
 
-                            //TODO change this
-                            insertCommand(newCommand).then((openGarbage) => {
-                                if (openGarbage === true) {
-                                    this.state.timesOpened++;
+                            //TODO change this. The current argument in then(...) (the return value of insertCommand) is a JSON object containing
+                            //3 fields. openGarbage, openCompost, openRecycling
+                            insertCommand(newCommand).then((indicator) => {
+                                if (indicator.openGarbage === true) {
+                                    this.state.timesOpened += 1;
                                 }
                                 else {
                                     alert("could not open bin");
@@ -55,17 +61,24 @@ export default class GarbageScreen extends Component {
 
                     <Text
                         style={styles.font}>
-                        Times Opened: {this.state.timesOpened.toString()}
+                        Times Opened: {this.state.timesOpened}
                     </Text>
 
                 </View>
 
-                <FlatList
-                    data={this.state.dataSource}
-                    renderItem={this.renderItem}
-                    keyExtractor={(item, index) => index}
-                    ItemSeparatorComponent={this.renderSeparator}
-                />
+                <View style={{
+                    flex: 2,
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    alignItems: 'center'
+                }}>
+                    <FlatList
+                        data={this.state.dataSource}
+                        renderItem={this.renderItem}
+                        keyExtractor={(item, index) => index}
+                        ItemSeparatorComponent={this.renderSeparator}
+                    />
+                </View>
 
             </View>
         );
@@ -73,7 +86,13 @@ export default class GarbageScreen extends Component {
 
     renderItem = ({item}) => {
         return (
-            <View style={{flex: 1, flexDirection: 'row', marginBottom: 2}}>
+            <Text style={{fontSize: 18, color: 'black', marginBottom: 10}}>
+                {`${item.name.first} ${item.registered}`}
+            </Text>
+        )
+
+        //CODE FOR EXTRA INFO TO DISPLAY
+        /*            <View style={{flex: 1, flexDirection: 'row', marginBottom: 2}}>
                 <Image style={{width: 80, height: 80, margin: 3}}
                        source={{uri: item.picture.thumbnail}}/>
                 <View style={{flex: 1, justifyContent: 'center', marginLeft: 3}}>
@@ -84,8 +103,7 @@ export default class GarbageScreen extends Component {
                         {`${item.dob}`}
                     </Text>
                 </View>
-            </View>
-        )
+            </View>*/
     };
 
     renderSeparator = () => {

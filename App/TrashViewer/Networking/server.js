@@ -16,11 +16,11 @@ async function insertCommand(command) {
 
         let responseJson = await response.json();
 
-        //TODO change this
-        console.log(`${JSON.stringify(responseJson)}`);
+/*        console.log(`${JSON.stringify(responseJson)}`);
         console.log(`Response is`);
-        console.log(`${JSON.stringify(responseJson.data.openGarbage)}`);
-        return responseJson.data;
+        console.log(`${responseJson.json.openGarbage}`);*/
+        //TODO change this. The current test server's response just echoes back the JSON sent in the POST request
+        return responseJson.json;
     } catch (error) {
         console.error(`Error is : ${error}`);
     }
@@ -31,7 +31,7 @@ async function fetchItemData() {
     try {
         let response = await fetch(apiFetchCommand);
         let responseJson = await response.json();
-        return responseJson.data; //list of foods
+        return responseJson.json;
     } catch (error) {
         console.error(`Error is : ${error}`);
     }
