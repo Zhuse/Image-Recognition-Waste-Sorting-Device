@@ -3,7 +3,6 @@ from sonar import *
 from servoMotor import *
 from led import *
 from lcd import *
-#from pigpioServo import *
 import json
 import requests
 import time
