@@ -4,6 +4,67 @@ const GARBAGE_TYPE = recognitionController.GARBAGE_TYPE;
 
 const db = server.db;
 
+
+var getStats = function (id) {
+
+
+
+
+}
+
+
+
+/*
+return format
+{
+  success: boolean,
+  auto: boolean,
+  garbageOpen: boolean,
+  recycingOpen: boolean,
+  compostOpen: boolean
+}
+*/
+var getMode = function (id) {
+
+  db.all("SELECT auto FROM mode WHERE id = (?)", [id],
+      function (err, rows){
+
+        if (err || rows.length != 1) {
+          // TODO return false;
+          return {
+            success: false
+          }
+        }
+
+        if (rows[0] == 1) {
+          return {
+            success: true,
+            auto: true,
+          }
+        }
+
+
+        db.all("SELECT garbage_open, recycing_open, compost_open FROM mode WHERE id = (?)", [id],
+          function (err, rows){
+            if (err || rows.length != 3) {
+              return {
+                success: false
+              }
+            }
+            return {
+              success: true,
+              auto: true,
+              garbageOpen: rows[0] == 1,
+              recycingOpen: rows[1] == 1,
+              compostOpen: rows[2] == 1
+            }
+          });
+
+      });
+}
+
+
+
 // waste is int, 1 for garbage, 2 for recycle, 3 for compost
 var updateDatabase = function (id, waste) {
   var garbageCount = 0;
@@ -18,7 +79,7 @@ var updateDatabase = function (id, waste) {
 
   if (testId(id)) {
 
-    db.all("SELECT garbage, recycing, compost FROM stats WHERE id = (?)", [id],
+    db.all("SELECT garbage, recycing, compost FROM count WHERE id = (?)", [id],
         function (err, rows) {
           if (err || rows.length < 3) {
             return false;
@@ -42,12 +103,12 @@ var updateDatabase = function (id, waste) {
 
 }
 
-
+// private helper function
 // updates stats if id already exists, if not inserts new row into db
 var insertDatabase = function(id, garbage, recycling, compost) {
   if (!testId(id)) {
 
-    db.run("INSERT INTO stats (id, garbage, recycling, compost ) VALUES (?,?,?,?)",
+    db.run("INSERT INTO count (id, garbage, recycling, compost ) VALUES (?,?,?,?)",
         [id, garbage, recycling, compost],
         function (err, rows) {
           // return false if error or query not successful, true otherwise
@@ -57,7 +118,7 @@ var insertDatabase = function(id, garbage, recycling, compost) {
 
   } else {
 
-    db.run("UPDATE stats SET (garbage, recycling, compost) = (?,?,?) WHERE id = (?)",
+    db.run("UPDATE count SET (garbage, recycling, compost) = (?,?,?) WHERE id = (?)",
         [garbage, recycling, compost, id],
         function (err, rows) {
           console.log(!err && rows !== null);
@@ -67,9 +128,11 @@ var insertDatabase = function(id, garbage, recycling, compost) {
   }
 }
 
+
+// private helper function
 // tests if id already exists in table
 var testId = function (id) {
-  return db.all("SELECT EXISTS(SELECT 1 FROM stats WHERE id = (?) LIMIT 1", [id],
+  return db.all("SELECT EXISTS(SELECT 1 FROM count WHERE id = (?) LIMIT 1", [id],
       function (err, rows){
         if (err) {
           return false;
@@ -80,5 +143,6 @@ var testId = function (id) {
 
 
 module.exports = {
-  updateDatabase:updateDatabase
+  updateDatabase:updateDatabase,
+  getMode: getMode
 }

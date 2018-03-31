@@ -45,6 +45,8 @@ router.get('/testdb', function(request, response){
  * @return {[type]}          [description]
  */
 router.post('/recognition', function(request, response) {
+    request.body.base64 = request.body.base64.slice(1, -1);
+
     var enc = new Buffer(request.body.base64, 'base64');
 	//var enc = request.query.base64;
     recognitionController.recognition(enc).then((category) => {
@@ -62,5 +64,47 @@ router.post('/recognition', function(request, response) {
         });
     });
 });
+
+
+
+/*
+json
+{
+  "success": boolean,
+  "auto": boolean,
+  "garbageOpen": boolean,
+  "recyclingOpen": boolean,
+  "compostOpen": boolean
+}
+*/
+router.post('/status', function(request, response) {
+  var mode = databaseController.getMode(request.body.id);
+  if (!mode.success) {
+    response.json({
+      "success": false,
+      "auto": null,
+      "garbageOpen": null,
+      "recyclingOpen": null,
+      "compostOpen": null
+    });
+  }
+  if (mode.auto) {
+    response.json({
+      "success": true,
+      "auto": true,
+      "garbageOpen": null,
+      "recyclingOpen": null,
+      "compostOpen": null
+    });
+  }
+  response.json({
+    "success": true,
+    "auto": true,
+    "garbageOpen": mode.garbageOpen,
+    "recyclingOpen": mode.recyclingOpen,
+    "compostOpen": mode.compostOpen
+  });
+});
+
 
 module.exports = router;

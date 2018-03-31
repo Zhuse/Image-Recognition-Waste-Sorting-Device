@@ -22,7 +22,7 @@ module.exports = {
 	fs,
 	db
 };
-
+app.use(bodyParser.json({limit: '50mb'}));
 
 const port = 3000; //Server port
 
