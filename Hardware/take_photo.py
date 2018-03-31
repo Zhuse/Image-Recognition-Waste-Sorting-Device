@@ -29,7 +29,7 @@ def imgPostReq(base64Image):
     return r
 
 def modePostReq(binID):
-    payload = {'ID': binID}
-    r = requests.post('http://34.218.219.101:3000/recognition', json=payload)
+    payload = {'id': binID}
+    r = requests.post('http://34.218.219.101:3000/mode', json=payload)
     return r
 

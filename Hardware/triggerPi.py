@@ -18,10 +18,11 @@ automaticMode = True
 
 def updateMode():
     overrideJson = modePostReq(binID)
-    automaticMode = overrideJson["automatic"]
-    compostState = overrideJson["compost"]
-    recyclingState = overrideJson["recycling"]
-    garbageState = overrideJson["garbage"]
+    if (overrideJson["success"]):
+        automaticMode = overrideJson["auto"]
+        compostState = overrideJson["compostOpen"]
+        recyclingState = overrideJson["recyclingOpen"]
+        garbageState = overrideJson["garbageOpen"]
 
 def main():
     while (True):
