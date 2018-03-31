@@ -7,6 +7,9 @@ const db = server.db;
 
 // return true if success, false otherwise
 var setMode = function (id, auto, garbageOpen, recyclingOpen, compostOpen) {
+  if (!testId(id)) {
+    return false;
+  }
   if (auto) {
     db.run("UPDATE mode SET (auto) = (?) WHERE id = (?)",
         [auto, id],
@@ -21,8 +24,6 @@ var setMode = function (id, auto, garbageOpen, recyclingOpen, compostOpen) {
         });
   }
 }
-
-
 
 /*
 return format
@@ -68,43 +69,99 @@ var getMode = function (id) {
 
 
 
-// waste is int, 1 for garbage, 2 for recycle, 3 for compost
-var updateDatabase = function (id, waste) {
-  var garbageCount = 0;
-  var recyclingCount = 0;
-  var compostCount = 0;
 
+
+
+
+
+
+// add entry to history table
+var addHistoryEntry = function (id, waste) {
   switch (waste) {
-    case GARBAGE_TYPE.GARBAGE: garbageCount++; break;
-    case GARBAGE_TYPE.RECYCLING: recyclingCount++; break;
-    case GARBAGE_TYPE.COMPOST: compostCount++; break;
+    case GARBAGE_TYPE.GARBAGE: waste_type = 1; break;
+    case GARBAGE_TYPE.RECYCLING: waste_type = 2; break;
+    case GARBAGE_TYPE.COMPOST: waste_type = 3; break;
   }
+  db.run("INSERT INTO history (id, waste_type, timestamp) VALUES = (?,?,strftime('%w', 'now', 'localtime'))", [id, waste_type],
+      function (err, rows) {
+        return !err && rows !== null;
+      });
+}
 
-  if (testId(id)) {
-
-    db.all("SELECT garbage, recycing, compost FROM count WHERE id = (?)", [id],
-        function (err, rows) {
-          if (err || rows.length < 3) {
-            return false;
+/*
+{
+  success: boolean,
+  todayGarbageCount: int,
+  todayRecyclingCount: int,
+  todayCompostCount: int,
+  yesterdayGarbageCount: int,
+  yesterdayRecyclingCount: int,
+  yesterdayCompostCount: int
+}
+*/
+var getHistory = function (id) {
+  db.all("SELECT * FROM history WHERE id = (?)", [id],
+      function (err, rows){
+        if (err) {
+          return {
+            success: false,
+            todayGarbageCount: 0,
+            todayRecyclingCount: 0,
+            todayCompostCount: 0,
+            yesterdayGarbageCount: 0,
+            yesterdayRecyclingCount: 0,
+            yesterdayCompostCount: 0
           }
-          garbageCount += rows[0];
-          recyclingCount += rows[1];
-          compostCount += rows[2];
-          db.run("UPDATE stats SET (garbage, recycling, compost) = (?,?,?) WHERE id = (?)",
-              [garbageCount, recyclingCount, compostCount, id],
-              function (err, rows) {
-                console.log(!err && rows !== null);
-                return !err && rows !== null;
-              });
+        }
 
-        });
+        var date = new Date();
+        var currDate = date.getDay();
 
-  } else {
-    return insertDatabase(id, garbageCount, recyclingCount, compostCount);
-  }
+        var todayGarbageCount = 0;
+        var todayRecyclingCount = 0;
+        var todayCompostCount = 0;
 
+        var yesterdayGarbageCount = 0;
+        var yesterdayRecyclingCount = 0;
+        var yesterdayCompostCount = 0;
+
+        for (var i = 0; i < rows.length; i++) {
+          if ((rows[i].timestamp - currDate) == 0) {
+            switch(rows[i].waste_type) {
+              case 1: todayGarbageCount++; break;
+              case 2: todayRecyclingCount++; break;
+              case 3: todayCompostCount++; break;
+            }
+          } else {
+            switch(rows[i].waste_type) {
+              case 1: yesterdayGarbageCount++; break;
+              case 2: yesterdayRecyclingCount++; break;
+              case 3: yesterdayCompostCount++; break;
+            }
+          }
+        }
+
+        return {
+          success: true,
+          todayGarbageCount: todayGarbageCount,
+          todayRecyclingCount: todayRecyclingCount,
+          todayCompostCount: todayCompostCount,
+          yesterdayGarbageCount: yesterdayGarbageCount,
+          yesterdayRecyclingCount: yesterdayRecyclingCount,
+          yesterdayCompostCount: yesterdayCompostCount
+        };
+
+      });
 
 }
+
+
+
+
+
+
+
+
 
 // private helper function
 // updates stats if id already exists, if not inserts new row into db
@@ -146,7 +203,8 @@ var testId = function (id) {
 
 
 module.exports = {
-  updateDatabase:updateDatabase,
+  addHistoryEntry: addHistoryEntry,
+  getHistory: getHistory,
   getMode: getMode,
   setMode: setMode
 }

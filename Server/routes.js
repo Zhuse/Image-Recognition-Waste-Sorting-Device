@@ -51,7 +51,7 @@ router.post('/recognition', function(request, response) {
 	//var enc = request.query.base64;
     recognitionController.recognition(enc).then((category) => {
 
-        databaseController.updateDatabase(request.body.id, category);
+        databaseController.addHistoryEntry(request.body.id, category);
 
         response.json({
             "success": true,
@@ -124,6 +124,28 @@ router.post('/mode', function(request, response) {
     "compostOpen": mode.compostOpen
   });
 });
+
+
+
+
+
+
+
+
+
+
+
+router.post('/getHistory', function(request, response){
+  // TODO
+
+
+})
+
+
+
+
+
+
 
 
 module.exports = router;
