@@ -1,6 +1,9 @@
-Waste image recognition API call
+================================================================================
+RPi Stuff:
+================================================================================
 
-(to be used by RPi)
+================================================================================
+Waste image recognition
 
 endpoint: POST to /recognition
 
@@ -16,10 +19,9 @@ response format: (data to be send in "<>")
   "category": <string representing category, one of "garbage", "recycling", "compost">
 }
 
+================================================================================
 
-==============================================================
-
-get Garbage can operation mode API call
+get garbage can operation mode
 
 endpoint: POST to /mode
 
@@ -37,12 +39,22 @@ response format: (data to be send in "<>")
   "compostOpen": <boolean representing if can is open (manual mode)>
 }
 
+NOTE garbageOpen, recyclingOpen, compostOpen may not have valid data if auto set to true
+
+================================================================================
 
 
 
-==============================================================
 
-set Garbage can operation mode API call
+
+
+================================================================================
+APP and Website stuff
+================================================================================
+
+================================================================================
+
+set garbage can operation mode
 
 endpoint: POST to /setMode
 
@@ -57,30 +69,34 @@ request body format: (data to be send in "<>")
 
 NOTE if auto is true then garbageOpen, recyclingOpen, compostOpen fields do not need to be populated
 
-
 response body format: (data to be send in "<>")
 {
   "success": <boolean>
 }
 
 
-==============================================================
+================================================================================
 
-Get trashcan stats API call
+Get trashcan history
 
-(to be used by website / apps)
+endpoint: POST to /history
 
-endpoint: GET to /stats
+request body format: (data to be send in "<>")
+{
+  "id":<int representing unique id of this can>
+}
 
 Return body format: (data to be send in "<>")
 {
-  "stats" : [
+  "success": <boolean>
+  "history" : [
     {
-      "id": <id of can>
-      "garbage": <garbage stat>
-      "recycling": <recycling stat>
-      "compost": <compost stat>
-
+      "time": <timestamp>
+      "bin": <int, 1, 2, or 3 representing which bin was opened (garbage, recycling, compost respectively)>
+    },
+    {
+      "time": <timestamp>
+      "bin": <int, 1, 2, or 3 representing which bin was opened (garbage, recycling, compost respectively)>
     },
     ...
   ]

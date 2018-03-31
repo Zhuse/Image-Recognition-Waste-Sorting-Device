@@ -135,8 +135,8 @@ router.post('/mode', function(request, response) {
 
 
 
-router.post('/getHistory', function(request, response){
-  // TODO
+router.post('/history', function(request, response){
+  
 
 
 })
