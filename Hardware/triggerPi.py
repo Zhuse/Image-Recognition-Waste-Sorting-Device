@@ -3,7 +3,6 @@ from sonar import *
 from servoMotor import *
 from led import *
 from lcd import *
-#from pigpioServo import *
 import json
 import requests
 import time
@@ -17,6 +16,13 @@ recyclingState = False
 garbageState = False
 automaticMode = True
 
+def updateMode():
+    overrideJson = modePostReq(binID)
+    automaticMode = overrideJson["automatic"]
+    compostState = overrideJson["compost"]
+    recyclingState = overrideJson["recycling"]
+    garbageState = overrideJson["garbage"]
+
 def main():
     while (True):
         while(automaticMode):
@@ -26,7 +32,7 @@ def main():
             #Checks for object in proximity to trigger
             while (objectDistance > 50 and automaticMode):
                 objectDistance = getSonarDistance()
-                automaticMode = modePostReq(binID)
+                updateMode()
 
             #If object is close enough then perform actions
             if (objectDistance < 50):
@@ -50,6 +56,7 @@ def main():
                 openBin(binNumber)
             time.sleep(0.1)
             
+        updateMode() 
         #When automatic mode is turned off then allow for force opens 
         if (not automaticMode):
             if (compostState):
@@ -58,5 +65,4 @@ def main():
                 openBin(1)
             if (garbageState):
                 openBin(2)
-
 main()
