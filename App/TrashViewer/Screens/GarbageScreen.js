@@ -45,6 +45,7 @@ export default class GarbageScreen extends Component {
                             insertCommand(newCommand).then((indicator) => {
                                 if (indicator.openGarbage === true) {
                                     this.state.timesOpened += 1;
+                                    console.log(this.state.timesOpened);
                                 }
                                 else {
                                     alert("could not open bin");
