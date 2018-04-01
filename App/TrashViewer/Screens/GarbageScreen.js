@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {insertCommand} from '../Networking/server';
+import {insertCommand, getItemHistory} from '../Networking/server';
 import {Text, View, Image, TouchableOpacity, StyleSheet, FlatList, ActivityIndicator} from 'react-native'
 import garbageIcon from '../images/garbage.png';
 
@@ -34,8 +34,9 @@ export default class GarbageScreen extends Component {
                         style={styles.icon}
 
                         onPress={() => {
+                            //TODO CHANGE THIS
                             const newCommand = {
-                                id: 1, //TODO CHANGE THIS
+                                id: 1,
                                 auto: false,
                                 garbageOpen: !this.state.isOpen,
                                 recyclingOpen: false,
@@ -45,7 +46,7 @@ export default class GarbageScreen extends Component {
                             insertCommand(newCommand).then((response) => {
                                 if (response.success == true) {
                                     this.setState({isOpen: !this.state.isOpen});
-                                    if(this.state.isOpen) {
+                                    if (this.state.isOpen) {
                                         this.setState({timesOpened: this.state.timesOpened + 1});
                                     }
                                 }
@@ -92,26 +93,27 @@ export default class GarbageScreen extends Component {
     }
 
     componentDidMount() {
-        const url = "http://34.218.219.101:3000/history"; /*TODO change this*/
-        fetch(url)
-            .then((response) => response.json())
-            .then((responseJson) => {
-                console.log(`Response is`);
-                console.log(`${JSON.stringify(responseJson)}`);
+        const newCommand = {
+            id: 1, //TODO CHANGE THIS
+        };
+
+        getItemHistory(newCommand).then((response) => {
+            if (response.success == true) {
                 this.setState({
-                    dataSource: responseJson.history, /*TODO change this. responseJson.ARRAY_FIELD*/
+                    dataSource: response.history,   //TODO change this
                     isLoading: false
-                })
-            })
-            .catch((error) => {
-                console.log(error);
-            })
+                });
+            }
+            else {
+                alert("could not load history");
+            }
+        });
     }
 
     renderItem = ({item}) => {
         return (
             <Text style={{fontSize: 18, color: 'black', marginBottom: 10}}>
-                {`${item.time.toString()}`} /*TODO change this*/
+                {`${item.time}`} /*TODO change this*/
             </Text>
         )
 
