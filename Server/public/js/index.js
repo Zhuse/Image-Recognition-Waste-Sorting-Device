@@ -3,41 +3,51 @@
 //var urlCompost = "35.163.191.108/api/getCompost";
 
 function getData(callback) {
-  $.getJSON('./api/getStats',function(data){
-    console.log(data.garbage);
+    $.getJSON('./api/getStats', function(data) {
+        console.log(data.garbage);
 
 
-       callback(data.garbage,data.recycle, data.compost);
+        callback(data.garbage, data.recycle, data.compost);
 
-  });
+    });
 
 }
 
-
-function showChart(){
-  document.getElementById('chart').style.display ='block';
-  document.getElementById('stats').style.display ='none';
+function setMode() {
+    $.post("34.218.219.101:3000/setMode", {
+		id: 1,
+		auto: auto,
+		garbageOpen: garbageOpen,
+		recyclingOpen: recyclingOpen,
+		compostOpen: compostOpen
+    });
 }
 
-function showStats(){
-  document.getElementById('stats').style.display ='block';
-  document.getElementById('chart').style.display ='none';
+
+function showChart() {
+    document.getElementById('chart').style.display = 'block';
+    document.getElementById('stats').style.display = 'none';
 }
 
-function garbUpdate(){
-  alert("Open garbage");
+function showStats() {
+    document.getElementById('stats').style.display = 'block';
+    document.getElementById('chart').style.display = 'none';
 }
 
-function compostUpdate(){
-  alert("Open compost");
+function garbUpdate() {
+    alert("Open garbage");
 }
 
-function recyclingUpdate(){
-  alert("Open recycling");
+function compostUpdate() {
+    alert("Open compost");
 }
 
-function closeBin(){
-  alert("Close Bin");
+function recyclingUpdate() {
+    alert("Open recycling");
+}
+
+function closeBin() {
+    alert("Close Bin");
 }
 /*
 function getGarbage() {
