@@ -43,9 +43,20 @@ function showStats() {
 function updateMode(changeMode){
 	if(changeMode == 1){
 		auto = true;
+		var footers =     document.getElementsByClassName('select');
+		for(i=0; i<footers.length; i++) {
+			footers[i].style.display =    'none';
+		}
+		setMode();
 	} else {
 		auto = false;
+		var footers =     document.getElementsByClassName('select');
+		for(i=0; i<footers.length; i++) {
+			footers[i].style.display =    'block';
+		}
+		setMode();
 	}
+	
 	alert(auto);
 }
 
