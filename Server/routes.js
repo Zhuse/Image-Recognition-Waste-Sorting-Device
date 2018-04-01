@@ -128,19 +128,13 @@ router.post('/mode', function(request, response) {
 
 
 
-
-
-
-
-
-
-
-
 router.post('/history', function(request, response){
-  
-
-
-})
+  var history = databaseController.getHistory(request.body.id);
+  response.json({
+    "success": history.success,
+    "history": history.historyArr
+  });
+});
 
 
 

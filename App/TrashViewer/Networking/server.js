@@ -1,4 +1,4 @@
-const apiInsertCommand = 'http://httpbin.org/post'; //TODO change this
+const apiInsertCommand = 'http://34.218.219.101:3000/setMode'; //TODO change this
 const apigetItemHistory = 'http://httpbin.org/post';//TODO change this
 const apiFetchCommand = 'http://localhost:3001/fetch_command';
 
@@ -16,9 +16,11 @@ async function insertCommand(command) {
 
         let responseJson = await response.json();
 
-/*        console.log(`${JSON.stringify(responseJson)}`);
         console.log(`Response is`);
-        console.log(`${responseJson.json.openGarbage}`);*/
+        console.log(`${JSON.stringify(responseJson)}`);
+/*
+        console.log(`${responseJson.json.success}`);
+*/
         //TODO change this. The current test server's response just echoes back the JSON sent in the POST request into responseJson.json
         return responseJson.json;
     } catch (error) {
