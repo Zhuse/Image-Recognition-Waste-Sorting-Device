@@ -7,7 +7,7 @@ var recyclingOpen = false;
 var compostOpen = false;
 var mode = false;
 var auto = false;
-
+var id = 1;
 /*
 function getData(callback) {
     $.getJSON('./api/getStats', function(data) {
@@ -95,13 +95,14 @@ function setMode() {
     data.compostOpen = compostOpen;
     var binInfo = JSON.stringify(data);*/
 
-    var binData = JSON.stringify({
-        'id': 1,
-        'auto': auto,
-        'garbageOpen': garbageOpen,
-        'recyclingOpen': recyclingOpen,
-        'compostOpen': compostOpen
-    });
+
+	var binData = JSON.stringify({
+		'id': id,
+		'auto': auto,
+		'garbageOpen': garbageOpen,
+		'recyclingOpen': recyclingOpen,
+		'compostOpen': compostOpen
+	});
 
     try {
         $.ajax({
@@ -124,6 +125,12 @@ function showChart() {
 function showStats() {
     document.getElementById('stats').style.display = 'block';
     document.getElementById('chart').style.display = 'none';
+}
+
+function updateId(){
+	var input = document.getElementById('binId').value;
+	id = input;
+	console.log(id);
 }
 
 function updateMode(changeMode) {
