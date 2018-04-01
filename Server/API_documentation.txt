@@ -60,7 +60,7 @@ endpoint: POST to /setMode
 
 request body format: (data to be send in "<>")
 {
-  "id": <id represeing unique id of this can>,
+  "id": <id representing unique id of this can>,
   "auto": <boolean representing if auto (image recog) mode is enabled>
   "garbageOpen": <boolean representing if can is open (manual mode, auto is false)>
   "recyclingOpen": <boolean representing if can is open (manual mode)>
