@@ -42,11 +42,11 @@ function showStats() {
 
 function updateMode(changeMode){
 	if(changeMode == 1){
-		garbageOpen = true;
+		auto = true;
 	} else {
-		garbageOpen = false;
+		auto = false;
 	}
-	alert(changeMode);
+	alert(auto);
 }
 
 function garbUpdate(bin) {
@@ -55,6 +55,7 @@ function garbUpdate(bin) {
 	} else {
 		garbageOpen = false;
 	}
+	setMode();
     alert(garbageOpen);
 }
 
@@ -64,6 +65,7 @@ function compostUpdate(bin) {
 	} else {
 		compostOpen = false;
 	}
+	setMode();
     alert(compostOpen);
 }
 
@@ -73,6 +75,7 @@ function recyclingUpdate(bin) {
 	} else {
 		recyclingOpen = false;
 	}
+	setMode();
     alert(recyclingOpen);
 }
 /*
