@@ -59,9 +59,9 @@
 	</div>
 	<div class="page-switcher">
 			<p class="fieldset">
-				<input type="radio" name="duration-2" value="monthly" id="monthly-2" onclick="showStats();">
+				<input type="radio" name="duration-2" value="monthly" id="monthly-2" onclick="updateMode(0);">
 				<label for="monthly-2">MANUAL</label>
-				<input type="radio" name="duration-2" value="yearly" id="yearly-2" onclick="showChart();">
+				<input type="radio" name="duration-2" value="yearly" id="yearly-2" onclick="updateMode(1)">
 				<label for="yearly-2">AUTOMATIC</label>
 				<span class="switch"></span>
 			</p>
@@ -86,7 +86,8 @@
 						<img src="images/garbage.png" alt="Garbage" height="150" width="150" class="image">
 						<br />
 						<footer class="page-footer">
-							<button class="select" onclick="garbUpdate()" id="garbButton">OPEN</button>
+							<button class="select" onclick="garbUpdate(1)">OPEN</button>
+							<button class="select" onclick="garbUpdate(0)">CLOSE</button>
 						</footer>
 					</li>
 				</ul>
@@ -105,7 +106,8 @@
 						<img src="images/compost.png" alt="Compost" height="150" width="150" class="image">
 						<br />
 						<footer class="page-footer">
-							<button class="select" onclick="compostUpdate()" id="compostButton">OPEN</button>
+							<button class="select" onclick="compostUpdate(1)">OPEN</button>
+							<button class="select" onclick="compostUpdate(0)">CLOSE</button>
 						</footer>
 					</li>
 				</ul>
@@ -124,7 +126,8 @@
 						<img src="images/recycling.png" alt="Recycling" height="150" width="150" class="image">
 						<br />
 						<footer class="page-footer">
-							<button class="select" onclick="recyclingUpdate()" id="recycleButton">OPEN</button>
+							<button class="select" onclick="recyclingUpdate(1)">OPEN</button>
+							<button class="select" onclick="recyclingUpdate(0)">CLOSE</button>
 						</footer>
 					</li>
 				</ul>

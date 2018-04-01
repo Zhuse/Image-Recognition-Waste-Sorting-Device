@@ -2,6 +2,12 @@
 //var urlRecycle = "35.163.191.108/api/getRecycle";
 //var urlCompost = "35.163.191.108/api/getCompost";
 
+var garbageOpen;
+var recyclingOpen;
+var compostOpen;
+var mode;
+var auto;
+
 function getData(callback) {
     $.getJSON('./api/getStats', function(data) {
         console.log(data.garbage);
@@ -34,20 +40,40 @@ function showStats() {
     document.getElementById('chart').style.display = 'none';
 }
 
-function garbUpdate() {
-    alert("Open garbage");
+function updateMode(changeMode){
+	if(changeMode == 1){
+		garbageOpen = true;
+	} else {
+		garbageOpen = false;
+	}
+	alert(changeMode);
 }
 
-function compostUpdate() {
-    alert("Open compost");
+function garbUpdate(bin) {
+	if(bin == 1){
+		garbageOpen = true;
+	} else {
+		garbageOpen = false;
+	}
+    alert(garbageOpen);
 }
 
-function recyclingUpdate() {
-    alert("Open recycling");
+function compostUpdate(bin) {
+	if(bin == 1){
+		compostOpen = true;
+	} else {
+		compostOpen = false;
+	}
+    alert(compostOpen);
 }
 
-function closeBin() {
-    alert("Close Bin");
+function recyclingUpdate(bin) {
+	if(bin == 1){
+		recyclingOpen = true;
+	} else {
+		recyclingOpen = false;
+	}
+    alert(recyclingOpen);
 }
 /*
 function getGarbage() {

@@ -430,6 +430,7 @@ body {
     letter-spacing: 2px;
 	transition: all .6s;
 	width: 70%;
+	margin-top: 15px;
 }
 
 .no-touch .select:hover {
