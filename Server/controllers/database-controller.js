@@ -6,67 +6,75 @@ const db = server.db;
 
 
 // return true if success, false otherwise
-var setMode = function (id, auto, garbageOpen, recyclingOpen, compostOpen) {
-  if (!testId(id)) {
-    db.run("INSERT INTO mode (id, auto, garbage_open, recycling_open, compost_open) VALUES (?,?,?,?,?)",
-        [id, auto, garbageOpen, recyclingOpen, compostOpen],
-        function (err, rows) {
-          return !err && rows !== null;
-        });
-  }
-  if (auto) {
-    db.run("UPDATE mode SET (auto) = (?) WHERE id = (?)",
-        [auto, id],
-        function (err, rows) {
-          return !err && rows !== null;
-        });
-  } else {
-    db.run("UPDATE mode SET (auto, garbageOpen, recyclingOpen, compostOpen) = (?, ?, ?, ?) WHERE id = (?)",
-        [auto, garbageOpen, recyclingOpen, compostOpen, id],
-        function (err, rows) {
-          return !err && rows !== null;
-        });
-  }
+var setMode = function (response, id, auto, garbageOpen, recyclingOpen, compostOpen) {
+  db.all("SELECT 1 FROM mode WHERE id = (?) LIMIT 1", [id],
+      function (err, rows){
+        if (err) {
+          response.json({"success": false});
+        }
+        if (rows.length > 0) {
+
+          if (auto) {
+//            console.log("testid pass, if true");
+            db.run("UPDATE mode SET (auto) = (?) WHERE id = (?)",
+                [auto, id],
+                function (err, rows) {
+                  response.json({"success": !err && rows !== null});
+                });
+          } else {
+//            console.log("testid pass, else");
+            db.run("UPDATE mode SET (auto, garbage_open, recycling_open, compost_open) = (?, ?, ?, ?) WHERE id = (?)",
+                [auto, garbageOpen, recyclingOpen, compostOpen, id],
+                function (err, rows) {
+                  response.json({"success": !err && rows !== null});
+                });
+          }
+
+        } else {
+ //         console.log("testid fail");
+          db.run("INSERT INTO mode (id, auto, garbage_open, recycling_open, compost_open) VALUES (?,?,?,?,?)",
+              [id, auto, garbageOpen, recyclingOpen, compostOpen],
+              function (err, rows) {
+                response.json({"success": !err && rows !== null});
+              });
+        }
+      });
 }
 
-/*
-return format
-{
-  success: boolean,
-  auto: boolean,
-  garbageOpen: boolean,
-  recycingOpen: boolean,
-  compostOpen: boolean
-}
-*/
-var getMode = function (id) {
+var getMode = function (id, response) {
+  console.log("in function getMode, id: " + id);
   db.all("SELECT auto FROM mode WHERE id = (?)", [id],
       function (err, rows){
-        if (err || rows.length != 1) {
-          return {
+        if (err || rows.length !== 1) {
+          response.json({
             success: false
-          }
+          });
+          return;
         }
-        if (rows[0] == 1) {
-          return {
+        if (rows[0].auto) {
+          response.json({
             success: true,
-            auto: true,
-          }
+            auto: true
+          });
+          return;
         }
-        db.all("SELECT garbage_open, recycing_open, compost_open FROM mode WHERE id = (?)", [id],
+        db.all("SELECT garbage_open, recycling_open, compost_open FROM mode WHERE id = (?)", [id],
           function (err, rows){
-            if (err || rows.length != 3) {
-              return {
+            console.log(rows.length);
+            if (err || rows.length != 1) {
+              response.json({
                 success: false
-              }
+              });
+              return;
             }
-            return {
+            response.json({
               success: true,
-              auto: true,
-              garbageOpen: rows[0],
-              recycingOpen: rows[1],
-              compostOpen: rows[2]
-            }
+              auto: false,
+              garbageOpen: !!rows[0].garbage_open,
+              recycingOpen: !!rows[0].recycling_open,
+              compostOpen: !!rows[0].compost_open
+            });
+            return;
           });
       });
 }
@@ -103,14 +111,14 @@ var addHistoryEntry = function (id, waste) {
   yesterdayCompostCount: int
 }
 */
-var getHistory = function (id) {
+var getHistory = function (id, response) {
   db.all("SELECT * FROM history WHERE id = (?)", [id],
       function (err, rows){
         if (err) {
-          return {
+          response.json({
             success: false,
             history: []
-          }
+          });
         }
 
 
@@ -119,15 +127,15 @@ var getHistory = function (id) {
         for (var i = 0; i < rows.length; i++) {
           historyArr.push(
               {
-                "time": rows[2],
-                "bin": rows[1]
+                "time": rows[i].timestamp,
+                "bin": rows[i].waste_type
               }
             );
         }
-        return {
+        response.json({
           success: true,
           history: historyArr
-        };
+        });
       });
 }
 
@@ -139,41 +147,17 @@ var getHistory = function (id) {
 
 
 
-// private helper function
-// updates stats if id already exists, if not inserts new row into db
-var insertDatabase = function(id, garbage, recycling, compost) {
-  if (!testId(id)) {
-
-    db.run("INSERT INTO count (id, garbage, recycling, compost ) VALUES (?,?,?,?)",
-        [id, garbage, recycling, compost],
-        function (err, rows) {
-          // return false if error or query not successful, true otherwise
-          console.log(!err && rows !== null);
-          return !err && rows !== null;
-        });
-
-  } else {
-
-    db.run("UPDATE count SET (garbage, recycling, compost) = (?,?,?) WHERE id = (?)",
-        [garbage, recycling, compost, id],
-        function (err, rows) {
-          console.log(!err && rows !== null);
-          return !err && rows !== null;
-        });
-
-  }
-}
-
 
 // private helper function
 // tests if id already exists in table
 var testId = function (id) {
-  return db.all("SELECT EXISTS(SELECT 1 FROM count WHERE id = (?) LIMIT 1", [id],
+  return db.all("SELECT 1 FROM mode WHERE id = (?) LIMIT 1", [id],
       function (err, rows){
         if (err) {
           return false;
         }
-        return rows.size > 0;
+        console.log(rows.length);
+        return rows.length > 0;
       });
 }
 
