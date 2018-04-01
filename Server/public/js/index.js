@@ -23,6 +23,22 @@ function showStats(){
   document.getElementById('stats').style.display ='block';
   document.getElementById('chart').style.display ='none';
 }
+
+function garbUpdate(){
+  alert("Open garbage");
+}
+
+function compostUpdate(){
+  alert("Open compost");
+}
+
+function recyclingUpdate(){
+  alert("Open recycling");
+}
+
+function closeBin(){
+  alert("Close Bin");
+}
 /*
 function getGarbage() {
   $.getJSON('./api/getGarbage',function(data){
