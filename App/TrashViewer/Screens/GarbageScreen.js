@@ -35,7 +35,7 @@ export default class GarbageScreen extends Component {
 
                         onPress={() => {
                             const newCommand = {
-                                id: 12345, //TODO CHANGE THIS
+                                id: 1, //TODO CHANGE THIS
                                 auto: false,
                                 garbageOpen: !this.state.isOpen,
                                 recyclingOpen: false,
@@ -43,7 +43,7 @@ export default class GarbageScreen extends Component {
                             };
 
                             insertCommand(newCommand).then((response) => {
-                                if (response.success === true) {
+                                if (response.success == true) {
                                     this.setState({isOpen: !this.state.isOpen});
                                     if(this.state.isOpen) {
                                         this.setState({timesOpened: this.state.timesOpened + 1});
@@ -92,10 +92,12 @@ export default class GarbageScreen extends Component {
     }
 
     componentDidMount() {
-        const url = "https://randomuser.me/api?results=500"; /*TODO change this*/
+        const url = "http://34.218.219.101:3000/history"; /*TODO change this*/
         fetch(url)
             .then((response) => response.json())
             .then((responseJson) => {
+                console.log(`Response is`);
+                console.log(`${JSON.stringify(responseJson)}`);
                 this.setState({
                     dataSource: responseJson.history, /*TODO change this. responseJson.ARRAY_FIELD*/
                     isLoading: false
@@ -109,7 +111,7 @@ export default class GarbageScreen extends Component {
     renderItem = ({item}) => {
         return (
             <Text style={{fontSize: 18, color: 'black', marginBottom: 10}}>
-                {`${item.time}`} /*TODO change this*/
+                {`${item.time.toString()}`} /*TODO change this*/
             </Text>
         )
 
