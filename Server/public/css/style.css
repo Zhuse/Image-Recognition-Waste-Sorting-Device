@@ -1,17 +1,21 @@
+* {
+	list-style-type:none;
+}
+
 #header {
-  background-color: #494949;
+  background-color: #F5F5F5;
   margin-bottom:  20px;
   font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
   font-size: 20px;
   margin-top: 15px;
   text-align: center;
   letter-spacing: 3px;
-  color: #F9F9F9;
+  color: #2d3e50;
 }
 
 #chart {
   display:block;
-  background-color: #F9F9F9;
+  background-color: #F5F5F5;
   width: 90%;
   height: 60%;
   margin-right: auto;
@@ -25,9 +29,18 @@
 	margin-left: 8%;
 	margin-top: -3%;	
 }
+
+#header-container {
+	display: block;
+	width: 77%;
+	margin-right: auto;
+	margin-left: auto;
+	margin-bottom: 20px;
+	background-color: #F5F5F5;
+}
 body {
   padding-top: 5px;
-  background-color: #494949	;
+  background-color: #F5F5F5;
 }
 
 .image {
@@ -59,6 +72,7 @@ body {
     width: 29%;
 	height: 50%;
     float: left;
+	
   }
   .has-margins .page-list > li {
     width: 28%;
@@ -160,6 +174,8 @@ body {
 .page-wrapper .is-visible {
 	position: relative;
 	z-index: 5;
+	width: 100%;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .page-wrapper .is-hidden {
@@ -232,6 +248,7 @@ body {
 	-o-transform: rotateY(0);
 	transform: rotateY(0);
 	margin-top: 1em;
+	height:40%;
 }
 
 @media only screen and (min-width: 768px) {
@@ -475,13 +492,18 @@ body {
 	text-align: center;
 	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 	padding: 5px;
+	padding-left: auto;
+	padding-right: auto;
+	
 }
 
 .page-switcher .fieldset {
 	display: inline-block;
 	position: relative;	
 	border-radius: 50em;
-	border: 2px solid #ffffff;
+	border: 2px solid rgb(45, 62, 80, 0.8);
+	margin-right: 4%;
+	margin-left: 4%;
 }
 
 .page-switcher input[type="radio"] {
@@ -499,7 +521,7 @@ body {
 	line-height: 45px;
 	cursor: pointer;
 	font-size: 1.1rem;
-	color: #ffffff;
+	color: rgb(45, 62, 80, 0.8);
 }
 
 .page-switcher .switch {
@@ -508,7 +530,8 @@ body {
 	left: 2px;
 	height: 40px;
 	width: 90px;
-	background-color: #777777;
+	background-color: rgba(45, 62, 80, 0.1);
+	background: transparent / 3;
 	border-radius: 50em;
 	-webkit-transition: -webkit-transform 0.5s;
 	-moz-transition: -moz-transform 0.5s;
