@@ -63,6 +63,8 @@ def updateSeg(bin):
         segR()
     else:
         segOff()
+    sleep(5)
+    segOff()
 
 def greenOn():
     ledGreen.off()

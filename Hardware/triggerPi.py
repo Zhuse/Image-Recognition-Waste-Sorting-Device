@@ -51,6 +51,8 @@ def main():
                 print (binString)
                 binNumber = categoriesDict[binString]
                 print ("Opening" + str(binNumber))
+                #display bin on seven segment led
+                updateSeg(binString)
                 openBin(binNumber)
             time.sleep(0.1)
             
