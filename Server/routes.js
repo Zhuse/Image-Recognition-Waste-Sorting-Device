@@ -72,15 +72,9 @@ router.post('/recognition', function(request, response) {
 router.post('/setMode', function (request, response) {
   console.log(request.body);
   if (request.body.auto) {
-    var success = databaseController.setMode(request.body.id, request.body.auto)
-    response.json({
-      "success": success,
-    });
+    databaseController.setMode(response, request.body.id, request.body.auto)
   } else {
-    var success = databaseController.setMode(request.body.id, request.body.auto, request.body.garbageStatus, request.body.recyclingStatus, request.body.compostStatus);
-    response.json({
-      "success": success,
-    });
+    databaseController.setMode(response, request.body.id, request.body.auto, request.body.garbageOpen, request.body.recyclingOpen, request.body.compostOpen);
   }
 });
 
@@ -98,42 +92,17 @@ json
 }
 */
 router.post('/mode', function(request, response) {
-  var mode = databaseController.getMode(request.body.id);
-  if (!mode.success) {
-    response.json({
-      "success": false,
-      "auto": null,
-      "garbageOpen": null,
-      "recyclingOpen": null,
-      "compostOpen": null
-    });
-  }
-  if (mode.auto) {
-    response.json({
-      "success": true,
-      "auto": true,
-      "garbageOpen": null,
-      "recyclingOpen": null,
-      "compostOpen": null
-    });
-  }
-  response.json({
-    "success": true,
-    "auto": true,
-    "garbageOpen": mode.garbageOpen,
-    "recyclingOpen": mode.recyclingOpen,
-    "compostOpen": mode.compostOpen
-  });
+  databaseController.getMode(request.body.id, response);
 });
 
 
 
 router.post('/history', function(request, response){
-  var history = databaseController.getHistory(request.body.id);
-  response.json({
-    "success": history.success,
-    "history": history.historyArr
-  });
+  databaseController.getHistory(request.body.id, response);
+//  response.json({
+//    "success": history.success,
+//    "history": history.historyArr
+//  });
 });
 
 
