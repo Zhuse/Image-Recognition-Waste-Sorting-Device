@@ -8,6 +8,7 @@ export default class GarbageScreen extends Component {
         super();
         this.state = {
             timesOpened: 0,
+            isOpen: false,
             dataSource: [],
             isLoading: true
         }
@@ -33,18 +34,20 @@ export default class GarbageScreen extends Component {
                         style={styles.icon}
 
                         onPress={() => {
-                            /*TODO CHANGE THIS*/
                             const newCommand = {
-                                openGarbage: true,
-                                openCompost: false,
-                                openRecycling: false
+                                id: 12345, //TODO CHANGE THIS
+                                auto: false,
+                                garbageOpen: !this.state.isOpen,
+                                recyclingOpen: false,
+                                compostOpen: false
                             };
 
-                            //TODO change this. The current argument in then(...) (the return value of insertCommand) is a JSON object containing
-                            //3 fields. openGarbage, openCompost, openRecycling
-                            insertCommand(newCommand).then((indicator) => {
-                                if (indicator.openGarbage === true) { //TODO change this. Varies depending on screen
-                                    this.setState({timesOpened: this.state.timesOpened + 1});
+                            insertCommand(newCommand).then((response) => {
+                                if (response.success === true) {
+                                    this.setState({isOpen: !this.state.isOpen});
+                                    if(this.state.isOpen) {
+                                        this.setState({timesOpened: this.state.timesOpened + 1});
+                                    }
                                 }
                                 else {
                                     alert("could not open bin");
@@ -72,6 +75,10 @@ export default class GarbageScreen extends Component {
                     justifyContent: 'center',
                     alignItems: 'center'
                 }}>
+
+                    {/*
+                    ALL LOG STUFF BELOW
+                    */}
                     <FlatList
                         data={this.state.dataSource}
                         renderItem={this.renderItem}
@@ -85,12 +92,12 @@ export default class GarbageScreen extends Component {
     }
 
     componentDidMount() {
-        const url = "https://randomuser.me/api?results=500";
+        const url = "https://randomuser.me/api?results=500"; /*TODO change this*/
         fetch(url)
             .then((response) => response.json())
             .then((responseJson) => {
                 this.setState({
-                    dataSource: responseJson.results, /*TODO change this. responseJson.ARRAY_FIELD*/
+                    dataSource: responseJson.history, /*TODO change this. responseJson.ARRAY_FIELD*/
                     isLoading: false
                 })
             })
@@ -102,7 +109,7 @@ export default class GarbageScreen extends Component {
     renderItem = ({item}) => {
         return (
             <Text style={{fontSize: 18, color: 'black', marginBottom: 10}}>
-                {`${item.name.first} ${item.registered}`}
+                {`${item.time}`} /*TODO change this*/
             </Text>
         )
 
