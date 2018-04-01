@@ -70,6 +70,7 @@ router.post('/recognition', function(request, response) {
 
 
 router.post('/setMode', function (request, response) {
+  console.log(request.body);
   if (request.body.auto) {
     var success = databaseController.setMode(request.body.id, request.body.auto)
     response.json({
