@@ -19,7 +19,7 @@ async function insertCommand(command) {
 /*        console.log(`${JSON.stringify(responseJson)}`);
         console.log(`Response is`);
         console.log(`${responseJson.json.openGarbage}`);*/
-        //TODO change this. The current test server's response just echoes back the JSON sent in the POST request
+        //TODO change this. The current test server's response just echoes back the JSON sent in the POST request into responseJson.json
         return responseJson.json;
     } catch (error) {
         console.error(`Error is : ${error}`);

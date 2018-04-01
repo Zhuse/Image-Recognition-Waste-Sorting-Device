@@ -23,7 +23,7 @@ export default class GarbageScreen extends Component {
             }}>
                 <View
                     style={{
-                        flex: 8,
+                        flex: 7,
                         flexDirection: 'column',
                         justifyContent: 'center',
                         alignItems: 'center'
@@ -43,9 +43,8 @@ export default class GarbageScreen extends Component {
                             //TODO change this. The current argument in then(...) (the return value of insertCommand) is a JSON object containing
                             //3 fields. openGarbage, openCompost, openRecycling
                             insertCommand(newCommand).then((indicator) => {
-                                if (indicator.openGarbage === true) {
-                                    this.state.timesOpened += 1;
-                                    console.log(this.state.timesOpened);
+                                if (indicator.openGarbage === true) { //TODO change this. Varies depending on screen
+                                    this.setState({timesOpened: this.state.timesOpened + 1});
                                 }
                                 else {
                                     alert("could not open bin");
@@ -68,7 +67,7 @@ export default class GarbageScreen extends Component {
                 </View>
 
                 <View style={{
-                    flex: 2,
+                    flex: 3,
                     flexDirection: 'column',
                     justifyContent: 'center',
                     alignItems: 'center'
@@ -83,6 +82,21 @@ export default class GarbageScreen extends Component {
 
             </View>
         );
+    }
+
+    componentDidMount() {
+        const url = "https://randomuser.me/api?results=500";
+        fetch(url)
+            .then((response) => response.json())
+            .then((responseJson) => {
+                this.setState({
+                    dataSource: responseJson.results, /*TODO change this. responseJson.ARRAY_FIELD*/
+                    isLoading: false
+                })
+            })
+            .catch((error) => {
+                console.log(error);
+            })
     }
 
     renderItem = ({item}) => {
@@ -113,21 +127,6 @@ export default class GarbageScreen extends Component {
             </View>
         )
     };
-
-    componentDidMount() {
-        const url = "https://randomuser.me/api?results=500";
-        fetch(url)
-            .then((response) => response.json())
-            .then((responseJson) => {
-                this.setState({
-                    dataSource: responseJson.results,
-                    isLoading: false
-                })
-            })
-            .catch((error) => {
-                console.log(error);
-            })
-    }
 }
 
 const styles = StyleSheet.create({
