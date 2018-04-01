@@ -13,6 +13,29 @@
   color: #2d3e50;
 }
 
+#update {
+	width: 8%;
+	display: block;
+	position: absolute;
+	top: 9.5%;
+	left: 72.9%;
+	height: 5%;
+	border-radius: 0 6px 6px 0;
+	padding: auto;
+}
+
+#binId {
+	display: block;
+	position: absolute;
+	top: 11%;
+	left: 70%;
+	height: 5%;
+	width: 3%;
+	border-radius: 6px 0px 0px 6px;
+	border: 2px #7d8ea0 solid;
+	font-size: 24px;
+	text-align: center;
+}
 #chart {
   display:block;
   background-color: #F5F5F5;
@@ -41,6 +64,11 @@
 body {
   padding-top: 5px;
   background-color: #F5F5F5;
+}
+
+
+textarea:focus, input:focus{
+    outline: none;
 }
 
 .image {
@@ -491,7 +519,6 @@ body {
 
 .page-switcher {
 	text-align: center;
-	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 	padding: 5px;
 	padding-left: auto;
 	padding-right: auto;
