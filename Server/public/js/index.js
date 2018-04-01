@@ -20,33 +20,73 @@ function getData(callback) {
 }*/
 
 /**
- * Retrieves serverside data of garbage history
+ * Retrieve serverside data for graph
  * @return {[type]} [description]
  */
 function getData() {
-	var binData = JSON.stringify({
-		'id': 1,
-	});
+    var binData = JSON.stringify({
+        'id': 1,
+    });
 
-	try {
-		$.ajax({
-			type: 'POST',
-			url: './history',
-			data: binData,
-			dataType: 'json',
-			contentType: "application/json",
-			success: function(response) { //Callback
-				alert(response.success); //placeholder
-			}
-		});
-	} catch (err) {}
+    try {
+        $.ajax({
+            type: 'POST',
+            url: './history',
+            data: binData,
+            dataType: 'json',
+            contentType: "application/json",
+            success: function(response) { //Callback
+                //alert(response.success); //placeholder
+                var table = parseHistory(response.history);
+            }
+        });
+    } catch (err) {}
+}
+
+/**
+ * Helper function, parses a json history object and creates a freq table
+ * for num objects in each bin
+ * @param  {[type]} history [description]
+ * @return {[type]}         [description]
+ */
+function parseHistory(history){
+	var dict = {1: 0, 2: 0, 3: 0};
+	for (var i = 0; i < history.length; i++) {
+		console.log(history[i]);
+		dict[history[i].bin] ++;
+	}
+	console.log(dict);
+	return dict;
+}
+
+/**
+ * Retrieves serverside data for log
+ * @return {[type]} [description]
+ */
+function getHistory() {
+    var binData = JSON.stringify({
+        'id': 1,
+    });
+
+    try {
+        $.ajax({
+            type: 'POST',
+            url: './history',
+            data: binData,
+            dataType: 'json',
+            contentType: "application/json",
+            success: function(response) { //Callback
+                alert(response.success); //placeholder
+            }
+        });
+    } catch (err) {}
 }
 
 /**
  * Sets the bin mode and which bins to open
  */
 function setMode() {
-	/*
+    /*
     var data = new Object();
     data.id = 1;
     data.auto = auto;
@@ -55,13 +95,13 @@ function setMode() {
     data.compostOpen = compostOpen;
     var binInfo = JSON.stringify(data);*/
 
-	var binData = JSON.stringify({
-		'id': 1,
-		'auto': auto,
-		'garbageOpen': garbageOpen,
-		'recyclingOpen': recyclingOpen,
-		'compostOpen': compostOpen
-	});
+    var binData = JSON.stringify({
+        'id': 1,
+        'auto': auto,
+        'garbageOpen': garbageOpen,
+        'recyclingOpen': recyclingOpen,
+        'compostOpen': compostOpen
+    });
 
     try {
         $.ajax({
@@ -121,6 +161,7 @@ function compostUpdate(bin) {
         compostOpen = false;
     }
     setMode();
+
     //alert(compostOpen);
 }
 
@@ -131,7 +172,7 @@ function recyclingUpdate(bin) {
         recyclingOpen = false;
     }
     setMode();
-    //getData();
+
     //alert(recyclingOpen);
 }
 /*
