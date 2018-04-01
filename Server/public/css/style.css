@@ -441,9 +441,9 @@ body {
     display: inline-block;
     height: auto;
     padding: 1.3em 2em;
-    color: #1bbc9d;
+    color: #2d3e50;
     border-radius: 8px;
-    border: 2px solid #1bbc9d;
+    border: 2px solid #2d3e50;
     font-size: 1.4rem;
     text-indent: 0;
     text-transform: uppercase;
@@ -453,15 +453,16 @@ body {
 	margin-top: 15px;
 	margin-left: auto;
 	margin-right: auto;
+	background-color:#ffffff;
 }
 
-.no-touch .select:hover {
+.select:hover {
     background-color: #1bbc9d;
 	color: #ffffff;
 }
 
 .exclusive .select {
-    background-color: #ffffffx`;
+    background-color: #fffffff;
 	color: #ffffff;
 }
   
@@ -501,7 +502,7 @@ body {
 	display: inline-block;
 	position: relative;	
 	border-radius: 50em;
-	border: 2px solid rgb(45, 62, 80, 0.8);
+	border: 2px solid rgba(45, 62, 80, 0.8);
 	margin-right: 4%;
 	margin-left: 4%;
 }
@@ -521,7 +522,7 @@ body {
 	line-height: 45px;
 	cursor: pointer;
 	font-size: 1.1rem;
-	color: rgb(45, 62, 80, 0.8);
+	color: rgba(45, 62, 80, 0.8);
 }
 
 .page-switcher .switch {
