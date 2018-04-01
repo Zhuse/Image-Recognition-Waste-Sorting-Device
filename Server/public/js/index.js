@@ -2,11 +2,11 @@
 //var urlRecycle = "35.163.191.108/api/getRecycle";
 //var urlCompost = "35.163.191.108/api/getCompost";
 
-var garbageOpen;
-var recyclingOpen;
-var compostOpen;
-var mode;
-var auto;
+var garbageOpen = false;
+var recyclingOpen = false;
+var compostOpen = false;
+var mode = false;
+var auto = false;
 
 function getData(callback) {
     $.getJSON('./api/getStats', function(data) {
@@ -20,13 +20,43 @@ function getData(callback) {
 }
 
 function setMode() {
-    $.post("34.218.219.101:3000/setMode", {
-		id: 1,
-		auto: auto,
-		garbageOpen: garbageOpen,
-		recyclingOpen: recyclingOpen,
-		compostOpen: compostOpen
-    });
+/*
+var binInfo = JSON.stringify({
+	'id': 1,
+	'auto': auto,
+	'garbageOpen': garbageOpen,
+	'recyclingOpen': recyclingOpen,
+	'compostOpen': compostOpen
+});*/
+var data = new Object();
+data.id = 1;
+data.auto = auto;
+data.garbageOpen = garbageOpen;
+data.recyclingOpen = recyclingOpen;
+data.compostOpen = compostOpen;
+var binInfo = JSON.stringify(data);
+
+try{
+$.ajax({
+	type: 'POST',
+	url: './setMode',
+	data: binInfo,
+	dataType: 'json',
+	contentType: "application/json",
+	success: function(data){}
+});
+}catch(err){
+}
+
+/*
+$.post('./setMode', {
+		"id": 1,
+		"auto": auto,
+		"garbageOpen": garbageOpen,
+		"recyclingOpen": recyclingOpen,
+		"compostOpen": compostOpen
+});*/
+
 }
 
 
@@ -56,8 +86,6 @@ function updateMode(changeMode){
 		}
 		setMode();
 	}
-	
-	alert(auto);
 }
 
 function garbUpdate(bin) {
@@ -67,7 +95,7 @@ function garbUpdate(bin) {
 		garbageOpen = false;
 	}
 	setMode();
-    alert(garbageOpen);
+    //alert(garbageOpen);
 }
 
 function compostUpdate(bin) {
@@ -77,7 +105,7 @@ function compostUpdate(bin) {
 		compostOpen = false;
 	}
 	setMode();
-    alert(compostOpen);
+    //alert(compostOpen);
 }
 
 function recyclingUpdate(bin) {
@@ -87,7 +115,7 @@ function recyclingUpdate(bin) {
 		recyclingOpen = false;
 	}
 	setMode();
-    alert(recyclingOpen);
+    //alert(recyclingOpen);
 }
 /*
 function getGarbage() {
