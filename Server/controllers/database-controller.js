@@ -15,14 +15,14 @@ var setMode = function (response, id, auto, garbageOpen, recyclingOpen, compostO
         if (rows.length > 0) {
 
           if (auto) {
-//            console.log("testid pass, if true");
+  //          console.log("testid pass, if true");
             db.run("UPDATE mode SET (auto) = (?) WHERE id = (?)",
                 [auto, id],
                 function (err, rows) {
                   response.json({"success": !err && rows !== null});
                 });
           } else {
-//            console.log("testid pass, else");
+ //           console.log("testid pass, else");
             db.run("UPDATE mode SET (auto, garbage_open, recycling_open, compost_open) = (?, ?, ?, ?) WHERE id = (?)",
                 [auto, garbageOpen, recyclingOpen, compostOpen, id],
                 function (err, rows) {
@@ -31,7 +31,7 @@ var setMode = function (response, id, auto, garbageOpen, recyclingOpen, compostO
           }
 
         } else {
- //         console.log("testid fail");
+//         console.log("testid fail");
           db.run("INSERT INTO mode (id, auto, garbage_open, recycling_open, compost_open) VALUES (?,?,?,?,?)",
               [id, auto, garbageOpen, recyclingOpen, compostOpen],
               function (err, rows) {
