@@ -8,7 +8,11 @@ const db = server.db;
 // return true if success, false otherwise
 var setMode = function (id, auto, garbageOpen, recyclingOpen, compostOpen) {
   if (!testId(id)) {
-    return false;
+    db.run("INSERT INTO mode (id, auto, garbage_open, recycling_open, compost_open) VALUES (?,?,?,?,?)",
+        [id, auto, garbageOpen, recyclingOpen, compostOpen],
+        function (err, rows) {
+          return !err && rows !== null;
+        });
   }
   if (auto) {
     db.run("UPDATE mode SET (auto) = (?) WHERE id = (?)",
@@ -82,7 +86,7 @@ var addHistoryEntry = function (id, waste) {
     case GARBAGE_TYPE.RECYCLING: waste_type = 2; break;
     case GARBAGE_TYPE.COMPOST: waste_type = 3; break;
   }
-  db.run("INSERT INTO history (id, waste_type, timestamp) VALUES = (?,?,strftime('%w', 'now', 'localtime'))", [id, waste_type],
+  db.run("INSERT INTO history (id, waste_type, timestamp) VALUES (?,?,datetime('now', 'localtime'))", [id, waste_type],
       function (err, rows) {
         return !err && rows !== null;
       });
@@ -105,54 +109,26 @@ var getHistory = function (id) {
         if (err) {
           return {
             success: false,
-            todayGarbageCount: 0,
-            todayRecyclingCount: 0,
-            todayCompostCount: 0,
-            yesterdayGarbageCount: 0,
-            yesterdayRecyclingCount: 0,
-            yesterdayCompostCount: 0
+            history: []
           }
         }
 
-        var date = new Date();
-        var currDate = date.getDay();
 
-        var todayGarbageCount = 0;
-        var todayRecyclingCount = 0;
-        var todayCompostCount = 0;
-
-        var yesterdayGarbageCount = 0;
-        var yesterdayRecyclingCount = 0;
-        var yesterdayCompostCount = 0;
+        var historyArr = [];
 
         for (var i = 0; i < rows.length; i++) {
-          if ((rows[i].timestamp - currDate) == 0) {
-            switch(rows[i].waste_type) {
-              case 1: todayGarbageCount++; break;
-              case 2: todayRecyclingCount++; break;
-              case 3: todayCompostCount++; break;
-            }
-          } else {
-            switch(rows[i].waste_type) {
-              case 1: yesterdayGarbageCount++; break;
-              case 2: yesterdayRecyclingCount++; break;
-              case 3: yesterdayCompostCount++; break;
-            }
-          }
+          historyArr.push(
+              {
+                "time": rows[2],
+                "bin": rows[1]
+              }
+            );
         }
-
         return {
           success: true,
-          todayGarbageCount: todayGarbageCount,
-          todayRecyclingCount: todayRecyclingCount,
-          todayCompostCount: todayCompostCount,
-          yesterdayGarbageCount: yesterdayGarbageCount,
-          yesterdayRecyclingCount: yesterdayRecyclingCount,
-          yesterdayCompostCount: yesterdayCompostCount
+          history: historyArr
         };
-
       });
-
 }
 
 
