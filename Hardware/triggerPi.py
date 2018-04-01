@@ -2,7 +2,6 @@ from take_photo import *
 from sonar import *
 from servoMotor import *
 from led import *
-from lcd import *
 import json
 import requests
 import time
@@ -52,8 +51,6 @@ def main():
                 print (binString)
                 binNumber = categoriesDict[binString]
                 print ("Opening" + str(binNumber))
-                #LCD updates then bin trigger
-                updateLCD(binString)
                 openBin(binNumber)
             time.sleep(0.1)
             
