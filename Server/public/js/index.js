@@ -133,7 +133,27 @@ function setMode() {
     } catch (err) {}
 }
 
+function resetMotors() {
+	var binData = JSON.stringify({
+		'id': parseInt(id),
+		'auto': false,
+		'garbageOpen': false,
+		'recyclingOpen': false,
+		'compostOpen': false
+	});
 
+    try {
+        $.ajax({
+            type: 'POST',
+            url: './setMode',
+            data: binData,
+            dataType: 'json',
+            contentType: "application/json",
+            success: function(response) {}
+        });
+    } catch (err) {}
+	setMode();
+}
 function showChart() {
     document.getElementById('chart').style.display = 'block';
     document.getElementById('stats').style.display = 'none';
@@ -155,7 +175,6 @@ function updateId(){
 	setMode();
 	getHistory();
 	getData();
-	console.log(id);
 }
 
 function updateMode(changeMode) {
@@ -167,14 +186,14 @@ function updateMode(changeMode) {
             footers[i].style.display = 'none';
         }
 		var update = document.getElementById('update');
-        setMode();
+        resetMotors();
     } else {
         auto = false;
         var footers = document.getElementsByClassName('select');
         for (i = 0; i < footers.length; i++) {
             footers[i].style.display = 'block';
         }
-        setMode();
+        resetMotors();
     }
 }
 

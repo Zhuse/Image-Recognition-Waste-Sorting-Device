@@ -50,8 +50,6 @@ def main():
     resetServo()
     while (True):
         while(automaticMode):
-            resetServo()
-            time.sleep(0.5)
             #Sets distance at an arbitrarily large int
             objectDistance = 9999999
 
@@ -87,8 +85,5 @@ def main():
         #When automatic mode is turned off then allow for force opens 
     
        # if (not automaticMode):
-def manualOpen():
-    
-    print ("Manually open")
-    #openBin(0)
+
 main()
