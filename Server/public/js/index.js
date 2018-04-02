@@ -55,10 +55,21 @@ function getData() {
  */
 function parseHistory(history){
 	var dict = {'1': 0, '2': 0, '3': 0};
+	var hist = '';
 	for (var i = 0; i < history.length; i++) {
 		console.log(history[i]);
+		if(history[i].bin == '1'){
+			hist += '<p>Garbage thrown at ' + history[i].time + '</p><br />';
+		}
+		if(history[i].bin == '2'){
+			hist += '<p>Recycling thrown at ' + history[i].time + '</p><br />';
+		}
+		if(history[i].bin == '3'){
+			hist += '<p>Compost thrown at ' + history[i].time + '</p><br />';
+		}
 		dict[history[i].bin] ++;
 	}
+	var update = document.getElementById('history').innerHTML = hist;
 	garbage = document.getElementById('garbageVal').textContent = dict[1];
 	recycling = document.getElementById('recyclingVal').textContent = dict[2];
 	compost = document.getElementById('compostVal').textContent = dict[3];

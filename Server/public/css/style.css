@@ -37,7 +37,7 @@
 	text-align: center;
 }
 #chart {
-  display:block;
+  display:none;
   position: relative;
   background-color: #FFFFFF;
   width: 70%;
@@ -49,12 +49,13 @@
 #history {
 	width: 30%;
 	height: 70%;
-	display:block;
+	display:none;
 	position: relative;
 	left: 7%;
 	overflow: scroll;
 	background-color: #FFFFFF;
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	font-size: 16px;
 }
 
 #total {
