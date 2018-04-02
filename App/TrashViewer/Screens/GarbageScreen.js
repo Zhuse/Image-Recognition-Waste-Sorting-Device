@@ -44,7 +44,7 @@ export default class GarbageScreen extends Component {
                             };
 
                             insertCommand(newCommand).then((response) => {
-                                if (response.success == true) {
+                                if (response.success) {
                                     this.setState({isOpen: !this.state.isOpen});
                                     if (this.state.isOpen) {
                                         this.setState({timesOpened: this.state.timesOpened + 1});
@@ -81,6 +81,7 @@ export default class GarbageScreen extends Component {
                     ALL LOG STUFF BELOW
                     */}
                     <FlatList
+                        extraData={this.state.dataSource}
                         data={this.state.dataSource}
                         renderItem={this.renderItem}
                         keyExtractor={(item, index) => index}
@@ -98,7 +99,7 @@ export default class GarbageScreen extends Component {
         };
 
         getItemHistory(newCommand).then((response) => {
-            if (response.success == true) {
+            if (response.success) {
                 this.setState({
                     dataSource: response.history,   //TODO change this
                     isLoading: false
@@ -111,11 +112,13 @@ export default class GarbageScreen extends Component {
     }
 
     renderItem = ({item}) => {
-        return (
-            <Text style={{fontSize: 18, color: 'black', marginBottom: 10}}>
-                {`${item.time}`} /*TODO change this*/
-            </Text>
-        )
+        if(item.bin == 1){ //TODO CHANGE THIS
+            return (
+                <Text style={{fontSize: 18, color: 'black', marginBottom: 10}}>
+                    {`${item.time}`}
+                </Text>
+            )
+        }
 
         //CODE FOR EXTRA INFO TO DISPLAY
         /*            <View style={{flex: 1, flexDirection: 'row', marginBottom: 2}}>
