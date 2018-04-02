@@ -81,8 +81,8 @@ export default class GarbageScreen extends Component {
                     ALL LOG STUFF BELOW
                     */}
                     <FlatList
-                        extraData={this.state.dataSource}
                         data={this.state.dataSource}
+                        /*extraData={this.state.isOpen}*/ //TODO might need this to display new history data
                         renderItem={this.renderItem}
                         keyExtractor={(item, index) => index}
                         ItemSeparatorComponent={this.renderSeparator}
