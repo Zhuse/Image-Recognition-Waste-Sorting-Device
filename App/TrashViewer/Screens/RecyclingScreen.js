@@ -82,7 +82,7 @@ export default class RecyclingScreen extends Component {
                     */}
                     <FlatList
                         data={this.state.dataSource}
-                        /*extraData={this.state.isOpen}*/ //TODO might need this to display new history data
+                        extraData={this.state} //TODO might need this to display new history data
                         renderItem={this.renderItem}
                         keyExtractor={(item, index) => index}
                         ItemSeparatorComponent={this.renderSeparator}
