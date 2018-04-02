@@ -8,6 +8,9 @@ var compostOpen = false;
 var mode = false;
 var auto = false;
 var id = 1;
+var garbage = 0;
+var compost = 0;
+var recycling = 0;
 /*
 function getData(callback) {
     $.getJSON('./api/getStats', function(data) {
@@ -25,7 +28,7 @@ function getData(callback) {
  */
 function getData() {
     var binData = JSON.stringify({
-        'id': 1,
+        'id': id,
     });
 
     try {
@@ -40,6 +43,7 @@ function getData() {
                 var table = parseHistory(response.history);
             }
         });
+		
     } catch (err) {}
 }
 
@@ -50,12 +54,27 @@ function getData() {
  * @return {[type]}         [description]
  */
 function parseHistory(history){
-	var dict = {1: 0, 2: 0, 3: 0};
+	var dict = {'1': 0, '2': 0, '3': 0};
+	var hist = '';
 	for (var i = 0; i < history.length; i++) {
 		console.log(history[i]);
+		if(history[i].bin == '1'){
+			hist += '<p>Garbage thrown at ' + history[i].time + '</p><br />';
+		}
+		if(history[i].bin == '2'){
+			hist += '<p>Recycling thrown at ' + history[i].time + '</p><br />';
+		}
+		if(history[i].bin == '3'){
+			hist += '<p>Compost thrown at ' + history[i].time + '</p><br />';
+		}
 		dict[history[i].bin] ++;
 	}
-	console.log(dict);
+	var update = document.getElementById('history').innerHTML = hist;
+	garbage = document.getElementById('garbageVal').textContent = dict[1];
+	recycling = document.getElementById('recyclingVal').textContent = dict[2];
+	compost = document.getElementById('compostVal').textContent = dict[3];
+	var total = document.getElementById('total').textContent = garbage + recycling + compost;
+	createDoughnut(garbage, recycling, compost);
 	return dict;
 }
 
@@ -65,9 +84,8 @@ function parseHistory(history){
  */
 function getHistory() {
     var binData = JSON.stringify({
-        'id': 1,
+        'id': id,
     });
-
     try {
         $.ajax({
             type: 'POST',
@@ -76,7 +94,6 @@ function getHistory() {
             dataType: 'json',
             contentType: "application/json",
             success: function(response) { //Callback
-                alert(response.success); //placeholder
             }
         });
     } catch (err) {}
@@ -97,7 +114,7 @@ function setMode() {
 
 
 	var binData = JSON.stringify({
-		'id': id,
+		'id': parseInt(id),
 		'auto': auto,
 		'garbageOpen': garbageOpen,
 		'recyclingOpen': recyclingOpen,
@@ -120,16 +137,24 @@ function setMode() {
 function showChart() {
     document.getElementById('chart').style.display = 'block';
     document.getElementById('stats').style.display = 'none';
+	document.getElementById('history').style.display = 'block';
+	getHistory();
+	loadGraph();
 }
 
 function showStats() {
     document.getElementById('stats').style.display = 'block';
     document.getElementById('chart').style.display = 'none';
+	document.getElementById('history').style.display = 'none';
+	getData();
 }
 
 function updateId(){
 	var input = document.getElementById('binId').value;
 	id = input;
+	setMode();
+	getHistory();
+	getData();
 	console.log(id);
 }
 
@@ -138,8 +163,10 @@ function updateMode(changeMode) {
         auto = true;
         var footers = document.getElementsByClassName('select');
         for (i = 0; i < footers.length; i++) {
+			if(footers[i].id != 'update')
             footers[i].style.display = 'none';
         }
+		var update = document.getElementById('update');
         setMode();
     } else {
         auto = false;
@@ -182,6 +209,33 @@ function recyclingUpdate(bin) {
 
     //alert(recyclingOpen);
 }
+
+function loadGraph(){
+	getData();
+	createDoughnut(garbage, recycling, compost);
+}
+          
+function createDoughnut (garbageVal, recycleVal, compostVal) {
+            var myChart = new Chart(document.getElementById("doughnut-chart"), {
+              type: 'doughnut',
+              data: {
+                labels: ["Garbage", "Recycling", "Compost"],
+                datasets: [
+                  {
+                    backgroundColor: ["#61616199", "#42A5F599","#4CAF5099"],
+                    borderColor: ["#616161", "#42A5F5", "#4CAF50"],
+                    data: [garbageVal,recycleVal,compostVal]
+                  }
+                ]
+              },
+              options: {
+                hover: false,
+                animation: false,
+				maintainAspectRatio: false
+              }
+            });
+		  }
+		  
 /*
 function getGarbage() {
   $.getJSON('./api/getGarbage',function(data){

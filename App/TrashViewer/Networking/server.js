@@ -1,5 +1,5 @@
-const apiInsertCommand = 'http://34.218.219.101:3000/setMode'; //TODO change this
-const apigetItemHistory = 'http://34.218.219.101:3000/history';//TODO change this
+const apiInsertCommand = 'http://192.168.1.75:3000/setMode'; //TODO change this
+const apigetItemHistory = 'http://192.168.1.75:3000/history';//TODO change this
 
 //send POST request to insert new data
 async function insertCommand(command) {
@@ -19,7 +19,7 @@ async function insertCommand(command) {
         console.log(`Open function response is`);
         console.log(`${JSON.stringify(responseJson)}`);
 
-        return responseJson.json;
+        return responseJson;
     } catch (error) {
         console.error(`Error is : ${error}`);
     }
@@ -43,7 +43,7 @@ async function getItemHistory(command) {
         console.log(`History response is`);
         console.log(`${JSON.stringify(responseJson)}`);
 
-        return responseJson.json;
+        return responseJson;
     } catch (error) {
         console.error(`Error is : ${error}`);
     }

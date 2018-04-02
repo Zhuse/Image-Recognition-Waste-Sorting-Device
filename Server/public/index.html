@@ -1,6 +1,6 @@
 
 <!--
-  <meta charset="utf-8">
+  <meta ch	arset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 -->
@@ -31,7 +31,7 @@
   
   </head>
   
-  <body onload="showStats();">
+  <body onload="loadGraph()">
 
     <div class="container">
       <div id="header" class="col-md-12">
@@ -75,7 +75,7 @@
 						<header class="page-header">
 							<h2>Garbage</h2>
 							<div class="column">
-								<span class="value">0</span>
+								<span class="value" id="garbageVal">0</span>
 								<span class="duration">items</span>
 							</div>
 						</header>
@@ -99,7 +99,7 @@
 						<header class="page-header">
 							<h2>Compost</h2>
 							<div class="column">
-								<span class="value">0</span>
+								<span class="value" id="compostVal">0</span>
 								<span class="duration">items</span>
 							</div>
 						</header>
@@ -119,7 +119,7 @@
 						<header class="page-header">
 							<h2>Recycling</h2>
 							<div class="column">
-								<span class="value">0</span>
+								<span class="value" id="recyclingVal">0</span>
 								<span class="duration">items</span>
 							</div>
 						</header>
@@ -137,56 +137,15 @@
 		</div>
     <div class="container">
       <div id="chart" class="col-md-6">
-
-        <h3>TODO: Insert Chart Here</h3>
-
-        <h1></h1>
 		
-        <canvas id="doughnut-chart" width="400" height="400"></canvas>
-        <script>
-          getData(createDoughnut);
-          function createDoughnut (garbageVal, recycleVal, compostVal) {
-            var myChart = new Chart(document.getElementById("doughnut-chart"), {
-              type: 'doughnut',
-              data: {
-                labels: ["Garbage", "Recycling", "Compost"],
-                datasets: [
-                  {
-                    backgroundColor: ["#61616199", "#42A5F599","#4CAF5099"],
-                    borderColor: ["#616161", "#42A5F5", "#4CAF50"],
-                    data: [garbageVal,recycleVal,compostVal]
-                  }
-                ]
-              },
-              options: {
-                hover: false,
-                animation: false
-              }
-            });
-            function addData(garbageVal, recycleVal, compostVal) {
-              myChart = new Chart(document.getElementById("doughnut-chart"), {
-                type: 'doughnut',
-                data: {
-                  labels: ["Garbage", "Recycling", "Compost"],
-                  datasets: [
-                    {
-                      backgroundColor: ["#61616199", "#42A5F599","#4CAF5099"],
-                      borderColor: ["#616161", "#42A5F5", "#4CAF50"],
-                      data: [garbageVal,recycleVal,compostVal]
-                    }
-                  ]
-                },
-                options: {
-                  hover: false,
-                  animation: false
-                }
-              });
-            }
-            setInterval(function(){getData(addData)}, 1000);
-          }
-        </script>
+        <canvas id="doughnut-chart" width="70%" height="70%"></canvas>
+		<span class="value" id="total">0</span>
+		<span class="duration" id="items"> ITEMS TOTAL</span>
 
       </div>
+	  <div id = "history">
+	  </div>
+	  </div>
 	  
       <!--<div id="chart" class="col-md-6">
 

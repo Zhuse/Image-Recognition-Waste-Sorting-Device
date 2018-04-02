@@ -66,6 +66,28 @@ function recognition(content) {
     });
 }
 
+//function recognition(content, response) {
+//    var params = {};
+//    params.Image = {
+//        Bytes: content
+//    };
+//    params.MinConfidence = 70;
+//
+//    recog.detectLabels(params, function(err, data) {
+//        if (err) {
+//          response.json({
+//            "success": false,
+//            "catetory": null
+//          });
+//        }
+//        var category = detectGarbage(data);
+//        response.json({
+//          "success": true,
+//          "category": category
+//        })
+//    })
+//}
+
 
 /**
  * A helper function for detectLabels, analyzes the labels given in imageData
