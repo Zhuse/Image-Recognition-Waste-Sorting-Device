@@ -29,6 +29,16 @@ var setMode = function (response, id, auto, garbageOpen, recyclingOpen, compostO
                 function (err, rows) {
                   response.json({"success": !err && rows !== null});
                 });
+
+            if (garbageOpen) {
+              addHistoryEntry(id, garbage);
+            }
+            if (recyclingOpen) {
+              addHistoryEntry(id, recycling);
+            }
+            if (compostOpen) {
+              addHistoryEntry(id, compost);
+            }
           }
 
         } else {
@@ -38,6 +48,15 @@ var setMode = function (response, id, auto, garbageOpen, recyclingOpen, compostO
               function (err, rows) {
                 response.json({"success": !err && rows !== null});
               });
+          if (garbageOpen) {
+            addHistoryEntry(id, garbage);
+          }
+          if (recyclingOpen) {
+            addHistoryEntry(id, recycling);
+          }
+          if (compostOpen) {
+            addHistoryEntry(id, compost);
+          }
         }
       });
 }
