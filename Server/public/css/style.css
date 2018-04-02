@@ -6,35 +6,55 @@
   background-color: #F5F5F5;
   margin-bottom:  20px;
   font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-  font-size: 20px;
+  font-size: 12px;
   margin-top: 15px;
   text-align: center;
   letter-spacing: 3px;
   color: #2d3e50;
 }
 
-#update {
-	width: 8%;
-	display: block;
-	position: absolute;
-	top: 9.5%;
-	left: 72.9%;
-	height: 5%;
-	border-radius: 0 6px 6px 0;
-	padding: auto;
+#idField {
+	float: left;
+	position: relative;
+	left: 22%;
+	font-size: 12px;
+
 }
 
-#binId {
-	display: block;
-	position: absolute;
-	top: 11%;
-	left: 70%;
+#update {
+	width: 40%;
+	float: right;
 	height: 5%;
-	width: 3%;
+	position:relative;
+	right:0.5%;
+	margin: 0px;
+	border-radius: 0 0px 0px 0;	
+	font-size: 12px;
+	border: 2px #2d4e30 solid;
+}
+
+#empty {
+	width: 40%;
+	float: right;
+	height: 5%;
+	position:relative;
+	right:1%;
+	margin: 0px;
+	border-radius: 0 6px 6px 0;	
+	font-size: 12px;
+	border: 2px #2d4e30 solid;
+}
+
+
+#binId {
+	float:right;
+	height: 5%;
+	width: 15%;
+	left: 1%;
 	border-radius: 6px 0px 0px 6px;
-	border: 2px #7d8ea0 solid;
 	font-size: 24px;
 	text-align: center;
+	border: 2px #2d4e30 solid;
 }
 #chart {
   display:none;
@@ -81,10 +101,8 @@
 }
 
 #header-container {
-	display: block;
-	width: 77%;
-	margin-right: auto;
-	margin-left: auto;
+	display: inline-block;
+	width: 100%;
 	margin-bottom: 20px;
 	background-color: #F5F5F5;
 }
@@ -567,7 +585,7 @@ textarea:focus, input:focus{
 
 .page-switcher {
 	text-align: center;
-	padding: 5px;
+	padding: 3px;
 	padding-left: auto;
 	padding-right: auto;
 	
@@ -578,8 +596,9 @@ textarea:focus, input:focus{
 	position: relative;	
 	border-radius: 10px;
 	border: 2px solid rgba(45, 62, 80, 0.8);
-	margin-right: 4%;
-	margin-left: 4%;
+	margin-right: 3%;
+	margin-left: 3%;
+	left: 3%;
 }
 
 .page-switcher input[type="radio"] {

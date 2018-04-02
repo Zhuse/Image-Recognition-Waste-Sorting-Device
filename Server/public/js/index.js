@@ -149,10 +149,9 @@ function resetMotors() {
             data: binData,
             dataType: 'json',
             contentType: "application/json",
-            success: function(response) {}
+            success: function(response) {setTimeout(setMode(), 2000);}
         });
     } catch (err) {}
-	setMode();
 }
 function showChart() {
     document.getElementById('chart').style.display = 'block';

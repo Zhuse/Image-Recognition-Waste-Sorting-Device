@@ -63,8 +63,11 @@
 				<label for="automatic">AUTOMATIC</label>
 				<span class="switch"></span>
 			</p>
-			<input type="number" name="binId" id="binId">
+			<div id="idField">
+			<button class="select" id="empty" onclick="updateId()">EMPTY</button>
 			<button class="select" id="update" onclick="updateId()">UPDATE</button>
+			<input type="number" name="binId" id="binId">
+			</div>
 	</div>
 	</div>
 	<div id="stats">
