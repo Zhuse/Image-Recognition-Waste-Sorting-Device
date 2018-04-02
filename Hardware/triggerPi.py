@@ -15,24 +15,50 @@ recyclingState = False
 garbageState = False
 automaticMode = True
 
-def updateMode():
-    overrideJson = modePostReq(binID)
-    if (overrideJson["success"]):
+def str_to_bool(s):
+    if s == 'true' or s == 'True':
+        return True
+    elif s == 'false' or s == 'True':
+        return False
+    else: 
+        return False
+
+def updateMode(manualFlag):
+    overrideJson = modePostReq(binID).json()
+    if (overrideJson["success"] == True):
         automaticMode = overrideJson["auto"]
-        compostState = overrideJson["compostOpen"]
-        recyclingState = overrideJson["recyclingOpen"]
-        garbageState = overrideJson["garbageOpen"]
+
+        if (not automaticMode):
+            manualFlag = False
+            compostState = overrideJson["compostOpen"]
+            recyclingState = overrideJson["recyclingOpen"]
+            garbageState = overrideJson["garbageOpen"]
+            manualTriggerBin(0, compostState)
+            manualTriggerBin(1, recyclingState)
+            manualTriggerBin(2, garbageState)
+            time.sleep(0.1)
+        else:
+            if(manualFlag == False):
+                resetServo()
+                manualFlag = True
+                time.sleep(0.1)
+
+        return manualFlag
 
 def main():
+    manualFlag = False
+    resetServo()
     while (True):
         while(automaticMode):
+            resetServo()
+            time.sleep(0.5)
             #Sets distance at an arbitrarily large int
             objectDistance = 9999999
 
             #Checks for object in proximity to trigger
             while (objectDistance > 50 and automaticMode):
                 objectDistance = getSonarDistance()
-                updateMode()
+                manualFlag = updateMode(manualFlag)
 
             #If object is close enough then perform actions
             if (objectDistance < 50):
@@ -47,22 +73,22 @@ def main():
                 #Post server and receive response
                 returnResponse = imgPostReq(base64String)  
                 responseJson = returnResponse.json()
-                binString = responseJson["category"]
-                print (binString)
-                binNumber = categoriesDict[binString]
-                print ("Opening" + str(binNumber))
-                #display bin on seven segment led
-                updateSeg(binString)
-                openBin(binNumber)
+                if (str_to_bool(responseJson["success"])):
+                    binString = responseJson["category"]
+                    print (binString)
+                    binNumber = categoriesDict[binString]
+                    print ("Opening" + str(binNumber))
+                    #display bin on seven segment led
+                    updateSeg(binString)
+                    openBin(binNumber)
             time.sleep(0.1)
             
-        updateMode() 
+        manualFlag = updateMode(manualFlag) 
         #When automatic mode is turned off then allow for force opens 
-        if (not automaticMode):
-            if (compostState):
-                openBin(0)
-            if (recyclingState):
-                openBin(1)
-            if (garbageState):
-                openBin(2)
+    
+       # if (not automaticMode):
+def manualOpen():
+    
+    print ("Manually open")
+    #openBin(0)
 main()
