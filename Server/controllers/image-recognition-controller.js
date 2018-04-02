@@ -39,9 +39,6 @@ function test() {
             resolve(detectGarbage(data));
         })
     });
-
-
-
 }
 
 

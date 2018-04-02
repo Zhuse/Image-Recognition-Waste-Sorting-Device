@@ -37,7 +37,7 @@ function getData() {
             contentType: "application/json",
             success: function(response) { //Callback
                 //alert(response.success); //placeholder
-                var table = parseHistory(response.history);
+                var table65 = parseHistory(response.history);
             }
         });
     } catch (err) {}
@@ -46,8 +46,8 @@ function getData() {
 /**
  * Helper function, parses a json history object and creates a freq table
  * for num objects in each bin
- * @param  {[type]} history [description]
- * @return {[type]}         [description]
+ * @param  {[JSON Array]} history garbage history array, each element contains timestamp and bin #
+ * @return {[Dictionary]} frequency table for number of objects thrown in each bin
  */
 function parseHistory(history){
 	var dict = {1: 0, 2: 0, 3: 0};
