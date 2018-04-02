@@ -161,7 +161,14 @@ var getHistory = function (id, response) {
 }
 
 
-
+var empty = function (id, response) {
+  db.run("DELETE FROM history WHERE id = (?)", [id],
+      function(err, rows) {
+        response.json({
+          success: !err && rows !== null
+        });
+      });
+}
 
 
 
@@ -187,5 +194,6 @@ module.exports = {
   addHistoryEntry: addHistoryEntry,
   getHistory: getHistory,
   getMode: getMode,
-  setMode: setMode
+  setMode: setMode,
+  empty: empty
 }

@@ -73,7 +73,10 @@ router.post('/recognition', function(request, response) {
 
 
 
-
+router.post('/empty', function (request, response) {
+  console.log("endpoint /empty");
+  databaseController.empty(request.body.id, response);
+})
 
 router.post('/setMode', function (request, response) {
   console.log("endpoint /setMode");

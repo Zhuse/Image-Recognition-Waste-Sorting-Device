@@ -141,3 +141,19 @@ response:
         }
     ]
 }
+
+================================================================================
+
+Empty trashcan and clear history
+
+endpoint: POST to /empty
+
+request body format: (data to be send in "<>")
+{
+  "id":<int representing unique id of this can>
+}
+
+Return body format: (data to be send in "<>")
+{
+  "success": <boolean>
+}
