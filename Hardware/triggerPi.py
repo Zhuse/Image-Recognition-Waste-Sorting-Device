@@ -2,6 +2,7 @@ from take_photo import *
 from sonar import *
 from servoMotor import *
 from led import *
+from objectStates import *
 import json
 import requests
 import time
@@ -10,10 +11,6 @@ import pigpio
 
 binID = 1
 categoriesDict = {'recycling': 0, 'compost': 1, 'garbage': 2}
-compostState = False
-recyclingState = False
-garbageState = False
-automaticMode = True
 
 def str_to_bool(s):
     if s == 'true' or s == 'True':
@@ -23,40 +20,40 @@ def str_to_bool(s):
     else: 
         return False
 
-def updateMode(manualFlag):
+def updateMode(states):
     overrideJson = modePostReq(binID).json()
     if (overrideJson["success"] == True):
-        automaticMode = overrideJson["auto"]
+        states.automaticMode = overrideJson["auto"]
 
-        if (not automaticMode):
-            manualFlag = False
-            compostState = overrideJson["compostOpen"]
-            recyclingState = overrideJson["recyclingOpen"]
-            garbageState = overrideJson["garbageOpen"]
-            manualTriggerBin(0, compostState)
-            manualTriggerBin(1, recyclingState)
-            manualTriggerBin(2, garbageState)
+        if (not states.automaticMode):
+            states.compostState = overrideJson["compostOpen"]
+            states.recyclingState = overrideJson["recyclingOpen"]
+            states.garbageState = overrideJson["garbageOpen"]
+            manualTriggerBin(0, states.compostState)
+            manualTriggerBin(1, states.recyclingState)
+            manualTriggerBin(2, states.garbageState)
             time.sleep(0.1)
-        else:
-            if(manualFlag == False):
-                resetServo()
-                manualFlag = True
-                time.sleep(0.1)
+#        else:
+ #           resetServo()
+  #          manualFlag = True
+   #         time.sleep(0.1)
 
-        return manualFlag
 
 def main():
-    manualFlag = False
-    resetServo()
+ #   manualFlag = False
+#    resetServo()
+    states = ObjectStates()
+
     while (True):
-        while(automaticMode):
+        while(states.automaticMode):
             #Sets distance at an arbitrarily large int
             objectDistance = 9999999
 
             #Checks for object in proximity to trigger
-            while (objectDistance > 50 and automaticMode):
+            while (objectDistance > 50 and states.automaticMode):
+                print ("auto mode is " + str(states.automaticMode))
                 objectDistance = getSonarDistance()
-                manualFlag = updateMode(manualFlag)
+                updateMode(states)
 
             #If object is close enough then perform actions
             if (objectDistance < 50):
@@ -71,7 +68,7 @@ def main():
                 #Post server and receive response
                 returnResponse = imgPostReq(base64String)  
                 responseJson = returnResponse.json()
-                if (str_to_bool(responseJson["success"])):
+                if (responseJson["success"]):
                     binString = responseJson["category"]
                     print (binString)
                     binNumber = categoriesDict[binString]
@@ -81,7 +78,7 @@ def main():
                     openBin(binNumber)
             time.sleep(0.1)
             
-        manualFlag = updateMode(manualFlag) 
+        updateMode(states) 
         #When automatic mode is turned off then allow for force opens 
     
        # if (not automaticMode):
