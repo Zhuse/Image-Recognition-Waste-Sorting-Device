@@ -3,5 +3,6 @@ class ObjectStates:
     compostState = False
     recyclingState = False
     garbageState = False
+    flag = True
 
  

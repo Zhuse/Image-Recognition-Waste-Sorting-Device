@@ -26,6 +26,7 @@ def updateMode(states):
         states.automaticMode = overrideJson["auto"]
 
         if (not states.automaticMode):
+            states.flag = True
             states.compostState = overrideJson["compostOpen"]
             states.recyclingState = overrideJson["recyclingOpen"]
             states.garbageState = overrideJson["garbageOpen"]
@@ -46,6 +47,11 @@ def main():
 
     while (True):
         while(states.automaticMode):
+            if (states.flag):
+                resetServo()
+                time.sleep(1)
+                states.flag = False
+
             #Sets distance at an arbitrarily large int
             objectDistance = 9999999
 
