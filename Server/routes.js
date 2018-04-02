@@ -45,6 +45,12 @@ router.get('/testdb', function(request, response){
  * @return {[type]}          [description]
  */
 router.post('/recognition', function(request, response) {
+    console.log("endpoint /recognition");
+    request.body.base64 = request.body.base64.slice(1, -1);
+
+    var enc = new Buffer(request.body.base64, 'base64');
+	//var enc = request.query.base64;
+//    recognitionController.recognition(enc, response);
     request.body.base64 = request.body.base64.slice(1, -1);
 
     var enc = new Buffer(request.body.base64, 'base64');
@@ -70,6 +76,7 @@ router.post('/recognition', function(request, response) {
 
 
 router.post('/setMode', function (request, response) {
+  console.log("endpoint /setMode");
   console.log(request.body);
   if (request.body.auto) {
     databaseController.setMode(response, request.body.id, request.body.auto)
@@ -92,12 +99,14 @@ json
 }
 */
 router.post('/mode', function(request, response) {
+  console.log("endpoint /mode");
   databaseController.getMode(request.body.id, response);
 });
 
 
 
 router.post('/history', function(request, response){
+  console.log("endpoint /history");
   databaseController.getHistory(request.body.id, response);
 //  response.json({
 //    "success": history.success,

@@ -37,7 +37,7 @@ export default class GarbageScreen extends Component {
                             //TODO CHANGE THIS
                             const newCommand = {
                                 id: 1,
-                                auto: false,
+                                auto: true,
                                 garbageOpen: !this.state.isOpen,
                                 recyclingOpen: false,
                                 compostOpen: false
@@ -52,6 +52,18 @@ export default class GarbageScreen extends Component {
                                 }
                                 else {
                                     alert("could not open bin");
+                                }
+                            });
+
+                            getItemHistory(newCommand).then((response) => {
+                                if (response.success) {
+                                    this.setState({
+                                        dataSource: response.history,   //TODO change this
+                                        isLoading: false
+                                    });
+                                }
+                                else {
+                                    alert("could not load history");
                                 }
                             });
                         }}>
