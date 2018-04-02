@@ -7,6 +7,7 @@ const db = server.db;
 
 // return true if success, false otherwise
 var setMode = function (response, id, auto, garbageOpen, recyclingOpen, compostOpen) {
+  console.log("in function setMode");
   db.all("SELECT 1 FROM mode WHERE id = (?) LIMIT 1", [id],
       function (err, rows){
         if (err) {
@@ -60,7 +61,7 @@ var getMode = function (id, response) {
         }
         db.all("SELECT garbage_open, recycling_open, compost_open FROM mode WHERE id = (?)", [id],
           function (err, rows){
-            console.log(rows.length);
+//            console.log(rows.length);
             if (err || rows.length != 1) {
               response.json({
                 success: false
@@ -71,7 +72,7 @@ var getMode = function (id, response) {
               success: true,
               auto: false,
               garbageOpen: !!rows[0].garbage_open,
-              recycingOpen: !!rows[0].recycling_open,
+              recyclingOpen: !!rows[0].recycling_open,
               compostOpen: !!rows[0].compost_open
             });
             return;
@@ -89,6 +90,7 @@ var getMode = function (id, response) {
 
 // add entry to history table
 var addHistoryEntry = function (id, waste) {
+  console.log("in function addHistoryEntry");
   switch (waste) {
     case GARBAGE_TYPE.GARBAGE: waste_type = 1; break;
     case GARBAGE_TYPE.RECYCLING: waste_type = 2; break;
