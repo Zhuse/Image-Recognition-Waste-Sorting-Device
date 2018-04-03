@@ -56,7 +56,7 @@ function getData() {
 function parseHistory(history){
 	var dict = {'1': 0, '2': 0, '3': 0};
 	var hist = '';
-	for (var i = 0; i < history.length; i++) {
+	for (var i = history.length - 1; i >= 0; i--) {
 		console.log(history[i]);
 		if(history[i].bin == '1'){
 			hist += '<p>Garbage thrown at ' + history[i].time + '</p><br />';
