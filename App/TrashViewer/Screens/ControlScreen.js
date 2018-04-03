@@ -30,7 +30,7 @@ export default class ControlScreen extends Component {
 
                             emptyCan(newCommand).then((response) => {
                                 if (response.success) {
-                                    GarbageScreen.setState({
+/*                                    GarbageScreen.setState({
                                         dataSource: [],   //TODO change this
                                         isLoading: false
                                     });
@@ -41,11 +41,11 @@ export default class ControlScreen extends Component {
                                     CompostScreen.setState({
                                         dataSource: [],   //TODO change this
                                         isLoading: false
-                                    });
-/*                                    this.setState({
+                                    });*/
+                                    this.setState({
                                         dataSource: [],
                                         isLoading:false
-                                    });*/
+                                    });
 
                                     alert("Bins Emptied");
                                 }
