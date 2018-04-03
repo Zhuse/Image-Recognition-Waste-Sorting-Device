@@ -1,21 +1,19 @@
 from gpiozero import LED
 from time import sleep
 
-ledRed = LED(11)
-ledGreen = LED(14)
-ledBlue = LED(15)
+#initialize each segment of the seven degment led
+ledF = LED(5)
+ledG = LED(26)
+ledE = LED(19)
+ledD = LED(6)
+ledDP = LED(25)
+ledC = LED(21)
+ledB = LED(16)
+ledA = LED(20)
 
-ledF = LED(21) #initialize each segment of seven segment display
-ledG = LED(20)
-ledE = LED(16)
-ledD = LED(12)
-ledDP = LED(26)
-ledC = LED(19)
-ledB = LED(13)
-ledA = LED(22)
-
+#turn seven segment led off
 def segOff():   
-    ledF.on() #turn all segments off
+    ledF.on()
     ledG.on()
     ledE.on()
     ledD.on()
@@ -24,6 +22,7 @@ def segOff():
     ledB.on()
     ledA.on()
 
+#display c on seven segment led
 def segC():
     ledF.off()
     ledG.on()
@@ -34,6 +33,7 @@ def segC():
     ledB.on()
     ledA.off()
 
+#display g on seven segment led
 def segG():
     ledF.off()
     ledG.off()
@@ -44,6 +44,7 @@ def segG():
     ledB.off()
     ledA.off()
 
+#display r on seven segment led
 def segR():
     ledF.off()
     ledG.on()
@@ -54,6 +55,17 @@ def segR():
     ledB.on()
     ledA.off()
 
+def segThree():
+    ledF.on()
+    ledG.off()
+    ledE.on()
+    ledD.off()
+    ledDP.on()
+    ledC.off()
+    ledB.off()
+    ledA.off()
+
+#update display on seven segment display depending on which bin is open
 def updateSeg(bin):
     if bin == 'compost':
         segC()
@@ -63,12 +75,4 @@ def updateSeg(bin):
         segR()
     else:
         segOff()
-    sleep(5)
-    segOff()
-
-def greenOn():
-    ledGreen.off()
-
-def greenOff():
-    ledGreen.on()
     

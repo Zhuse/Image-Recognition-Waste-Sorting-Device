@@ -24,12 +24,15 @@ def imgPostReq(base64Image):
     #Build the payload for post request
     payload = {'base64': str(base64Image)}
     #Posts the server at the server ip
+    #r = requests.post('http://192.81.129.240:3000/recognition', json=payload)
     r = requests.post('http://34.218.219.101:3000/recognition', json=payload)
     print (r.text)
     return r
 
 def modePostReq(binID):
-    payload = {'id': binID}
+    payload = {'id': 1}
     r = requests.post('http://34.218.219.101:3000/mode', json=payload)
+    print (r.text)
+  #  r = requests.post('http://192.81.129.240:3000/mode', json=payload)
     return r
 

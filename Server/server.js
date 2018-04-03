@@ -12,7 +12,6 @@ const s3 = new AWS.S3(); //amazon cloud storage service
 const sqlite3 = require('sqlite3');
 const db = new sqlite3.Database('stats.db');
 
-const recognitionController = require('./controllers/image-recognition-controller.js'); //Import recog controller
 
 // export modules we need
 module.exports = {
@@ -22,6 +21,9 @@ module.exports = {
 	fs,
 	db
 };
+
+const recognitionController = require('./controllers/image-recognition-controller.js'); //Import recog controller
+
 app.use(bodyParser.json({limit: '50mb'}));
 
 const port = 3000; //Server port

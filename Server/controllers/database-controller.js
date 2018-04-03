@@ -7,12 +7,19 @@ const db = server.db;
 
 // return true if success, false otherwise
 var setMode = function (response, id, auto, garbageOpen, recyclingOpen, compostOpen) {
-  db.all("SELECT 1 FROM mode WHERE id = (?) LIMIT 1", [id],
+  console.log("in function setMode");
+  db.all("SELECT garbage_open, recycling_open, compost_open FROM mode WHERE id = (?)", [id],
       function (err, rows){
         if (err) {
           response.json({"success": false});
+          return;
         }
-        if (rows.length > 0) {
+        if (rows !== undefined && rows.length > 0) {
+
+          var currGarbageState = rows[0].garbage_open;
+          var currRecyclingState = rows[0].recycling_open;
+          var currCompostState = rows[0].compost_open;
+          console.log(currGarbageState + " " + currRecyclingState + " " + currCompostState);
 
           if (auto) {
   //          console.log("testid pass, if true");
@@ -28,6 +35,16 @@ var setMode = function (response, id, auto, garbageOpen, recyclingOpen, compostO
                 function (err, rows) {
                   response.json({"success": !err && rows !== null});
                 });
+
+            if (garbageOpen && !currGarbageState) {
+              addHistoryEntry(id, "garbage");
+            }
+            if (recyclingOpen && !currRecyclingState) {
+              addHistoryEntry(id, "recycling");
+            }
+            if (compostOpen && !currCompostState) {
+              addHistoryEntry(id, "compost");
+            }
           }
 
         } else {
@@ -37,6 +54,15 @@ var setMode = function (response, id, auto, garbageOpen, recyclingOpen, compostO
               function (err, rows) {
                 response.json({"success": !err && rows !== null});
               });
+          if (garbageOpen) {
+            addHistoryEntry(id, "garbage");
+          }
+          if (recyclingOpen) {
+            addHistoryEntry(id, "recycling");
+          }
+          if (compostOpen) {
+            addHistoryEntry(id, "compost");
+          }
         }
       });
 }
@@ -60,7 +86,7 @@ var getMode = function (id, response) {
         }
         db.all("SELECT garbage_open, recycling_open, compost_open FROM mode WHERE id = (?)", [id],
           function (err, rows){
-            console.log(rows.length);
+//            console.log(rows.length);
             if (err || rows.length != 1) {
               response.json({
                 success: false
@@ -71,7 +97,7 @@ var getMode = function (id, response) {
               success: true,
               auto: false,
               garbageOpen: !!rows[0].garbage_open,
-              recycingOpen: !!rows[0].recycling_open,
+              recyclingOpen: !!rows[0].recycling_open,
               compostOpen: !!rows[0].compost_open
             });
             return;
@@ -89,6 +115,7 @@ var getMode = function (id, response) {
 
 // add entry to history table
 var addHistoryEntry = function (id, waste) {
+  console.log("in function addHistoryEntry id: " + id);
   switch (waste) {
     case GARBAGE_TYPE.GARBAGE: waste_type = 1; break;
     case GARBAGE_TYPE.RECYCLING: waste_type = 2; break;
@@ -140,7 +167,14 @@ var getHistory = function (id, response) {
 }
 
 
-
+var empty = function (id, response) {
+  db.run("DELETE FROM history WHERE id = (?)", [id],
+      function(err, rows) {
+        response.json({
+          success: !err && rows !== null
+        });
+      });
+}
 
 
 
@@ -166,5 +200,6 @@ module.exports = {
   addHistoryEntry: addHistoryEntry,
   getHistory: getHistory,
   getMode: getMode,
-  setMode: setMode
+  setMode: setMode,
+  empty: empty
 }

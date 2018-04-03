@@ -11,7 +11,7 @@ export default class GarbageScreen extends Component {
             isOpen: false,
             dataSource: [],
             isLoading: true
-        }
+        };
     }
 
     render() {
@@ -24,7 +24,7 @@ export default class GarbageScreen extends Component {
             }}>
                 <View
                     style={{
-                        flex: 7,
+                        flex: 6,
                         flexDirection: 'column',
                         justifyContent: 'center',
                         alignItems: 'center'
@@ -44,7 +44,7 @@ export default class GarbageScreen extends Component {
                             };
 
                             insertCommand(newCommand).then((response) => {
-                                if (response.success == true) {
+                                if (response.success) {
                                     this.setState({isOpen: !this.state.isOpen});
                                     if (this.state.isOpen) {
                                         this.setState({timesOpened: this.state.timesOpened + 1});
@@ -52,6 +52,18 @@ export default class GarbageScreen extends Component {
                                 }
                                 else {
                                     alert("could not open bin");
+                                }
+                            });
+
+                            getItemHistory(newCommand).then((response) => {
+                                if (response.success) {
+                                    this.setState({
+                                        dataSource: response.history,   //TODO change this
+                                        isLoading: false
+                                    });
+                                }
+                                else {
+                                    alert("could not load history");
                                 }
                             });
                         }}>
@@ -71,7 +83,7 @@ export default class GarbageScreen extends Component {
                 </View>
 
                 <View style={{
-                    flex: 3,
+                    flex: 4,
                     flexDirection: 'column',
                     justifyContent: 'center',
                     alignItems: 'center'
@@ -82,9 +94,10 @@ export default class GarbageScreen extends Component {
                     */}
                     <FlatList
                         data={this.state.dataSource}
+                        extraData={this.state} //TODO might need this to display new history data
                         renderItem={this.renderItem}
                         keyExtractor={(item, index) => index}
-                        ItemSeparatorComponent={this.renderSeparator}
+                        //ItemSeparatorComponent={this.renderSeparator}
                     />
                 </View>
 
@@ -98,7 +111,7 @@ export default class GarbageScreen extends Component {
         };
 
         getItemHistory(newCommand).then((response) => {
-            if (response.success == true) {
+            if (response.success) {
                 this.setState({
                     dataSource: response.history,   //TODO change this
                     isLoading: false
@@ -111,25 +124,13 @@ export default class GarbageScreen extends Component {
     }
 
     renderItem = ({item}) => {
-        return (
-            <Text style={{fontSize: 18, color: 'black', marginBottom: 10}}>
-                {`${item.time}`} /*TODO change this*/
-            </Text>
-        )
-
-        //CODE FOR EXTRA INFO TO DISPLAY
-        /*            <View style={{flex: 1, flexDirection: 'row', marginBottom: 2}}>
-                <Image style={{width: 80, height: 80, margin: 3}}
-                       source={{uri: item.picture.thumbnail}}/>
-                <View style={{flex: 1, justifyContent: 'center', marginLeft: 3}}>
-                    <Text style={{fontSize: 18, color: 'black', marginBottom: 10}}>
-                        {`${item.name.first} ${item.registered}`}
-                    </Text>
-                    <Text style={{fontSize: 14, color: 'green'}}>
-                        {`${item.dob}`}
-                    </Text>
-                </View>
-            </View>*/
+        if(item.bin == 1){ //TODO CHANGE THIS
+            return (
+                <Text style={{fontSize: 18, color: 'black', marginBottom: 10}}>
+                    {`${item.time}`}
+                </Text>
+            )
+        }
     };
 
     renderSeparator = () => {
