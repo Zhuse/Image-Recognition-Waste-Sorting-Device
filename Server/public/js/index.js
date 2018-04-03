@@ -7,16 +7,6 @@ var id = 1;
 var garbage = 0;
 var compost = 0;
 var recycling = 0;
-/*
-function getData(callback) {
-    $.getJSON('./api/getStats', function(data) {
-        console.log(data.garbage);
-
-
-        callback(data.garbage, data.recycle, data.compost);
-
-    });
-}*/
 			
 /**
  * Retrieve serverside data for graph
@@ -119,6 +109,10 @@ function setMode() {
     } catch (err) {}
 }
 
+/**
+ * Sends a POST request to close the bins when switching modes.
+ */
+ 
 function resetMotors() {
 	var binData = JSON.stringify({
 		'id': parseInt(id),
@@ -140,6 +134,9 @@ function resetMotors() {
     } catch (err) {}
 }
 
+/**
+ * Sends a POST request to clear the database from a specified bin ID
+ */
 function empty() {
 	var binData = JSON.stringify({
 		'id': parseInt(id),
@@ -157,6 +154,9 @@ function empty() {
     } catch (err) {}
 }
 
+/**
+ * Show the chart and history, and hide the controller
+ */
 function showChart() {
     document.getElementById('chart').style.display = 'block';
     document.getElementById('stats').style.display = 'none';
@@ -165,6 +165,9 @@ function showChart() {
 	loadGraph();
 }
 
+/**
+ * Show the controller, and hide the chart and history
+ */
 function showStats() {
     document.getElementById('stats').style.display = 'block';
     document.getElementById('chart').style.display = 'none';
@@ -172,6 +175,9 @@ function showStats() {
 	getData();
 }
 
+/**
+ * Update the controller, chart, and history with the inputted id
+ */
 function updateId(){
 	var input = document.getElementById('binId').value;
 	id = input;
@@ -179,6 +185,9 @@ function updateId(){
 	getData();
 }
 
+/**
+ * Switch the mode from manual to automatic, or vice versa
+ */
 function updateMode(changeMode) {
     if (changeMode == 1) {
         auto = true;
@@ -199,6 +208,9 @@ function updateMode(changeMode) {
     }
 }
 
+/**
+ * Open/close the garbage bin
+ */
 function garbUpdate(bin) {
     if (bin == 1) {
         garbageOpen = true;
@@ -209,6 +221,9 @@ function garbUpdate(bin) {
     //alert(garbageOpen);
 }
 
+/**
+ * Open/close the compost bin
+ */
 function compostUpdate(bin) {
     if (bin == 1) {
         compostOpen = true;
@@ -220,6 +235,9 @@ function compostUpdate(bin) {
     //alert(compostOpen);
 }
 
+/**
+ * Open/close the recycling bin
+ */
 function recyclingUpdate(bin) {
     if (bin == 1) {
         recyclingOpen = true;
@@ -231,11 +249,17 @@ function recyclingUpdate(bin) {
     //alert(recyclingOpen);
 }
 
+/**
+ * Get graph values and create and render the doughnut graph
+ */
 function loadGraph(){
 	getData();
 	createDoughnut(garbage, recycling, compost);
 }
           
+/**
+ * Create the doughnut graph
+ */
 function createDoughnut (garbageVal, recycleVal, compostVal) {
             var myChart = new Chart(document.getElementById("doughnut-chart"), {
               type: 'doughnut',
@@ -256,7 +280,10 @@ function createDoughnut (garbageVal, recycleVal, compostVal) {
               }
             });
 }
-		  
+	
+/**
+ * Update the chart, history, and controller stats every second
+ */
 function refresh(){
 	setInterval(function(){ loadGraph(); }, 1000);
 }

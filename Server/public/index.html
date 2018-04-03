@@ -1,9 +1,3 @@
-<!--
-  <meta ch	arset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  -->
-<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -29,8 +23,12 @@
         <h1>IMAGE RECOGNITION WASTE SORTING DEVICE</h1>
       </div>
     </div>
+	
+	<!-- Header options: both switchers and update ID text field -->
     <div id="header-container">
       <div class="page-switcher">
+	  
+	   <!-- Switcher for the controller/chart -->
         <p class="fieldset">
           <input type="radio" name="page" value="monthly" id="monthly-1" onclick="showStats();">
           <label for="monthly-1">CONTROLLER</label>
@@ -38,6 +36,8 @@
           <label for="yearly-1">CHART</label>
           <span class="switch"></span>
         </p>
+		
+		<!-- Switcher for manual/automatic mode -->
         <p class="fieldset">
           <input type="radio" name="mode" value="manual" id="manual" onclick="updateMode(0);">
           <label for="manual">MANUAL</label>
@@ -52,8 +52,12 @@
         </div>
       </div>
     </div>
+	
+	<!-- Display the controller/stats for each bin -->
     <div id="stats">
       <ul class="page-list bounce-invert">
+	  
+	    <!-- Garbage column -->
         <li>
           <ul class="page-wrapper">
             <li data-type="monthly" class="is-visible">
@@ -78,6 +82,8 @@
             </li>
           </ul>
         </li>
+		
+		<!-- Compost column -->
         <li class="basic">
           <ul class="page-wrapper">
             <li data-type="monthly" class="is-visible">
@@ -98,6 +104,8 @@
             </li>
           </ul>
         </li>
+		
+		<!-- Recycling column -->
         <li>
           <ul class="page-wrapper">
             <li data-type="monthly" class="is-visible">
@@ -120,6 +128,8 @@
         </li>
       </ul>
     </div>
+	
+	<!-- Display the chart -->
     <div class="container">
       <div id="chart" class="col-md-6">
         <canvas id="doughnut-chart" width="600" height="600"></canvas>
