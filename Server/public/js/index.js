@@ -1,7 +1,3 @@
-//var urlGarbage = "35.163.191.108/api/getGarbage";
-//var urlRecycle = "35.163.191.108/api/getRecycle";
-//var urlCompost = "35.163.191.108/api/getCompost";
-
 var garbageOpen = false;
 var recyclingOpen = false;
 var compostOpen = false;
@@ -21,7 +17,7 @@ function getData(callback) {
 
     });
 }*/
-
+			
 /**
  * Retrieve serverside data for graph
  * @return {[type]} [description]
@@ -103,16 +99,6 @@ function getHistory() {
  * Sets the bin mode and which bins to open
  */
 function setMode() {
-    /*
-    var data = new Object();
-    data.id = 1;
-    data.auto = auto;
-    data.garbageOpen = garbageOpen;
-    data.recyclingOpen = recyclingOpen;
-    data.compostOpen = compostOpen;
-    var binInfo = JSON.stringify(data);*/
-
-
 	var binData = JSON.stringify({
 		'id': parseInt(id),
 		'auto': auto,
@@ -266,31 +252,11 @@ function createDoughnut (garbageVal, recycleVal, compostVal) {
               options: {
                 hover: false,
                 animation: false,
-				maintainAspectRatio: false
+				maintainAspectRatio: true
               }
             });
-		  }
+}
 		  
 function refresh(){
 	setInterval(function(){ loadGraph(); }, 1000);
 }
-/*
-function getGarbage() {
-  $.getJSON('./api/getGarbage',function(data){
-    console.log(data.garbage);
-    return data.garbage;
-  });
-}
-function getRecycle(urlRecycle) {
-    $.getJSON('./api/getRecycle',function(data){
-      return data.recycle;
-    });
-//return 50;
-}
-function getCompost(urlCompost) {
-  $.getJSON('./api/getCompost',function(data){
-    return data.compost;
-  });
-//return 5;
-}
-*/
