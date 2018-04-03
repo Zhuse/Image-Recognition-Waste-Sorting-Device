@@ -1,140 +1,133 @@
-
 <!--
   <meta ch	arset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
--->
-  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-  <!DOCTYPE html>
-  <html lang="en">
+  -->
+<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+<!DOCTYPE html>
+<html lang="en">
   <head>
-  <meta name="description" content="">
-  <meta name="author" content="">
-
-  <title>IRWSD</title>
-
-  <!-- Bootstrap core CSS -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
-  <!-- Custom styles for this template -->
-  <link href="css/style.css" rel="stylesheet">
-
-
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.min.js"></script>
-      <script src="js/index.js"></script>
-
+    <meta name="description" content="">
+    <meta name="author" content="">
+	
+    <title>IRWSD</title>
+	
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    
+	<!-- Custom styles for this template -->
+    <link href="css/style.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.min.js"></script>
+    <script src="js/index.js"></script>
+	
   </head>
   
   <body onload="refresh()">
-
     <div class="container">
       <div id="header" class="col-md-12">
-          <h1>IMAGE RECOGNITION WASTE SORTING DEVICE</h1>
+        <h1>IMAGE RECOGNITION WASTE SORTING DEVICE</h1>
       </div>
-
     </div>
-	<div id="header-container">
-	<div class="page-switcher">
-			<p class="fieldset">
-				<input type="radio" name="page" value="monthly" id="monthly-1" onclick="showStats();">
-				<label for="monthly-1">CONTROLLER</label>
-				<input type="radio" name="page" value="yearly" id="yearly-1" onclick="showChart();">
-				<label for="yearly-1">CHART</label>
-				<span class="switch"></span>
-			</p>
-			<p class="fieldset">
-				<input type="radio" name="mode" value="manual" id="manual" onclick="updateMode(0);">
-				<label for="manual">MANUAL</label>
-				<input type="radio" name="mode" value="automatic" id="automatic" onclick="updateMode(1)">
-				<label for="automatic">AUTOMATIC</label>
-				<span class="switch"></span>
-			</p>
-			<div id="idField">
-			<button class="select" id="empty" onclick="empty()">EMPTY</button>
-			<button class="select" id="update" onclick="updateId()">UPDATE</button>
-			<input type="number" name="binId" id="binId">
-			</div>
-	</div>
-	</div>
-	<div id="stats">
-	<ul class="page-list bounce-invert">
-			<li>
-				<ul class="page-wrapper">
-					<li data-type="monthly" class="is-visible">
-						<header class="page-header">
-							<h2>Garbage</h2>
-							<div class="column">
-								<span class="value" id="garbageVal">0</span>
-								<span class="duration">items</span>
-							</div>
-						</header>
-						<div class="page-body">
-							<ul class="page-features">
-							</ul>
-						</div>
-						<br />
-						<img src="images/garbage.png" alt="Garbage" height="150" width="150" class="image">
-						<br />
-						<footer class="page-footer">
-							<button class="select" onclick="garbUpdate(1)">OPEN</button>
-							<button class="select" onclick="garbUpdate(0)">CLOSE</button>
-						</footer>
-					</li>
-				</ul>
-			</li>
-			<li class="basic">
-				<ul class="page-wrapper">
-					<li data-type="monthly" class="is-visible">
-						<header class="page-header">
-							<h2>Compost</h2>
-							<div class="column">
-								<span class="value" id="compostVal">0</span>
-								<span class="duration">items</span>
-							</div>
-						</header>
-						<br />
-						<img src="images/compost.png" alt="Compost" height="150" width="150" class="image">
-						<br />
-						<footer class="page-footer">
-							<button class="select" onclick="compostUpdate(1)">OPEN</button>
-							<button class="select" onclick="compostUpdate(0)">CLOSE</button>
-						</footer>
-					</li>
-				</ul>
-			</li>
-			<li>
-				<ul class="page-wrapper">
-					<li data-type="monthly" class="is-visible">
-						<header class="page-header">
-							<h2>Recycling</h2>
-							<div class="column">
-								<span class="value" id="recyclingVal">0</span>
-								<span class="duration">items</span>
-							</div>
-						</header>
-						<br />
-						<img src="images/recycling.png" alt="Recycling" height="150" width="150" class="image">
-						<br />
-						<footer class="page-footer">
-							<button class="select" onclick="recyclingUpdate(1)">OPEN</button>
-							<button class="select" onclick="recyclingUpdate(0)">CLOSE</button>
-						</footer>
-					</li>
-				</ul>
-			</li>
-		</ul>
-		</div>
+    <div id="header-container">
+      <div class="page-switcher">
+        <p class="fieldset">
+          <input type="radio" name="page" value="monthly" id="monthly-1" onclick="showStats();">
+          <label for="monthly-1">CONTROLLER</label>
+          <input type="radio" name="page" value="yearly" id="yearly-1" onclick="showChart();">
+          <label for="yearly-1">CHART</label>
+          <span class="switch"></span>
+        </p>
+        <p class="fieldset">
+          <input type="radio" name="mode" value="manual" id="manual" onclick="updateMode(0);">
+          <label for="manual">MANUAL</label>
+          <input type="radio" name="mode" value="automatic" id="automatic" onclick="updateMode(1)">
+          <label for="automatic">AUTOMATIC</label>
+          <span class="switch"></span>
+        </p>
+        <div id="idField">
+          <button class="select" id="empty" onclick="empty()">EMPTY</button>
+          <button class="select" id="update" onclick="updateId()">UPDATE</button>
+          <input type="number" name="binId" id="binId">
+        </div>
+      </div>
+    </div>
+    <div id="stats">
+      <ul class="page-list bounce-invert">
+        <li>
+          <ul class="page-wrapper">
+            <li data-type="monthly" class="is-visible">
+              <header class="page-header">
+                <h2>Garbage</h2>
+                <div class="column">
+                  <span class="value" id="garbageVal">0</span>
+                  <span class="duration">items</span>
+                </div>
+              </header>
+              <div class="page-body">
+                <ul class="page-features">
+                </ul>
+              </div>
+              <br />
+              <img src="images/garbage.png" alt="Garbage" height="150" width="150" class="image">
+              <br />
+              <footer class="page-footer">
+                <button class="select" onclick="garbUpdate(1)">OPEN</button>
+                <button class="select" onclick="garbUpdate(0)">CLOSE</button>
+              </footer>
+            </li>
+          </ul>
+        </li>
+        <li class="basic">
+          <ul class="page-wrapper">
+            <li data-type="monthly" class="is-visible">
+              <header class="page-header">
+                <h2>Compost</h2>
+                <div class="column">
+                  <span class="value" id="compostVal">0</span>
+                  <span class="duration">items</span>
+                </div>
+              </header>
+              <br />
+              <img src="images/compost.png" alt="Compost" height="150" width="150" class="image">
+              <br />
+              <footer class="page-footer">
+                <button class="select" onclick="compostUpdate(1)">OPEN</button>
+                <button class="select" onclick="compostUpdate(0)">CLOSE</button>
+              </footer>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <ul class="page-wrapper">
+            <li data-type="monthly" class="is-visible">
+              <header class="page-header">
+                <h2>Recycling</h2>
+                <div class="column">
+                  <span class="value" id="recyclingVal">0</span>
+                  <span class="duration">items</span>
+                </div>
+              </header>
+              <br />
+              <img src="images/recycling.png" alt="Recycling" height="150" width="150" class="image">
+              <br />
+              <footer class="page-footer">
+                <button class="select" onclick="recyclingUpdate(1)">OPEN</button>
+                <button class="select" onclick="recyclingUpdate(0)">CLOSE</button>
+              </footer>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
     <div class="container">
       <div id="chart" class="col-md-6">
-		
         <canvas id="doughnut-chart" width="600" height="600"></canvas>
-		<span class="value" id="total">0</span>
-		<span class="duration" id="items"> ITEMS TOTAL</span>
-
+        <span class="value" id="total">0</span>
+        <span class="duration" id="items"> ITEMS TOTAL</span>
       </div>
-	  <div id = "history">
-	  </div>
-	  </div>
+      <div id = "history">
+      </div>
+    </div>
   </body>
 </html>
