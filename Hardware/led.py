@@ -24,14 +24,14 @@ def segOff():
 
 #display c on seven segment led
 def segC():
-    ledF.on()
-    ledG.off()
+    ledF.off()
+    ledG.on()
     ledE.off()
     ledD.off()
     ledDP.on()
     ledC.on()
     ledB.on()
-    ledA.on()
+    ledA.off()
 
 #display g on seven segment led
 def segG():
@@ -46,14 +46,14 @@ def segG():
 
 #display r on seven segment led
 def segR():
-    ledF.on()
-    ledG.off()
+    ledF.off()
+    ledG.on()
     ledE.off()
     ledD.on()
     ledDP.on()
     ledC.on()
     ledB.on()
-    ledA.on()
+    ledA.off()
 
 #update display on seven segment display depending on which bin is open
 def updateSeg(bin):
