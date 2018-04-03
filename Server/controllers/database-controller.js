@@ -115,7 +115,7 @@ var getMode = function (id, response) {
 
 // add entry to history table
 var addHistoryEntry = function (id, waste) {
-  console.log("in function addHistoryEntry");
+  console.log("in function addHistoryEntry id: " + id);
   switch (waste) {
     case GARBAGE_TYPE.GARBAGE: waste_type = 1; break;
     case GARBAGE_TYPE.RECYCLING: waste_type = 2; break;

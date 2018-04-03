@@ -43,11 +43,11 @@ const GARBAGE_TAGS = {
   "Glass": GARBAGE_TYPE.RECYCLING,
   "Carton": GARBAGE_TYPE.RECYCLING,
   "Cardboard": GARBAGE_TYPE.RECYCLING,
-  "Box": GARBAGE_TYPE.RECYCLING,
+//  "Box": GARBAGE_TYPE.RECYCLING,
   "Cup": GARBAGE_TYPE.RECYCLING,
   "Bottle": GARBAGE_TYPE.RECYCLING,
   "Diary": GARBAGE_TYPE.RECYCLING,
-  "Paper": GARBAGE_TYPE.RECYCLING,
+//  "Paper": GARBAGE_TYPE.RECYCLING,
   "Document": GARBAGE_TYPE.RECYCLING,
   "Beer Bottle": GARBAGE_TYPE.RECYCLING,
   "Drink": GARBAGE_TYPE.RECYCLING,
@@ -160,13 +160,16 @@ function recognition(content) {
  * @return {[GARBAGE_TYPE]} type of garbage detected from image labels (string object)
  */
 function detectGarbage(imageData) {
+    console.log(imageData);
     for (var i = 0; i < imageData.Labels.length; i++) {
         for (tag in GARBAGE_TAGS) {
             if (imageData.Labels[i].Name == tag) { //If we find a major identifying garbage type tag, immediately return the prediction
-                return GARBAGE_TAGS[tag];
+                console.log(GARBAGE_TAGS[tag]);
+	        return GARBAGE_TAGS[tag];
             }
         }
     }
+    console.log(GARBAGE_TYPE.GARBAGE);
     return GARBAGE_TYPE.GARBAGE; //If we can't figure out what it is, classify it as garbage
 }
 

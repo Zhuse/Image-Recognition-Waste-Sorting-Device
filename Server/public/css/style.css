@@ -2,6 +2,7 @@
 	list-style-type:none;
 }
 
+
 #header {
   background-color: #F5F5F5;
   margin-bottom:  20px;
@@ -16,7 +17,7 @@
 #idField {
 	float: left;
 	position: relative;
-	left: 22%;
+	left: 18%;
 	font-size: 12px;
 
 }
@@ -82,7 +83,7 @@
 
 #total {
 	position: absolute;
-	top: 43%;
+	top: 41%;
 	left: 46%;
 	
 }
