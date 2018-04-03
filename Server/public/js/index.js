@@ -271,6 +271,9 @@ function createDoughnut (garbageVal, recycleVal, compostVal) {
             });
 		  }
 		  
+function refresh(){
+	setInterval(function(){ loadGraph(); }, 1000);
+}
 /*
 function getGarbage() {
   $.getJSON('./api/getGarbage',function(data){
