@@ -149,7 +149,7 @@ function resetMotors() {
             data: binData,
             dataType: 'json',
             contentType: "application/json",
-            success: function(response) {}
+            success: function(response) {setMode();}
         });
     } catch (err) {}
 }
