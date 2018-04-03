@@ -54,6 +54,20 @@ export default class RecyclingScreen extends Component {
                                     alert("could not open bin");
                                 }
                             });
+
+                            getItemHistory(newCommand).then((response) => {
+                                if (response.success) {
+                                    this.setState({
+                                        dataSource: response.history,   //TODO change this
+                                        isLoading: false
+                                    });
+                                }
+                                else {
+                                    alert("could not load history");
+                                }
+                            });
+                        }}>
+
                         }}>
 
                         <Image
@@ -112,7 +126,7 @@ export default class RecyclingScreen extends Component {
     }
 
     renderItem = ({item}) => {
-        if(item.bin == 2){ //TODO CHANGE THIS
+        if (item.bin == 2) { //TODO CHANGE THIS
             return (
                 <Text style={{fontSize: 18, color: 'black', marginBottom: 10}}>
                     {`${item.time}`}

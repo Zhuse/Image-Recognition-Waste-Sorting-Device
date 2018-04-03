@@ -54,7 +54,9 @@ export default class CompostScreen extends Component {
                                     alert("could not open bin");
                                 }
                             });
-                        }}>
+                        }}
+
+                    >
 
                         <Image
                             source={garbageIcon}
@@ -82,7 +84,7 @@ export default class CompostScreen extends Component {
                     */}
                     <FlatList
                         data={this.state.dataSource}
-                        extraData={this.state} //TODO might need this to display new history data
+                        extraData={this.state.isOpen} //TODO might need this to display new history data
                         renderItem={this.renderItem}
                         keyExtractor={(item, index) => index}
                         ItemSeparatorComponent={this.renderSeparator}
