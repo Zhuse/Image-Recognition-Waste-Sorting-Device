@@ -5,7 +5,6 @@ def getSonarDistance():
     GPIO.setmode(GPIO.BCM) #Sets broadcom GPIO pins
     GPIO.setwarnings(False)
 
-    #Specify Pins, changle later
     TRIG = 18
     ECHO = 24
 
@@ -14,7 +13,6 @@ def getSonarDistance():
     GPIO.setup(ECHO, GPIO.IN)
     GPIO.output(TRIG, False)
 
-    #Sensor Settling
     time.sleep(2)
     #Sensor pulse
     GPIO.output(TRIG, True)

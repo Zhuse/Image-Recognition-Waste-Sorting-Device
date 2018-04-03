@@ -12,6 +12,7 @@ import pigpio
 binID = 1
 categoriesDict = {'recycling': 0, 'compost': 1, 'garbage': 2}
 
+#Converts true strings to boolean
 def str_to_bool(s):
     if s == 'true' or s == 'True':
         return True
@@ -20,29 +21,39 @@ def str_to_bool(s):
     else: 
         return False
 
+'''
+Updates the states object from POSTing the server
+Manually open each corresponding bin 
+'''
 def updateMode(states):
+    #Post the server and receive response
     overrideJson = modePostReq(binID).json()
+    #Checks for successful POST
     if (overrideJson["success"] == True):
         states.automaticMode = overrideJson["auto"]
 
+        #Opens bin for manual mode 
         if (not states.automaticMode):
             segThree()
+            #Sets the trash can states
             states.flag = True
             states.compostState = overrideJson["compostOpen"]
             states.recyclingState = overrideJson["recyclingOpen"]
             states.garbageState = overrideJson["garbageOpen"]
+            #Triggers bins to open
             manualTriggerBin(categoriesDict['compost'], states.compostState)
             manualTriggerBin(categoriesDict['recycling'], states.recyclingState)
             manualTriggerBin(categoriesDict['garbage'], states.garbageState)
             time.sleep(0.1)
 
 def main():
- #   manualFlag = False
-#    resetServo()
+    #Resets all the states for the servo motor
+    resetServo()
     states = ObjectStates()
     segOff()
 
     while (True):
+        #Check for automatic mode and opens bins
         while(states.automaticMode):
             if (states.flag):
                 resetServo()
@@ -69,6 +80,7 @@ def main():
                 #Post server and receive response
                 returnResponse = imgPostReq(base64String)  
                 responseJson = returnResponse.json()
+                #If response is successful then open the bin and sets the 7-seg
                 if (responseJson["success"]):
                     binString = responseJson["category"]
                     print (binString)
@@ -79,11 +91,9 @@ def main():
                     openBin(binNumber)
                     segOff()
                     print ("Opening" + str(binNumber))
-                    #display bin on seven segment led
             time.sleep(0.1)
             
-        updateMode(states) 
         #When automatic mode is turned off then allow for force opens 
-    
+        updateMode(states) 
 
 main()
