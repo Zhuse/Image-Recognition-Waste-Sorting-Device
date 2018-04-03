@@ -11,7 +11,7 @@ export default class GarbageScreen extends Component {
             isOpen: false,
             dataSource: [],
             isLoading: true
-        }
+        };
     }
 
     render() {

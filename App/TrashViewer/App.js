@@ -21,16 +21,16 @@ export default App;
 const AppTabNavigator = TabNavigator(
     {
         Garbage: {
-            screen: GarbageScreen
+            screen: GarbageScreen,
         },
         Compost: {
-            screen: CompostScreen
+            screen: CompostScreen,
         },
         Recycling: {
             screen: RecyclingScreen
         },
         Control:{
-            screen: ControlScreen
+            screen: ControlScreen,
         }
     },
     {
