@@ -1,5 +1,5 @@
-const apiInsertCommand = 'http://192.168.1.75:3000/setMode'; //TODO change this
-const apigetItemHistory = 'http://192.168.1.75:3000/history';//TODO change this
+const apiInsertCommand = 'http://34.218.219.101/setMode'; //TODO change this
+const apigetItemHistory = 'http://34.218.219.101/history';//TODO change this
 
 //send POST request to insert new data
 async function insertCommand(command) {
@@ -49,6 +49,31 @@ async function getItemHistory(command) {
     }
 }
 
+//send POST request to empty can
+async function emptyCan(command) {
+    try {
+        console.log(`Empty waiting for response`);
+
+        let response = await fetch(emptyCan, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(command)
+        });
+
+        let responseJson = await response.json();
+        console.log(`Empty response is`);
+        console.log(`${JSON.stringify(responseJson)}`);
+
+        return responseJson;
+    } catch (error) {
+        console.error(`Error is : ${error}`);
+    }
+}
+
 
 export {insertCommand};
 export {getItemHistory};
+export {emptyCan};

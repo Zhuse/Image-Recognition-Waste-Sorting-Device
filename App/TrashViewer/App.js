@@ -6,6 +6,7 @@ import {TabNavigator, TabBarBottom} from 'react-navigation'
 import GarbageScreen from './Screens/GarbageScreen'
 import RecyclingScreen from './Screens/RecyclingScreen'
 import CompostScreen from './Screens/CompostScreen'
+import ControlScreen from './Screens/CompostScreen'
 
 class App extends Component {
     render() {
@@ -28,6 +29,9 @@ const AppTabNavigator = TabNavigator(
         Recycling: {
             screen: RecyclingScreen
         },
+        Control:{
+            screen: ControlScreen
+        }
     },
     {
 /*        tabBarOptions: {
