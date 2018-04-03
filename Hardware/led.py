@@ -1,16 +1,9 @@
 from gpiozero import LED
 from time import sleep
 
-#initialize each color of the RGB led
-#TODO: change pins
-ledRed = LED(11)
-ledGreen = LED(14)
-ledBlue = LED(15)
-
 #initialize each segment of the seven degment led
-#TODO: change pins
-ledF = LED(26)
-ledG = LED(5)
+ledF = LED(5)
+ledG = LED(26)
 ledE = LED(19)
 ledD = LED(6)
 ledDP = LED(25)
@@ -72,12 +65,4 @@ def updateSeg(bin):
         segR()
     else:
         segOff()
-
-#turn RGB led on in green
-def greenOn():
-    ledGreen.off()
-
-#turn RGB led off in green
-def greenOff():
-    ledGreen.on()
     

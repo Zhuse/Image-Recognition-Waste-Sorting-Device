@@ -59,10 +59,7 @@ def main():
 
             #If object is close enough then perform actions
             if (objectDistance < 50):
-                #LED trigger
-                greenOn()
                 capturePic()
-                greenOff()
                 #Base64 preparation before post
                 base64String = convertToBase64("test_photo.jpg")
                 #Delay to ensure image is taken properly
