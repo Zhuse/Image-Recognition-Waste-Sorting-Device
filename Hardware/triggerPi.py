@@ -34,16 +34,12 @@ def updateMode(states):
             manualTriggerBin(1, states.recyclingState)
             manualTriggerBin(2, states.garbageState)
             time.sleep(0.1)
-#        else:
- #           resetServo()
-  #          manualFlag = True
-   #         time.sleep(0.1)
-
 
 def main():
  #   manualFlag = False
 #    resetServo()
     states = ObjectStates()
+    segOff()
 
     while (True):
         while(states.automaticMode):
@@ -78,15 +74,15 @@ def main():
                     binString = responseJson["category"]
                     print (binString)
                     binNumber = categoriesDict[binString]
-                    print ("Opening" + str(binNumber))
-                    #display bin on seven segment led
                     updateSeg(binString)
                     openBin(binNumber)
+                    segOff()
+                    print ("Opening" + str(binNumber))
+                    #display bin on seven segment led
             time.sleep(0.1)
             
         updateMode(states) 
         #When automatic mode is turned off then allow for force opens 
     
-       # if (not automaticMode):
 
 main()

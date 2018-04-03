@@ -9,14 +9,14 @@ ledBlue = LED(15)
 
 #initialize each segment of the seven degment led
 #TODO: change pins
-ledF = LED(21)
-ledG = LED(20)
-ledE = LED(16)
-ledD = LED(12)
-ledDP = LED(26)
-ledC = LED(19)
-ledB = LED(13)
-ledA = LED(22)
+ledF = LED(26)
+ledG = LED(5)
+ledE = LED(19)
+ledD = LED(6)
+ledDP = LED(25)
+ledC = LED(21)
+ledB = LED(16)
+ledA = LED(20)
 
 #turn seven segment led off
 def segOff():   
@@ -72,8 +72,6 @@ def updateSeg(bin):
         segR()
     else:
         segOff()
-    sleep(5)
-    segOff()
 
 #turn RGB led on in green
 def greenOn():
