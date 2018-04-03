@@ -45,14 +45,14 @@ router.get('/testdb', function(request, response){
  * @return {[type]}          [description]
  */
 router.post('/recognition', function(request, response) {
-    console.log("endpoint /recognition");
+    console.log("endpoint /recognition id: " + request.body.id);
     request.body.base64 = request.body.base64.slice(1, -1);
 
     var enc = new Buffer(request.body.base64, 'base64');
 	//var enc = request.query.base64;
 //    recognitionController.recognition(enc, response);
     request.body.base64 = request.body.base64.slice(1, -1);
-
+    request.body.id = 1;
     var enc = new Buffer(request.body.base64, 'base64');
 	//var enc = request.query.base64;
     recognitionController.recognition(enc).then((category) => {
