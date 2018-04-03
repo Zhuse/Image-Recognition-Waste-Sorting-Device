@@ -8,12 +8,16 @@ const db = server.db;
 // return true if success, false otherwise
 var setMode = function (response, id, auto, garbageOpen, recyclingOpen, compostOpen) {
   console.log("in function setMode");
-  db.all("SELECT 1 FROM mode WHERE id = (?) LIMIT 1", [id],
+  db.all("SELECT (garbage_open, recycling_open, compost_open) FROM mode WHERE id = (?) LIMIT 1", [id],
       function (err, rows){
         if (err) {
           response.json({"success": false});
         }
         if (rows.length > 0) {
+
+          var currGarbageState = rows[0].garbage_open;
+          var currRecyclingState = rows[0].recycling_open;
+          var currCompostState = rows[0].compost_open;
 
           if (auto) {
   //          console.log("testid pass, if true");
@@ -30,13 +34,13 @@ var setMode = function (response, id, auto, garbageOpen, recyclingOpen, compostO
                   response.json({"success": !err && rows !== null});
                 });
 
-            if (garbageOpen) {
+            if (garbageOpen && !currGarbageState) {
               addHistoryEntry(id, "garbage");
             }
-            if (recyclingOpen) {
+            if (recyclingOpen && !currRecyclingState) {
               addHistoryEntry(id, "recycling");
             }
-            if (compostOpen) {
+            if (compostOpen && !currCompostState) {
               addHistoryEntry(id, "compost");
             }
           }
