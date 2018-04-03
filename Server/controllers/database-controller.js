@@ -8,16 +8,18 @@ const db = server.db;
 // return true if success, false otherwise
 var setMode = function (response, id, auto, garbageOpen, recyclingOpen, compostOpen) {
   console.log("in function setMode");
-  db.all("SELECT (garbage_open, recycling_open, compost_open) FROM mode WHERE id = (?) LIMIT 1", [id],
+  db.all("SELECT garbage_open, recycling_open, compost_open FROM mode WHERE id = (?)", [id],
       function (err, rows){
         if (err) {
           response.json({"success": false});
+          return;
         }
-        if (rows.length > 0) {
+        if (rows !== undefined && rows.length > 0) {
 
           var currGarbageState = rows[0].garbage_open;
           var currRecyclingState = rows[0].recycling_open;
           var currCompostState = rows[0].compost_open;
+          console.log(currGarbageState + " " + currRecyclingState + " " + currCompostState);
 
           if (auto) {
   //          console.log("testid pass, if true");

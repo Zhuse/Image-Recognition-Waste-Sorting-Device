@@ -81,6 +81,10 @@ router.post('/empty', function (request, response) {
 router.post('/setMode', function (request, response) {
   console.log("endpoint /setMode");
   console.log(request.body);
+  if (request.body.id == null) {
+    request.body.id = 1;
+    console.log("id null, default to : " + request.body.id);
+  }
   if (request.body.auto) {
     databaseController.setMode(response, request.body.id, request.body.auto)
   } else {
