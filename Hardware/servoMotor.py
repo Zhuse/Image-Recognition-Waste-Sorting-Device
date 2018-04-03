@@ -27,26 +27,20 @@ def manualTriggerBin(openBin, binState):
     if openBin == 0:
         if (binState):
             pi.set_servo_pulsewidth(compostPin, 2000)
-            updateSeg("compost")
         else:
             pi.set_servo_pulsewidth(compostPin, 500)
-            segOff()
 
     if openBin == 1:
         if (binState):
             pi.set_servo_pulsewidth(recyclingPin, 2000)
-            updateSeg("recycling")
         else:
             pi.set_servo_pulsewidth(recyclingPin, 500)
-            segOff()
 
     if openBin == 2:
         if (binState):
             pi.set_servo_pulsewidth(garbagePin, 2000)
-            updateSeg("garbage")
         else:
             pi.set_servo_pulsewidth(garbagePin, 500)
-            segOff()
 
 
 def resetServo():

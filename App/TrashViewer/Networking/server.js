@@ -1,5 +1,6 @@
 const apiInsertCommand = 'http://34.218.219.101/setMode'; //TODO change this
 const apigetItemHistory = 'http://34.218.219.101/history';//TODO change this
+const apiEmpty = 'http://34.218.219.101/empty';//TODO change this
 
 //send POST request to insert new data
 async function insertCommand(command) {
@@ -54,7 +55,7 @@ async function emptyCan(command) {
     try {
         console.log(`Empty waiting for response`);
 
-        let response = await fetch(emptyCan, {
+        let response = await fetch(apiEmpty, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',

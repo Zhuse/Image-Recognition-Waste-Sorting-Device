@@ -26,13 +26,14 @@ def updateMode(states):
         states.automaticMode = overrideJson["auto"]
 
         if (not states.automaticMode):
+            segThree()
             states.flag = True
             states.compostState = overrideJson["compostOpen"]
             states.recyclingState = overrideJson["recyclingOpen"]
             states.garbageState = overrideJson["garbageOpen"]
-            manualTriggerBin(0, states.compostState)
-            manualTriggerBin(1, states.recyclingState)
-            manualTriggerBin(2, states.garbageState)
+            manualTriggerBin(categoriesDict['compost'], states.compostState)
+            manualTriggerBin(categoriesDict['recycling'], states.recyclingState)
+            manualTriggerBin(categoriesDict['garbage'], states.garbageState)
             time.sleep(0.1)
 
 def main():
@@ -53,6 +54,7 @@ def main():
 
             #Checks for object in proximity to trigger
             while (objectDistance > 50 and states.automaticMode):
+                segOff()
                 print ("auto mode is " + str(states.automaticMode))
                 objectDistance = getSonarDistance()
                 updateMode(states)
@@ -71,6 +73,8 @@ def main():
                     binString = responseJson["category"]
                     print (binString)
                     binNumber = categoriesDict[binString]
+                    segOff()
+                    time.sleep(0.1)
                     updateSeg(binString)
                     openBin(binNumber)
                     segOff()

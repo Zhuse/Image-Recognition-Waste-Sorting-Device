@@ -6,7 +6,7 @@ import {TabNavigator, TabBarBottom} from 'react-navigation'
 import GarbageScreen from './Screens/GarbageScreen'
 import RecyclingScreen from './Screens/RecyclingScreen'
 import CompostScreen from './Screens/CompostScreen'
-import ControlScreen from './Screens/CompostScreen'
+import ControlScreen from './Screens/ControlScreen'
 
 class App extends Component {
     render() {
