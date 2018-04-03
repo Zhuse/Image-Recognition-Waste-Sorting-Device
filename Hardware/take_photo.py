@@ -30,7 +30,7 @@ def imgPostReq(base64Image):
     return r
 
 def modePostReq(binID):
-    payload = {'id': binID}
+    payload = {'id': 1}
     r = requests.post('http://34.218.219.101:3000/mode', json=payload)
     print (r.text)
   #  r = requests.post('http://192.81.129.240:3000/mode', json=payload)
