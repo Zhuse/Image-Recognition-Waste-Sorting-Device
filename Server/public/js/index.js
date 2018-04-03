@@ -149,10 +149,28 @@ function resetMotors() {
             data: binData,
             dataType: 'json',
             contentType: "application/json",
-            success: function(response) {setTimeout(setMode(), 2000);}
+            success: function(response) {}
         });
     } catch (err) {}
 }
+
+function empty() {
+	var binData = JSON.stringify({
+		'id': parseInt(id),
+	});
+	
+    try {
+        $.ajax({
+            type: 'POST',
+            url: './empty',
+            data: binData,
+            dataType: 'json',
+            contentType: "application/json",
+            success: function(response) {}
+        });
+    } catch (err) {}
+}
+
 function showChart() {
     document.getElementById('chart').style.display = 'block';
     document.getElementById('stats').style.display = 'none';
@@ -171,7 +189,6 @@ function showStats() {
 function updateId(){
 	var input = document.getElementById('binId').value;
 	id = input;
-	setMode();
 	getHistory();
 	getData();
 }
@@ -181,7 +198,7 @@ function updateMode(changeMode) {
         auto = true;
         var footers = document.getElementsByClassName('select');
         for (i = 0; i < footers.length; i++) {
-			if(footers[i].id != 'update')
+			if(footers[i].id != 'update' && footers[i].id != 'empty')
             footers[i].style.display = 'none';
         }
 		var update = document.getElementById('update');
