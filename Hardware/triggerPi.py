@@ -31,9 +31,9 @@ def updateMode(states):
             states.compostState = overrideJson["compostOpen"]
             states.recyclingState = overrideJson["recyclingOpen"]
             states.garbageState = overrideJson["garbageOpen"]
-            manualTriggerBin(0, states.compostState)
-            manualTriggerBin(1, states.recyclingState)
-            manualTriggerBin(2, states.garbageState)
+            manualTriggerBin(categoriesDict['compost'], states.compostState)
+            manualTriggerBin(categoriesDict['recycling'], states.recyclingState)
+            manualTriggerBin(categoriesDict['garbage'], states.garbageState)
             time.sleep(0.1)
 
 def main():
