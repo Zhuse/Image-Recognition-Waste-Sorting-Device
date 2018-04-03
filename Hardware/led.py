@@ -55,6 +55,16 @@ def segR():
     ledB.on()
     ledA.off()
 
+def segThree():
+    ledF.on()
+    ledG.off()
+    ledE.on()
+    ledD.off()
+    ledDP.on()
+    ledC.off()
+    ledB.off()
+    ledA.off()
+
 #update display on seven segment display depending on which bin is open
 def updateSeg(bin):
     if bin == 'compost':
