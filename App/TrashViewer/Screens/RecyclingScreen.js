@@ -24,7 +24,7 @@ export default class RecyclingScreen extends Component {
             }}>
                 <View
                     style={{
-                        flex: 7,
+                        flex: 6,
                         flexDirection: 'column',
                         justifyContent: 'center',
                         alignItems: 'center'
@@ -68,8 +68,6 @@ export default class RecyclingScreen extends Component {
                             });
                         }}>
 
-                        }}>
-
                         <Image
                             source={garbageIcon}
                             style={styles.icon}
@@ -85,7 +83,7 @@ export default class RecyclingScreen extends Component {
                 </View>
 
                 <View style={{
-                    flex: 3,
+                    flex: 4,
                     flexDirection: 'column',
                     justifyContent: 'center',
                     alignItems: 'center'
@@ -99,7 +97,7 @@ export default class RecyclingScreen extends Component {
                         extraData={this.state} //TODO might need this to display new history data
                         renderItem={this.renderItem}
                         keyExtractor={(item, index) => index}
-                        ItemSeparatorComponent={this.renderSeparator}
+                        //ItemSeparatorComponent={this.renderSeparator}
                     />
                 </View>
 
@@ -115,7 +113,7 @@ export default class RecyclingScreen extends Component {
         getItemHistory(newCommand).then((response) => {
             if (response.success) {
                 this.setState({
-                    dataSource: response.history,
+                    dataSource: response.history,   //TODO change this
                     isLoading: false
                 });
             }
@@ -126,27 +124,13 @@ export default class RecyclingScreen extends Component {
     }
 
     renderItem = ({item}) => {
-        if (item.bin == 2) { //TODO CHANGE THIS
+        if(item.bin == 2){ //TODO CHANGE THIS
             return (
                 <Text style={{fontSize: 18, color: 'black', marginBottom: 10}}>
                     {`${item.time}`}
                 </Text>
             )
         }
-
-        //CODE FOR EXTRA INFO TO DISPLAY
-        /*            <View style={{flex: 1, flexDirection: 'row', marginBottom: 2}}>
-                <Image style={{width: 80, height: 80, margin: 3}}
-                       source={{uri: item.picture.thumbnail}}/>
-                <View style={{flex: 1, justifyContent: 'center', marginLeft: 3}}>
-                    <Text style={{fontSize: 18, color: 'black', marginBottom: 10}}>
-                        {`${item.name.first} ${item.registered}`}
-                    </Text>
-                    <Text style={{fontSize: 14, color: 'green'}}>
-                        {`${item.dob}`}
-                    </Text>
-                </View>
-            </View>*/
     };
 
     renderSeparator = () => {
