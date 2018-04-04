@@ -12,9 +12,6 @@ router.post('/recognition', function(request, response) {
     console.log("endpoint /recognition id: " + request.body.id);
     request.body.base64 = request.body.base64.slice(1, -1);
     var enc = new Buffer(request.body.base64, 'base64');
-    request.body.base64 = request.body.base64.slice(1, -1);
-    request.body.id = 1;
-    var enc = new Buffer(request.body.base64, 'base64');
     recognitionController.recognition(enc).then((category) => {
         databaseController.addHistoryEntry(request.body.id, category);
         response.json({

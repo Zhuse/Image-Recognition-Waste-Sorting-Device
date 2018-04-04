@@ -5,7 +5,19 @@ const GARBAGE_TYPE = recognitionController.GARBAGE_TYPE;
 const db = server.db;
 
 
-// return true if success, false otherwise
+/**
+ * Updates the mode table in the database setting the operation mode for the
+ * garbage bin. Each garbage bin can either be in two modes, automatic or manual
+ * If the garbage bin is in manual mode, garbageOpen, recyclingOpen and compostOpen
+ * are needed to specify if each bin is open
+ * @param  {[object]} response response object for the HTTP request
+ * @param  {[int]} id unique id for each bin
+ * @param  {[boolean]} auto whether or not to set the bin to auto mode
+ * @param  {[boolean]} garbageOpen if the bin is in manual mode, set state of garbage lid
+ * @param  {[boolean]} recyclingOpen if the bin is in manual mode, set state of recycling lid
+ * @param  {[boolean]} compostOpen if the bin is in manual mode, set state of compost lid
+ * @return nothing
+ */
 var setMode = function(response, id, auto, garbageOpen, recyclingOpen, compostOpen) {
     console.log("in function setMode");
     db.all("SELECT garbage_open, recycling_open, compost_open FROM mode WHERE id = (?)", [id],
@@ -14,8 +26,9 @@ var setMode = function(response, id, auto, garbageOpen, recyclingOpen, compostOp
                 response.json({
                     "success": false
                 });
-                return;
+                return; // return after the error and do not continue execution
             }
+            // check if we have a row for this bin id
             if (rows !== undefined && rows.length > 0) {
 
                 var currGarbageState = rows[0].garbage_open;
@@ -24,7 +37,6 @@ var setMode = function(response, id, auto, garbageOpen, recyclingOpen, compostOp
                 console.log(currGarbageState + " " + currRecyclingState + " " + currCompostState);
 
                 if (auto) {
-                    //          console.log("testid pass, if true");
                     db.run("UPDATE mode SET (auto) = (?) WHERE id = (?)", [auto, id],
                         function(err, rows) {
                             response.json({
@@ -32,7 +44,6 @@ var setMode = function(response, id, auto, garbageOpen, recyclingOpen, compostOp
                             });
                         });
                 } else {
-                    //           console.log("testid pass, else");
                     db.run("UPDATE mode SET (auto, garbage_open, recycling_open, compost_open) = (?, ?, ?, ?) WHERE id = (?)", [auto, garbageOpen, recyclingOpen, compostOpen, id],
                         function(err, rows) {
                             response.json({
@@ -52,7 +63,6 @@ var setMode = function(response, id, auto, garbageOpen, recyclingOpen, compostOp
                 }
 
             } else {
-                //         console.log("testid fail");
                 db.run("INSERT INTO mode (id, auto, garbage_open, recycling_open, compost_open) VALUES (?,?,?,?,?)", [id, auto, garbageOpen, recyclingOpen, compostOpen],
                     function(err, rows) {
                         response.json({
@@ -72,7 +82,13 @@ var setMode = function(response, id, auto, garbageOpen, recyclingOpen, compostOp
         });
 }
 
-
+/**
+ * Gets the current operation mode and state for the waste bin with ID = id, and
+ * sends it back in a HTTP response object
+ * @param  {[int]} id unique id for each bin
+ * @param  {[object]} response response object for the HTTP request
+ * @return nothing
+ */
 var getMode = function(id, response) {
     console.log("in function getMode, id: " + id);
     db.all("SELECT auto FROM mode WHERE id = (?)", [id],
@@ -112,7 +128,14 @@ var getMode = function(id, response) {
 }
 
 
-// add entry to history table
+/**
+ * Adds an entry to the history table of the database, creating a log entry for
+ * when a waste bin is opened
+ * @param  {[int]} id unique id for each bin
+ * @param  {[int]} waste integer representing which bin was opened, (1 for garabage,
+ *    2 for recycling, and 3 for compost)
+ * @return {[boolean]} true if success, false otherwise
+ */
 var addHistoryEntry = function(id, waste) {
     console.log("in function addHistoryEntry id: " + id);
     switch (waste) {
@@ -133,6 +156,13 @@ var addHistoryEntry = function(id, waste) {
 }
 
 
+/**
+ * Retrieves the history log for a specified garbage bin
+ * @param  {[int]} id unique id for each bin
+ * @param  {[object]} response HTTP response which will be sent back with a json
+ *    object containing a log of every time a waste bin was opened
+ * @return nothing
+ */
 var getHistory = function(id, response) {
     db.all("SELECT * FROM history WHERE id = (?)", [id],
         function(err, rows) {
@@ -142,7 +172,6 @@ var getHistory = function(id, response) {
                     history: []
                 });
             }
-
 
             var historyArr = [];
 
@@ -159,7 +188,12 @@ var getHistory = function(id, response) {
         });
 }
 
-
+/**
+ * Deletes all history log entires for a specified waste bin, essentially emptying the bin
+ * @param  {[int]} id unique id for each bin
+ * @param  {[object]} response HTTP response indicating if the action was successful
+ * @return nothing
+ */
 var empty = function(id, response) {
     db.run("DELETE FROM history WHERE id = (?)", [id],
         function(err, rows) {
@@ -169,19 +203,6 @@ var empty = function(id, response) {
         });
 }
 
-
-// private helper function
-// tests if id already exists in table
-var testId = function(id) {
-    return db.all("SELECT 1 FROM mode WHERE id = (?) LIMIT 1", [id],
-        function(err, rows) {
-            if (err) {
-                return false;
-            }
-            console.log(rows.length);
-            return rows.length > 0;
-        });
-}
 
 
 module.exports = {
