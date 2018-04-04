@@ -1,6 +1,10 @@
 
 **The Image Recognition Waste Sorting Device is a simple and effective solution to improper waste management.**
 
+
+----------
+
+
 Implemented functionalities:
 
 -   Waste categorization using image recognition
@@ -11,21 +15,21 @@ Implemented functionalities:
 -   Automatic:
     
 
--   Opens the correct bin (i.e. garbage, recycling, or compost) based on the type of waste thrown away
+-   	Opens the correct bin (i.e. garbage, recycling, or compost) based on the type of waste thrown away
     
--   Remembers the previous state of each bin when it was in manual mode
+-   	Remembers the previous state of each bin when it was in manual mode
     
 
 -   Manual:
     
 
--   User can manually toggle each bin open and closed
+-  	 	User can manually toggle each bin open and closed
     
--   Manual control done through both the website and app
+-   	Manual control done through both the website and app
     
--   Shows a log of when each bin was accessed
+-   	Shows a log of when each bin was accessed
     
--   User can access different bins using their respective ids
+-   	User can access different bins using their respective ids
     
 
 -   Log kept of when each bin was accessed
